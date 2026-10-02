@@ -6,7 +6,7 @@ Simulations**, by Rafael L. de Araujo and Reynam da C. Pestana, Federal Universi
 of Bahia.
 
 Repository: [rafaujo/weak-lensing-mass-mapping](https://github.com/rafaujo/weak-lensing-mass-mapping).
-Current release: **v1.1.0**, including the full convergence-zero peak analysis.
+Archived release **v1.1.0**: [10.5281/zenodo.23109347](https://doi.org/10.5281/zenodo.23109347), including the full convergence-zero peak analysis.
 Archive series (all versions): [10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123).
 The earlier **v1.0.0** archive remains at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
 
@@ -390,7 +390,10 @@ The code repository is hosted at
 The main manuscript source and figure PDFs are not included. Version v1.1.0
 adds the peak-zero package and its reproducibility checker; all existing scientific
 code, configurations, inputs and outputs are unchanged. Its integration hashes
-are recorded in `provenance/publication/v1.1.0_integration.json`.
+are recorded in `provenance/publication/v1.1.0_integration.json`. All 238 files
+in the published Zenodo archive match the v1.1.0 release commit byte for byte;
+the embedded SHA256 manifest also passes. See
+`provenance/publication/zenodo_v1.1.0.json` for the verification receipt.
 
 The earlier version **v1.0.0** is
 archived at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). All 200 files in the downloaded
@@ -407,9 +410,10 @@ The initial repository metadata changes are recorded in
 
 de Araujo, R. L., & Pestana, R. da C. (2026). *Reproducibility code for Sparse
 and Gaussian Priors for Weak-Lensing Mass Mapping: Observable-Dependent
-Performance on FAIR Universe Simulations* (v1.1.0) [Computer software].
-[Versioned release](https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.1.0).
+Performance on FAIR Universe Simulations* (v1.1.0) [Computer software]. Zenodo.
+[10.5281/zenodo.23109347](https://doi.org/10.5281/zenodo.23109347).
 
 The archive series [10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123)
-represents all versions. Use the specific v1.1.0 Zenodo DOI once assigned by the
-GitHub-Zenodo integration to identify this exact package.
+represents all versions. Use the version-specific DOI above for the paper.
+The DOI and verification receipt were added to main after archival publication;
+the v1.1.0 tag remains fixed at the verified release commit.

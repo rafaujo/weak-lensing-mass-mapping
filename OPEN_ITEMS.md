@@ -72,6 +72,11 @@ new package scope; dated v1.0.0 validation records below remain historical.
 
 ## Publication metadata
 
+- Current release **v1.1.0**: [10.5281/zenodo.23109347](https://doi.org/10.5281/zenodo.23109347).
+  All 238 archived files match the release commit; the archived SHA256 manifest passes.
+  The new version includes the peak-zero package.
+
+
 - License choice is complete for Rafael's own contributions. GLIMPSE and
   CosmoStat notices/licenses are preserved unchanged.
 - Repository: `rafaujo/weak-lensing-mass-mapping`; release **v1.0.0** is archived

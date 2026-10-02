@@ -1,4 +1,5 @@
 VERSAO v1.1.0 - analise de picos incorporada
+DOI da versao atual: https://doi.org/10.5281/zenodo.23109347
 O pipeline de reconstrucoes abaixo permanece inalterado. A versao v1.1.0
 acrescenta analysis/peak_zero/ com os resultados dos 480 mapas e o codigo
 do teste de zero da convergencia. Consulte README.md para a citacao atual.
