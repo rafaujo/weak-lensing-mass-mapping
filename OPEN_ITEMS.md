@@ -3,7 +3,7 @@
 The new archive resolves the missing prior-construction script, MCALens test
 driver, final GS reduced-shear outputs and validation fusion summaries. The
 historical noise-calibration source has also been located and excerpted with
-provenance. All seven manuscript tables and the reduced-shear numbers pass the
+provenance. The seven original benchmark tables and the reduced-shear numbers pass the
 archived-data consistency checks.
 
 ## Methodological and licensing provenance
@@ -63,14 +63,21 @@ archived-data consistency checks.
   Use the frozen coefficients for the existing benchmark; document or verify
   their regeneration before claiming an exact calibration rerun.
 
+## Peak-zero analysis included in v1.1.0
+
+The complete analysis and archived outputs are in `analysis/peak_zero/`.
+The 480-case server analysis and original audit passed. The core benchmark
+has not been rerun or retuned. See the current README and CHANGELOG for the
+new package scope; dated v1.0.0 validation records below remain historical.
+
 ## Publication metadata
 
 - License choice is complete for Rafael's own contributions. GLIMPSE and
   CosmoStat notices/licenses are preserved unchanged.
 - Repository: `rafaujo/weak-lensing-mass-mapping`; release **v1.0.0** is archived
-  at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). The DOI is in `CITATION.cff` and README;
-  all 200 archived files match the release commit. Add this version DOI to
-  the manuscript's code/data availability statement and software citation.
+  at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). This is the historical v1.0.0 DOI;
+  all 200 archived files match the release commit. Use the new v1.1.0 DOI for the revised manuscript;
+  the peak-zero package was not present in v1.0.0.
 - The completed Zenodo archive is separate from its downstream Software Heritage
   archival queue. The latter was still pending at the time of verification.
 

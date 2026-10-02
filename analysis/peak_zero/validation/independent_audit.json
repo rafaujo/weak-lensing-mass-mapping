@@ -1,0 +1,192 @@
+{
+  "archive_sha256": "48a4950f002870dd2ab1d7f5cbdada1025757c82fdafc0762143cb90dece343e",
+  "source_hash_matches": {
+    "peak_zero_test.py": true,
+    "historical_helpers.py": true
+  },
+  "baseline_checks_exact": 6489,
+  "baseline_bootstrap_checks_exact": 36,
+  "summaries_recomputed": [
+    {
+      "mode": "stored",
+      "scale": 2.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7216605710878028,
+      "median_amplitude": 0.49984374817980126
+    },
+    {
+      "mode": "stored",
+      "scale": 2.0,
+      "method": "MCALENS",
+      "auc": 0.6759248494878399,
+      "median_amplitude": 0.5731380135211434
+    },
+    {
+      "mode": "stored",
+      "scale": 2.0,
+      "method": "FUSION",
+      "auc": 0.7107524471795456,
+      "median_amplitude": 0.5611137302777993
+    },
+    {
+      "mode": "stored",
+      "scale": 4.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7402835747692628,
+      "median_amplitude": 0.640136264849693
+    },
+    {
+      "mode": "stored",
+      "scale": 4.0,
+      "method": "MCALENS",
+      "auc": 0.7289154934923333,
+      "median_amplitude": 0.9785488396584885
+    },
+    {
+      "mode": "stored",
+      "scale": 4.0,
+      "method": "FUSION",
+      "auc": 0.7535246186365553,
+      "median_amplitude": 0.7984304497887921
+    },
+    {
+      "mode": "stored",
+      "scale": 6.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7292394633451298,
+      "median_amplitude": 0.7084211029310692
+    },
+    {
+      "mode": "stored",
+      "scale": 6.0,
+      "method": "MCALENS",
+      "auc": 0.7468377819199034,
+      "median_amplitude": 0.95673125716536
+    },
+    {
+      "mode": "stored",
+      "scale": 6.0,
+      "method": "FUSION",
+      "auc": 0.76315072555753,
+      "median_amplitude": 0.8165129701035806
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 2.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7257688125101669,
+      "median_amplitude": 0.4988939424033225
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 2.0,
+      "method": "MCALENS",
+      "auc": 0.6807008810586881,
+      "median_amplitude": 0.5447361053590678
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 2.0,
+      "method": "FUSION",
+      "auc": 0.715394156319195,
+      "median_amplitude": 0.5563859031785691
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 4.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7512693516987533,
+      "median_amplitude": 0.6423520217239393
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 4.0,
+      "method": "MCALENS",
+      "auc": 0.7372131476002813,
+      "median_amplitude": 0.9565853495800175
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 4.0,
+      "method": "FUSION",
+      "auc": 0.7640563159559894,
+      "median_amplitude": 0.8019780439333382
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 6.0,
+      "method": "GAUSSIAN_STARLET",
+      "auc": 0.7453753600270463,
+      "median_amplitude": 0.7161011978225632
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 6.0,
+      "method": "MCALENS",
+      "auc": 0.7594077713954945,
+      "median_amplitude": 0.9351622236632411
+    },
+    {
+      "mode": "observed_mean_zero",
+      "scale": 6.0,
+      "method": "FUSION",
+      "auc": 0.7787522773136559,
+      "median_amplitude": 0.8255661275666393
+    }
+  ],
+  "offset_diagnostics": {
+    "stored": {
+      "max_abs_centered_mean": 0.005164196268159744,
+      "observed_mean_by_method": {
+        "TRUTH": {
+          "median": -0.00026388822852378165,
+          "min": -0.005164196268159744,
+          "max": 0.00421221150686494
+        },
+        "GAUSSIAN_STARLET": {
+          "median": -3.9992939863514726e-05,
+          "min": -0.0014793699267267187,
+          "max": 0.0012262200738143295
+        },
+        "MCALENS": {
+          "median": 0.0005054354373136798,
+          "min": -0.0010842073298092203,
+          "max": 0.0021758334601190846
+        },
+        "FUSION": {
+          "median": -2.713179045178109e-05,
+          "min": -0.0014644726414160035,
+          "max": 0.0012733808359742928
+        }
+      }
+    },
+    "observed_mean_zero": {
+      "max_abs_centered_mean": 1.3177721360535983e-18,
+      "observed_mean_by_method": {
+        "TRUTH": {
+          "median": -0.00026388822852378165,
+          "min": -0.005164196268159744,
+          "max": 0.00421221150686494
+        },
+        "GAUSSIAN_STARLET": {
+          "median": -3.9992939863514726e-05,
+          "min": -0.0014793699267267187,
+          "max": 0.0012262200738143295
+        },
+        "MCALENS": {
+          "median": 0.0005054354373136798,
+          "min": -0.0010842073298092203,
+          "max": 0.0021758334601190846
+        },
+        "FUSION": {
+          "median": -2.713179045178109e-05,
+          "min": -0.0014644726414160035,
+          "max": 0.0012733808359742928
+        }
+      }
+    }
+  },
+  "bootstrap_intervals_recomputed": 18,
+  "all_checks_passed": true,
+  "scope": "Validates supplied counts, samples and bootstrap draws; full map cubes are on the server."
+}

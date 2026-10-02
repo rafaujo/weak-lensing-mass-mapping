@@ -6,7 +6,9 @@ Simulations**, by Rafael L. de Araujo and Reynam da C. Pestana, Federal Universi
 of Bahia.
 
 Repository: [rafaujo/weak-lensing-mass-mapping](https://github.com/rafaujo/weak-lensing-mass-mapping).
-Archived release **v1.0.0**: [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
+Current release: **v1.1.0**, including the full convergence-zero peak analysis.
+Archive series (all versions): [10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123).
+The earlier **v1.0.0** archive remains at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
 
 **Status: the planned single-case server smoke test is complete.** The v5
 artifacts verified KS, masked Starlet, G+S and native GLIMPSE for C0/R10/P0.
@@ -21,8 +23,49 @@ and compact evidence. No further server check is needed for the isolation fix.
 The smoke covers one case, not regeneration of all 480 patches or a fresh
 environment installation. Rafael's own contributions are licensed under MIT;
 third-party components retain their licenses. See [license scope](LICENSE_SCOPE.md).
-The [v1.0.0 release](https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.0.0) is publicly archived in Zenodo.
-Use the version DOI above when citing the code used with this manuscript.
+The [v1.1.0 release](https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.1.0)
+adds the peak-analysis code and frozen outputs to the unchanged core benchmark.
+
+## Convergence-zero sensitivity analysis (v1.1.0)
+
+The code, numerical outputs and audit evidence for Appendix B are in
+[analysis/peak_zero/](analysis/peak_zero/README.txt). This package is part of
+the versioned repository; no separate journal ZIP is needed for the peak test.
+It reanalyses 480 saved test patches without rerunning or retuning reconstruction
+methods. The original stored-zero analysis remains primary because it was fixed
+before the sensitivity test. Both stored and observed-mean-zero conventions are
+archived with 10,000 paired bootstrap draws over the 20 realisation blocks.
+
+To reproduce the analysis in the recorded NumPy/SciPy environment:
+
+```bash
+python analysis/peak_zero/code/peak_zero_test.py \
+  --data-root /path/to/FAIR/data --maps-root /path/to/work \
+  --output /path/to/new_output_directory
+```
+
+The output directory must be new. The required saved-map paths and optional CLI
+overrides are in the analysis README. Large maps and raw FAIR data are obtained
+or generated separately; MCALens and GLIMPSE are not imported by this analysis.
+No reconstruction is rerun by the checker below:
+
+```bash
+python tools/check_peak_zero_results.py
+```
+
+This NumPy-only checker recomputes all 18 AUC/amplitude summaries and all 18 paired
+intervals from the archived counts, matched samples and bootstrap draws. It also
+checks all 480 case identifiers and the zero-offset diagnostics. It does not
+regenerate the maps or bootstrap resampling. The original server run passed
+6,489 stored-map and 36 original-bootstrap comparisons exactly.
+
+Detection point rankings persist after centring, but the 6-arcmin
+Gaussian+Starlet-minus-MCALens interval includes zero. The fusion/MCALens
+amplitude ordering reverses at 2 arcmin; amplitude comparisons are descriptive.
+Centring also changes the truth catalogue and common completeness range, so an
+increase in absolute PR-AUC is not an improvement of the reconstructed maps.
+This tests the additive zero mode of the linear-shear benchmark, not the full
+reduced-shear mass-sheet degeneracy. Full values and provenance are in the package.
 
 ## Single-case server smoke test
 
@@ -79,7 +122,7 @@ python tools/check_paper_tables.py
 ```
 
 The checker uses only the Python standard library. It compares stored values and
-case-level aggregates with the printed precision of all seven manuscript tables:
+case-level aggregates with the printed precision of the seven original benchmark tables:
 field metrics, approximate factorial comparison, spectra, peak statistics, peak
 bootstrap intervals, photo-z trends, and the ADMM solver audit. The updated checker
 passes 162 checks, including the final reduced-shear case grid, aggregates and
@@ -106,11 +149,12 @@ results/validation/ Selection evidence, validation results and ADMM audit
 results/test/       Square-benchmark results and final comparisons
 results/wiener/     Gaussian-only validation grid and test cases
 results/paper/      Final V12 CSVs used by the manuscript figures and tables
-tools/              Lightweight manuscript-table consistency check
+analysis/peak_zero/ Convergence-zero peak code, results, bootstrap draws and audit
+tools/              Core-table and peak-zero archived-result consistency checks
 provenance/         Checksums, source versions, patches, selection and paper map
 ```
 
-The candidate retains the same 118 original files selected in v2. Of these,
+The core benchmark retains the same 118 original files selected in v2. Of these,
 94 remain byte-identical and 24 scientific scripts have only the documented path
 expressions and configuration import changed. There are 25 scientific Python
 scripts plus the new path helper. Another 31 supplied
@@ -343,7 +387,12 @@ review environment.
 for his own contributions; upstream notices and license boundaries are preserved.
 The code repository is hosted at
 [rafaujo/weak-lensing-mass-mapping](https://github.com/rafaujo/weak-lensing-mass-mapping).
-The manuscript source and figure PDFs are not included. Version **v1.0.0** is
+The main manuscript source and figure PDFs are not included. Version v1.1.0
+adds the peak-zero package and its reproducibility checker; all existing scientific
+code, configurations, inputs and outputs are unchanged. Its integration hashes
+are recorded in `provenance/publication/v1.1.0_integration.json`.
+
+The earlier version **v1.0.0** is
 archived at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). All 200 files in the downloaded
 Zenodo ZIP were compared byte for byte with release commit
 `ec202c0dac58383b5a13e83f14208d8455e1d698`; its embedded SHA256 manifest also passed.
@@ -354,13 +403,13 @@ Historical provenance files retain the status of their dated snapshots.
 The initial repository metadata changes are recorded in
 `provenance/publication/initial_publication.json`.
 
-## Cite the archived version
+## Cite this version
 
 de Araujo, R. L., & Pestana, R. da C. (2026). *Reproducibility code for Sparse
 and Gaussian Priors for Weak-Lensing Mass Mapping: Observable-Dependent
-Performance on FAIR Universe Simulations* (v1.0.0) [Computer software]. Zenodo.
-[10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
+Performance on FAIR Universe Simulations* (v1.1.0) [Computer software].
+[Versioned release](https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.1.0).
 
-Use this version DOI to identify the exact archived package. The concept DOI,
-[10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123), represents all versions
-and may resolve to a later release in the future.
+The archive series [10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123)
+represents all versions. Use the specific v1.1.0 Zenodo DOI once assigned by the
+GitHub-Zenodo integration to identify this exact package.

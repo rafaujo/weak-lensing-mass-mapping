@@ -1,0 +1,12 @@
+{
+  "version": "v1.1.0",
+  "date": "2026-10-02",
+  "cff_validated": true,
+  "core_table_checks": 162,
+  "scientific_invariant_failures": 0,
+  "core_numeric_literals_preserved": 3091,
+  "peak_summaries_recomputed": 18,
+  "peak_intervals_recomputed": 18,
+  "all_checks_passed": true,
+  "scope": "Packaging and independent recalculation from saved counts, amplitude samples and bootstrap draws; no new reconstruction or full-map server rerun."
+}

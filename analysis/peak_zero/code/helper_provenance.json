@@ -1,0 +1,72 @@
+[
+  {
+    "source": "make_revised_figures_v12.py",
+    "source_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "function": "mask_normalized_smooth",
+    "lines": [
+      2626,
+      2680
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "make_revised_figures_v12.py",
+    "source_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "function": "find_peaks",
+    "lines": [
+      2683,
+      2719
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "make_revised_figures_v12.py",
+    "source_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "function": "exact_match_count",
+    "lines": [
+      2722,
+      2809
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "make_revised_figures_v12.py",
+    "source_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "function": "nearest_amplitude_pairs",
+    "lines": [
+      2812,
+      2947
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "make_revised_figures_v12.py",
+    "source_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "function": "canonicalize",
+    "lines": [
+      558,
+      619
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py",
+    "source_sha256": "e96201beaab8c485c3ea7de33795b218410ecfc053a2a7c2c35c8ee39917d2c2",
+    "function": "curve_from_counts",
+    "lines": [
+      991,
+      1032
+    ],
+    "ast_identical": true
+  },
+  {
+    "source": "bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py",
+    "source_sha256": "e96201beaab8c485c3ea7de33795b218410ecfc053a2a7c2c35c8ee39917d2c2",
+    "function": "normalized_common_auc",
+    "lines": [
+      1035,
+      1251
+    ],
+    "ast_identical": true
+  }
+]

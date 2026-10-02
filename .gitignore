@@ -14,3 +14,6 @@ Thumbs.db
 # Retain the two reviewed scientific smoke logs with their checksum evidence.
 !/provenance/server_validation_v5/glimpse.log
 !/provenance/server_validation_v6/mcalens.log
+
+# Preserve the reviewed full peak-analysis run log.
+!/analysis/peak_zero/validation/run_20261002T130804Z_851433.log

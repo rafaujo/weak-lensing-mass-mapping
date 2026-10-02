@@ -1,3 +1,10 @@
+VERSAO v1.1.0 - analise de picos incorporada
+O pipeline de reconstrucoes abaixo permanece inalterado. A versao v1.1.0
+acrescenta analysis/peak_zero/ com os resultados dos 480 mapas e o codigo
+do teste de zero da convergencia. Consulte README.md para a citacao atual.
+Para esse teste, use o ambiente gob5 e os mapas ja reconstruidos; nao e
+necessario executar novamente GLIMPSE ou MCALens.
+
 PACOTE COM SMOKE VERIFICADO — código v6 preservado, 02/10/2026
 
 STATUS ATUAL
@@ -16,9 +23,9 @@ O teste cobre um patch; não equivale a refazer os 480 casos ou instalar tudo
 em ambiente novo. A MIT foi aprovada para as contribuições próprias de Rafael;
 os componentes de terceiros mantêm suas licenças (veja LICENSE_SCOPE.md).
 Repositório: https://github.com/rafaujo/weak-lensing-mass-mapping
-Release v1.0.0 arquivado: https://doi.org/10.5281/zenodo.23102124
+Arquivo historico v1.0.0: https://doi.org/10.5281/zenodo.23102124
 Os 200 arquivos do ZIP no Zenodo coincidem com o commit do release.
-Para obter a versão exata arquivada, use git checkout v1.0.0 após o clone.
+Para a versao atual com o teste de picos, use git checkout v1.1.0 apos o clone.
 
 Os comandos abaixo ficam como instruções para futuras execuções; não são
 uma nova tarefa de verificação exigida do autor.

@@ -1,0 +1,365 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 2.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 4.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "GAUSSIAN_STARLET"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "FUSION",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "delta",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_low",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "ci95_high",
+      "absolute_error": 0.0,
+      "pass": true
+    },
+    {
+      "scale": 6.0,
+      "pair": [
+        "GAUSSIAN_STARLET",
+        "MCALENS"
+      ],
+      "metric": "bootstrap_fraction_gt0",
+      "absolute_error": 0.0,
+      "pass": true
+    }
+  ]
+}

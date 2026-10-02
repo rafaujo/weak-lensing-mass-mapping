@@ -1,0 +1,114 @@
+stored: 24/480 patches
+stored: 48/480 patches
+stored: 72/480 patches
+stored: 96/480 patches
+stored: 120/480 patches
+stored: 144/480 patches
+stored: 168/480 patches
+stored: 192/480 patches
+stored: 216/480 patches
+stored: 240/480 patches
+stored: 264/480 patches
+stored: 288/480 patches
+stored: 312/480 patches
+stored: 336/480 patches
+stored: 360/480 patches
+stored: 384/480 patches
+stored: 408/480 patches
+stored: 432/480 patches
+stored: 456/480 patches
+stored: 480/480 patches
+BASELINE_OK: published curves, AUCs and amplitudes reproduced.
+observed_mean_zero: 24/480 patches
+observed_mean_zero: 48/480 patches
+observed_mean_zero: 72/480 patches
+observed_mean_zero: 96/480 patches
+observed_mean_zero: 120/480 patches
+observed_mean_zero: 144/480 patches
+observed_mean_zero: 168/480 patches
+observed_mean_zero: 192/480 patches
+observed_mean_zero: 216/480 patches
+observed_mean_zero: 240/480 patches
+observed_mean_zero: 264/480 patches
+observed_mean_zero: 288/480 patches
+observed_mean_zero: 312/480 patches
+observed_mean_zero: 336/480 patches
+observed_mean_zero: 360/480 patches
+observed_mean_zero: 384/480 patches
+observed_mean_zero: 408/480 patches
+observed_mean_zero: 432/480 patches
+observed_mean_zero: 456/480 patches
+observed_mean_zero: 480/480 patches
+bootstrap 2 arcmin: 2000/10000
+bootstrap 2 arcmin: 4000/10000
+bootstrap 2 arcmin: 6000/10000
+bootstrap 2 arcmin: 8000/10000
+bootstrap 2 arcmin: 10000/10000
+bootstrap 4 arcmin: 2000/10000
+bootstrap 4 arcmin: 4000/10000
+bootstrap 4 arcmin: 6000/10000
+bootstrap 4 arcmin: 8000/10000
+bootstrap 4 arcmin: 10000/10000
+bootstrap 6 arcmin: 2000/10000
+bootstrap 6 arcmin: 4000/10000
+bootstrap 6 arcmin: 6000/10000
+bootstrap 6 arcmin: 8000/10000
+bootstrap 6 arcmin: 10000/10000
+{
+  "status": "COMPLETE",
+  "n_patches": 480,
+  "baseline_passed": true,
+  "baseline_bootstrap_passed": true,
+  "elapsed_seconds": 168.86901378631592,
+  "rankings": [
+    {
+      "scale_arcmin": 2.0,
+      "auc_ranking": {
+        "stored": [
+          "GAUSSIAN_STARLET",
+          "FUSION",
+          "MCALENS"
+        ],
+        "observed_mean_zero": [
+          "GAUSSIAN_STARLET",
+          "FUSION",
+          "MCALENS"
+        ]
+      },
+      "ranking_unchanged": true
+    },
+    {
+      "scale_arcmin": 4.0,
+      "auc_ranking": {
+        "stored": [
+          "FUSION",
+          "GAUSSIAN_STARLET",
+          "MCALENS"
+        ],
+        "observed_mean_zero": [
+          "FUSION",
+          "GAUSSIAN_STARLET",
+          "MCALENS"
+        ]
+      },
+      "ranking_unchanged": true
+    },
+    {
+      "scale_arcmin": 6.0,
+      "auc_ranking": {
+        "stored": [
+          "FUSION",
+          "MCALENS",
+          "GAUSSIAN_STARLET"
+        ],
+        "observed_mean_zero": [
+          "FUSION",
+          "MCALENS",
+          "GAUSSIAN_STARLET"
+        ]
+      },
+      "ranking_unchanged": true
+    }
+  ],
+  "interpretation": "Compare centered paired CIs, not point rankings alone. Common completeness ranges are recalculated separately in each mode. Amplitude medians condition on matched peaks; the selected truth catalogues may change. No cosmological inference performed."
+}

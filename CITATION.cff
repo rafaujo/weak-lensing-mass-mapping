@@ -1,8 +1,7 @@
 cff-version: 1.2.0
 message: "Please cite this software and the associated manuscript."
 type: software
-version: "1.0.0"
-doi: "10.5281/zenodo.23102124"
+version: "1.1.0"
 date-released: "2026-10-02"
 license: MIT
 repository-code: "https://github.com/rafaujo/weak-lensing-mass-mapping"
@@ -25,7 +24,11 @@ abstract: >-
   drivers for MCALens and GLIMPSE, fusion and ADMM audit scripts, and provenance
   for the retained inputs and results. Raw FAIR Universe data are obtained
   separately from https://doi.org/10.5281/zenodo.20056065.
-  Validation includes 162 consistency checks against seven manuscript tables
+  Version 1.1.0 also includes the convergence-zero sensitivity analysis on
+  480 saved test maps, both zero conventions, archived peak counts, amplitude
+  samples, bootstrap draws, and independent numerical audit records.
+  The core reconstruction algorithms, settings and original results are unchanged.
+  Validation includes 162 consistency checks against seven original benchmark tables
   and a server smoke test of one patch with KS, Starlet, G+S, MCALens and GLIMPSE.
   This does not establish regeneration of all 480 cases, bootstrap samples or
   figures, or installation in a fresh environment.

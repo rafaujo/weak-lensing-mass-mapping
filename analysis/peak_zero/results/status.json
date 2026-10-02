@@ -1,0 +1,58 @@
+{
+  "status": "COMPLETE",
+  "n_patches": 480,
+  "baseline_passed": true,
+  "baseline_bootstrap_passed": true,
+  "elapsed_seconds": 168.86901378631592,
+  "rankings": [
+    {
+      "scale_arcmin": 2.0,
+      "auc_ranking": {
+        "stored": [
+          "GAUSSIAN_STARLET",
+          "FUSION",
+          "MCALENS"
+        ],
+        "observed_mean_zero": [
+          "GAUSSIAN_STARLET",
+          "FUSION",
+          "MCALENS"
+        ]
+      },
+      "ranking_unchanged": true
+    },
+    {
+      "scale_arcmin": 4.0,
+      "auc_ranking": {
+        "stored": [
+          "FUSION",
+          "GAUSSIAN_STARLET",
+          "MCALENS"
+        ],
+        "observed_mean_zero": [
+          "FUSION",
+          "GAUSSIAN_STARLET",
+          "MCALENS"
+        ]
+      },
+      "ranking_unchanged": true
+    },
+    {
+      "scale_arcmin": 6.0,
+      "auc_ranking": {
+        "stored": [
+          "FUSION",
+          "MCALENS",
+          "GAUSSIAN_STARLET"
+        ],
+        "observed_mean_zero": [
+          "FUSION",
+          "MCALENS",
+          "GAUSSIAN_STARLET"
+        ]
+      },
+      "ranking_unchanged": true
+    }
+  ],
+  "interpretation": "Compare centered paired CIs, not point rankings alone. Common completeness ranges are recalculated separately in each mode. Amplitude medians condition on matched peaks; the selected truth catalogues may change. No cosmological inference performed."
+}
