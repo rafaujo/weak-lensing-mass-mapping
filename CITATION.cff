@@ -1,6 +1,9 @@
 cff-version: 1.2.0
-message: "Please cite this software and the associated manuscript; release DOI will be added after archival publication."
+message: "Please cite this software and the associated manuscript."
 type: software
+version: "1.0.0"
+date-released: "2026-10-02"
+license: MIT
 repository-code: "https://github.com/rafaujo/weak-lensing-mass-mapping"
 title: "Reproducibility code for Sparse and Gaussian Priors for Weak-Lensing Mass Mapping: Observable-Dependent Performance on FAIR Universe Simulations"
 authors:
@@ -10,7 +13,26 @@ authors:
   - family-names: "Pestana"
     given-names: "Reynam da C."
     affiliation: "Federal University of Bahia"
-abstract: "Code, frozen settings and compact results for the FAIR Universe weak-lensing mass-mapping comparison."
+abstract: >-
+  Reproducibility code, frozen settings, validation-derived power spectrum,
+  compact numerical results, and analysis scripts for the manuscript
+  Sparse and Gaussian Priors for Weak-Lensing Mass Mapping:
+  Observable-Dependent Performance on FAIR Universe Simulations.
+  Authors: Rafael L. de Araujo and Reynam da C. Pestana,
+  Federal University of Bahia.
+  The package includes the core mass-mapping implementations, comparison
+  drivers for MCALens and GLIMPSE, fusion and ADMM audit scripts, and provenance
+  for the retained inputs and results. Raw FAIR Universe data are obtained
+  separately from https://doi.org/10.5281/zenodo.20056065.
+  Validation includes 162 consistency checks against seven manuscript tables
+  and a server smoke test of one patch with KS, Starlet, G+S, MCALens and GLIMPSE.
+  This does not establish regeneration of all 480 cases, bootstrap samples or
+  figures, or installation in a fresh environment.
+  License scope: MIT applies to Rafael L. de Araujo's original contributions.
+  The bundled GLIMPSE source and its modifications retain CeCILL 2.1;
+  CosmoStat/MCALens and the preserved patch retain the CosmoStat MIT license
+  and copyright. These third-party components are not relicensed by the root
+  MIT license. See LICENSE_SCOPE.md and the included upstream license notices.
 keywords:
   - weak gravitational lensing
   - mass mapping
