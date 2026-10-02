@@ -1,0 +1,56 @@
+ESCOLHA DOS PESOS DA FUSÃO — PROVENIÊNCIA RECUPERADA EM 01/10/2026
+
+Conclusão: foi encontrada uma justificativa histórica explícita na conversa
+“Revisão do artigo”, projeto “Artigo Cosmologia”. A lacuna sobre a motivação
+da escolha foi resolvida. A seleção foi qualitativa, por inspeção conjunta
+dos diagnósticos de validação; não houve função objetivo multicritério formal.
+
+Cronologia em 29/09/2026 (UTC; horário de Brasília = UTC-3):
+20:28:02: disponível o ranking NMSE, a resposta ainda pede esperar espectro/picos.
+20:36:41: após o SCIENCE SUMMARY de validação, recomenda (.75,.75), compara
+         explicitamente com (.75,.50) e recomenda encerrar o refinamento.
+20:39:26: Rafael pede “Código”; é fornecido o teste com (.75,.75) congelado.
+20:45:11: são enviados os resultados da execução da fusion no teste.
+IDs, timestamps e hashes dos registros consultados: historical_decision.json.
+
+O critério documentado aceita a pequena piora de NMSE em troca de melhores
+diagnósticos de espectro e amplitude e maior PR-AUC em 6 arcmin. O ponto escolhido
+é o segundo dos nove candidatos no ranking de NMSE. O registro menciona também
+os compromissos em relação ao G+S e à fusão dura (1,1), e recomenda não refinar
+mais a grade. Isso é julgamento documentado, não seleção automática reproduzível
+por argmin de uma fórmula única.
+
+VALORES EXATOS DOS CSVs DE VALIDAÇÃO — (.75,.75) versus (.75,.50):
+NMSE:                 0.639532233 vs 0.639125827 (piora 0.000406406; 0.0636%).
+std_ratio:            0.636276924 vs 0.628966904.
+erro espectral T:     0.409403793 vs 0.415994033.
+erro de amplitude:    0.378340894 vs 0.392055536.
+PR-AUC em 6 arcmin:    0.634597607 vs 0.621993125.
+amplitude picos 4':   0.829127074 vs 0.804561067.
+amplitude picos 6':   0.872309453 vs 0.852739126.
+PR-AUC em 2' e 4' cai ligeiramente. Todas as 12 métricas, inclusive perdas,
+estão em candidate_comparison.csv. São diagnósticos históricos de validação,
+não os diagnósticos finais V12 do teste.
+
+Não demonstramos equivalência estatística entre os dois candidatos: os
+bootstraps guardados comparam com GS/MCALens, não diretamente esses pesos.
+A expressão informal “Pareto optimum” da conversa não constitui prova de
+otimização Pareto e não deve ser transformada em alegação metodológica.
+
+Formulação apoiada pela evidência:
+The fusion weights were selected by joint inspection of field-level, spectral,
+and peak diagnostics on the validation grid. The chosen (a1,a2)=(0.75,0.75)
+configuration traded a small increase in validation NMSE relative to
+(0.75,0.50) for improved spectral/amplitude diagnostics and 6-arcmin peak
+discrimination. The weights were fixed before evaluating the fusion on the
+test set; no scalar multicriteria objective was used.
+
+Limite da cronologia: resultados de teste dos métodos componentes já tinham
+sido consultados durante o desenvolvimento. Não escrever que todo o conjunto
+de teste permaneceu intocado até essa decisão. O registro sustenta que a decisão
+da fusion antecedeu a sua própria avaliação no teste.
+
+Os pesos, algoritmos e resultados foram preservados. A investigação inicial,
+limitada aos arquivos então disponíveis, está em INITIAL_ARCHIVE_REVIEW.txt;
+ela foi superada pelo acesso posterior às conversas. Conversas completas não
+foram incluídas no pacote de distribuição.

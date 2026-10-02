@@ -1,0 +1,61 @@
+{
+  "case": [
+    0,
+    10,
+    0
+  ],
+  "python_executable": "/u/gob5/venvs/mcalens/bin/python",
+  "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+  "prefix": "/u/gob5/venvs/mcalens",
+  "ok": true,
+  "driver": {
+    "path": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/code/pipeline/run_mcalens_test.py",
+    "sha256": "ea25b5f9922652e798199642e5593b82a265a57c7e5b833d8b53ec9975ad9cca",
+    "validated_paths": {
+      "BASE": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/fair_npz",
+      "OUT": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens",
+      "RECON_DIR": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens/recon",
+      "PK_FILE": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/config/priors/fair_validation_pk_mean.npy",
+      "MASK_FILE": "/tatu/gob5/99 - Cosmos/data/WIDE12H_bin2_2arcmin_mask.npy"
+    }
+  },
+  "result": {
+    "method": "MCALENS",
+    "c": 0,
+    "r": 10,
+    "p": 0,
+    "omega_m": 0.3,
+    "f_obs": 0.4164191632231405,
+    "n_obs": 12899,
+    "Nsigma": 5,
+    "niter": 100,
+    "mse": 0.00010020262127205802,
+    "nmse": 0.6925870357953903,
+    "pcc": 0.5615613636618906,
+    "std_ratio": 0.6506579458252513,
+    "runtime": 14.880449941992993,
+    "active_coeffs": 131,
+    "bmode_std": 0.002966176223486975,
+    "sparse_std": 0.0037328877157683754,
+    "gaussian_std": 0.003807349941755361,
+    "finite": true,
+    "recon_file": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens/recon/C0_R10_P0.npz"
+  },
+  "historical_output_check": {
+    "path": "/u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz",
+    "before": {
+      "exists": true,
+      "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+      "bytes": 502838,
+      "mtime_ns": 1790906585874133000
+    },
+    "after": {
+      "exists": true,
+      "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+      "bytes": 502838,
+      "mtime_ns": 1790906585874133000
+    },
+    "unchanged": true
+  },
+  "mcalens_source": "/u/gob5/cosmostat_mcalens/pycs/astro/wl/mass_mapping.py"
+}

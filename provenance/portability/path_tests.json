@@ -1,0 +1,5 @@
+{
+  "tests": 8,
+  "failures": [],
+  "scope": "Filesystem configuration, CLI, subprocess/spawn imports and source-guard rejection; no numerical solver run."
+}

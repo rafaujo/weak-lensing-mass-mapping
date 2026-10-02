@@ -1,0 +1,555 @@
+--- v4/config_environments.server.toml
++++ v5/config_environments.server.toml
+@@ -0,0 +1,7 @@
++# Execution environments recovered from the development conversation.
++# Commands are argument arrays, not shell expressions; ~ is expanded explicitly.
++gob5_python = ["/tatu/venv/gob5/bin/python"]
++# mcalens is a venv over the existing micromamba glimpse environment.
++# The attempted micromamba environment named mcalens was NOT successfully created.
++mcalens_python = ["~/bin/micromamba", "run", "-p", "~/micromamba/envs/glimpse", "~/venvs/mcalens/bin/python"]
++glimpse_prefix = ["~/bin/micromamba", "run", "-p", "~/micromamba/envs/glimpse"]
+--- v4/run_server_pipeline.sh
++++ v5/run_server_pipeline.sh
+@@ -0,0 +1,5 @@
++#!/usr/bin/env bash
++set -euo pipefail
++repo_dir=$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
++python_bin=${WL_PYTHON:-/tatu/venv/gob5/bin/python}
++exec "$python_bin" -B -u "$repo_dir/tools/run_pipeline.py" --paths "$repo_dir/config_paths.server.toml" --environments "$repo_dir/config_environments.server.toml" "$@"
+--- v4/tools/check_execution_environments.py
++++ v5/tools/check_execution_environments.py
+@@ -0,0 +1,140 @@
++"""Regression tests for the v4 wrong-interpreter/modopt failure."""
++import ast
++import json
++import os
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tempfile
++import types
++import unittest
++from unittest.mock import patch
++
++import environment_probe
++import execution_environments as environments
++import server_smoke
++
++
++class EnvironmentTests(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory(prefix="wl environment checks ")
++        self.folder = Path(self.temp.name)
++
++    def tearDown(self):
++        self.assertTrue(self.folder.resolve().is_relative_to(Path(tempfile.gettempdir()).resolve()))
++        self.assertTrue(self.folder.name.startswith("wl environment checks "))
++        self.temp.cleanup()
++
++    def test_historical_driver_assignment(self):
++        for name in environments.MCALENS_DRIVERS:
++            self.assertEqual(environments.role_for_driver(Path("code/pipeline") / name), "mcalens")
++        for name in ("run_gaussian_starlet_test.py", "run_square_starlet_comparison.py",
++                     "run_weighted_band_fusion_test.py", "run_admm_gaussian_starlet_audit.py"):
++            self.assertEqual(environments.role_for_driver(Path("code/pipeline") / name), "gob5")
++        self.assertEqual(environments.role_for_driver(Path("code/glimpse/run_glimpse_test_final.py")), "glimpse")
++
++    def test_missing_modopt_blocks_readiness_and_does_not_require_torch(self):
++        imported = []
++        paths = types.SimpleNamespace(mcalens_root=self.folder)
++        def fake_import(name):
++            imported.append(name)
++            if name == "modopt":
++                raise ModuleNotFoundError("No module named 'modopt'")
++            if name == "pycs.astro.wl.mass_mapping":
++                return types.SimpleNamespace(__file__=str(self.folder / "mass_mapping.py"),
++                                             massmap2d=object, shear_data=object)
++            return types.SimpleNamespace(__version__="fixture", __file__=str(self.folder / "fixture.py"))
++        before = list(sys.path)
++        try:
++            with patch.object(environment_probe.importlib, "import_module", side_effect=fake_import):
++                result = environment_probe.probe("mcalens", paths)
++        finally:
++            sys.path[:] = before
++        self.assertFalse(result["ok"])
++        self.assertIn("modopt", result["imports"]["modopt"]["error"])
++        self.assertNotIn("torch", imported)
++
++    def test_mcalens_probe_reports_the_actual_source(self):
++        paths = types.SimpleNamespace(mcalens_root=self.folder)
++        def fake_import(name):
++            return types.SimpleNamespace(__version__="fixture", __file__=str(self.folder / "mass_mapping.py"),
++                                         massmap2d=object, shear_data=object)
++        before = list(sys.path)
++        try:
++            with patch.object(environment_probe.importlib, "import_module", side_effect=fake_import):
++                result = environment_probe.probe("mcalens", paths)
++        finally:
++            sys.path[:] = before
++        self.assertTrue(result["ok"])
++        self.assertEqual(result["python_executable"], sys.executable)
++
++    def test_pythonpath_does_not_leak_between_environments(self):
++        paths = types.SimpleNamespace(code_root=self.folder / "code", mcalens_root=self.folder / "cosmostat")
++        with patch.dict(os.environ, {"PYTHONPATH": "wrong-environment", "PYTHONHOME": "wrong-home"}):
++            core = environments.process_environment(paths, "gob5")
++            mc = environments.process_environment(paths, "mcalens")
++        self.assertNotIn("PYTHONHOME", mc)
++        self.assertNotIn("wrong-environment", mc["PYTHONPATH"])
++        self.assertNotIn(str(paths.mcalens_root), core["PYTHONPATH"])
++        self.assertIn(str(paths.mcalens_root), mc["PYTHONPATH"])
++
++    def test_worker_runs_in_separate_selected_process_without_torch(self):
++        # Real subprocess and production worker, with a tiny synthetic scientific driver.
++        # A dispatch marker ensures the child went through mcalens_python, not the parent Python command.
++        fixture = self.folder / "fixture repo"
++        (fixture / "tools").mkdir(parents=True)
++        (fixture / "code/pipeline").mkdir(parents=True)
++        for relative in ("tools/mcalens_smoke_worker.py", "code/pipeline/project_paths.py"):
++            shutil.copyfile(environments.ROOT / relative, fixture / relative)
++        work = self.folder / "new outputs"
++        work.mkdir()
++        cfg = work / "paths.toml"
++        values = {"data_root": str(self.folder / "raw"), "work_root": str(work),
++                  "glimpse_root": str(self.folder / "glimpse"), "mcalens_root": str(self.folder / "cosmostat")}
++        cfg.write_text("".join(f"{k}={json.dumps(v)}\n" for k, v in values.items()))
++        shutil.copyfile(cfg, fixture / "config_paths.toml")
++        fake_driver = '''import os, sys
++assert "torch" not in sys.modules
++assert os.environ.get("WL_TEST_ROLE") == "mcalens"
++def run_one(case):
++    assert case == (0, 10, 0)
++    return {"finite": True, "pid": os.getpid(), "case": list(case)}
++'''
++        (fixture / "code/pipeline/run_mcalens_test.py").write_text(fake_driver)
++        pycs = Path(values["mcalens_root"]) / "pycs/astro/wl"
++        pycs.mkdir(parents=True)
++        (pycs / "mass_mapping.py").write_text("# synthetic source for subprocess routing test\n")
++        dispatch = self.folder / "mcalens dispatch.py"
++        dispatch.write_text('import os, subprocess, sys\nos.environ["WL_TEST_ROLE"]="mcalens"\n'
++                            'raise SystemExit(subprocess.run([sys.executable,*sys.argv[1:]],env=os.environ.copy()).returncode)\n')
++        settings = {"mcalens_python": [sys.executable, str(dispatch)]}
++        with patch.object(server_smoke, "ROOT", fixture):
++            result = server_smoke.run_mcalens_process(settings, cfg, work)
++        self.assertTrue(result["ok"])
++        self.assertNotEqual(result["result"]["pid"], os.getpid())
++        self.assertEqual(result["command"][:2], settings["mcalens_python"])
++
++    def test_launcher_dry_run_routes_three_environments(self):
++        cfg = self.folder / "environments.toml"
++        cfg.write_text(f'gob5_python={json.dumps([sys.executable])}\n'
++                       'mcalens_python=["MC-PYTHON"]\nglimpse_prefix=["GL-ENV"]\n')
++        for name, expected in (("run_mcalens_test.py", ["MC-PYTHON"]),
++                               ("run_square_starlet_comparison.py", [sys.executable]),
++                               ("run_glimpse_test_final.py", ["GL-ENV", sys.executable])):
++            result = subprocess.run([sys.executable, "-B", str(environments.ROOT / "tools/run_pipeline.py"),
++                                     "--environments", str(cfg), "--dry-run", name],
++                                    text=True, capture_output=True, check=True)
++            self.assertEqual(json.loads(result.stdout)["command"][:len(expected)], expected)
++
++    def test_smoke_parent_has_no_mcalens_driver_import(self):
++        tree = ast.parse((environments.ROOT / "tools/server_smoke.py").read_text(encoding="utf-8"))
++        forbidden = {"run_mcalens_test", "pycs.astro.wl.mass_mapping", "modopt", "seaborn"}
++        for node in ast.walk(tree):
++            if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == "import_module":
++                if node.args and isinstance(node.args[0], ast.Constant):
++                    self.assertNotIn(node.args[0].value, forbidden)
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
+--- v4/tools/check_server_smoke.py
++++ v5/tools/check_server_smoke.py
+@@ -57,11 +57,16 @@
+         values = {"data_root": "missing raw", "work_root": "new outputs",
+                   "glimpse_root": "existing experiment", "mcalens_root": "missing mcalens"}
+         config.write_text("".join(f"{k}={json.dumps(v)}\n" for k, v in values.items()))
++        environments = self.folder / "environments.toml"
++        environments.write_text(f"gob5_python={json.dumps([sys.executable])}\n"
++                                f"mcalens_python={json.dumps([sys.executable])}\nglimpse_prefix=[]\n")
+         env = os.environ.copy()
+         env.pop("WL_PATHS_CONFIG", None)
++        env.pop("WL_PYTHON", None)
+         for _ in range(2):
+             result = subprocess.run([sys.executable, "-B", str(smoke.ROOT / "tools/server_smoke.py"),
+-                                     "--paths", str(config), "--preflight-only"], cwd=self.folder,
++                                     "--paths", str(config), "--environments", str(environments),
++                                     "--preflight-only"], cwd=self.folder,
+                                     env=env, text=True, capture_output=True)
+             self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+         reports = list((self.folder / "new outputs").glob("*/smoke_report.json"))
+--- v4/tools/environment_probe.py
++++ v5/tools/environment_probe.py
+@@ -0,0 +1,54 @@
++"""Actually import dependencies in the selected interpreter, without reconstruction."""
++import argparse
++import importlib
++import importlib.metadata
++import json
++from pathlib import Path
++import sys
++import traceback
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / "code/pipeline"))
++from project_paths import load_paths
++
++
++def probe(kind, paths):
++    modules = {
++        "gob5": ["numpy", "scipy", "pandas", "torch", "pywt", "astropy", "matplotlib"],
++        "mcalens": ["numpy", "scipy", "pandas", "astropy", "matplotlib", "seaborn", "modopt",
++                    "pycs.astro.wl.mass_mapping"],
++    }[kind]
++    if kind == "mcalens":
++        sys.path.insert(0, str(paths.mcalens_root))
++    result = {"kind": kind, "python_executable": sys.executable, "python_version": sys.version,
++              "prefix": sys.prefix, "base_prefix": sys.base_prefix, "imports": {}, "ok": True}
++    for name in modules:
++        try:
++            module = importlib.import_module(name)
++            item = {"ok": True, "version": str(getattr(module, "__version__", "unknown")),
++                    "file": getattr(module, "__file__", None)}
++            if name == "pycs.astro.wl.mass_mapping":
++                item["classes_present"] = all(hasattr(module, n) for n in ("massmap2d", "shear_data"))
++                item["configured_checkout"] = Path(item["file"]).resolve().is_relative_to(paths.mcalens_root)
++                item["ok"] = item["classes_present"] and item["configured_checkout"]
++            result["ok"] = result["ok"] and item["ok"]
++            result["imports"][name] = item
++        except Exception as exc:
++            result["ok"] = False
++            result["imports"][name] = {"ok": False, "error": str(exc), "traceback": traceback.format_exc()}
++    return result
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--kind", choices=("gob5", "mcalens"), required=True)
++    parser.add_argument("--paths", type=Path, required=True)
++    parser.add_argument("--output", type=Path, required=True)
++    args = parser.parse_args()
++    result = probe(args.kind, load_paths(args.paths))
++    args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
++    return 0 if result["ok"] else 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- v4/tools/execution_environments.py
++++ v5/tools/execution_environments.py
+@@ -0,0 +1,61 @@
++"""Process dispatch only; no package installation or scientific configuration."""
++import os
++from pathlib import Path
++import tomllib
++
++ROOT = Path(__file__).resolve().parents[1]
++MCALENS_DRIVERS = {
++    "generate_mcalens_validation_maps.py", "run_mcalens_validation.py",
++    "run_mcalens_test.py", "build_fair_validation_pk.py",
++}
++
++
++def load_environments(file=None):
++    path = Path(file or ROOT / "config_environments.server.toml").expanduser().absolute()
++    with path.open("rb") as stream:
++        settings = tomllib.load(stream)
++    if set(settings) != {"gob5_python", "mcalens_python", "glimpse_prefix"}:
++        raise ValueError("Expected gob5_python, mcalens_python and glimpse_prefix commands")
++    for key, command in settings.items():
++        if not isinstance(command, list) or (not command and key != "glimpse_prefix"):
++            raise ValueError(f"{key} must be an argument array")
++        if any(not isinstance(v, str) or not v.strip() for v in command):
++            raise ValueError(f"{key} has an empty/non-string argument")
++        settings[key] = [str(Path(v).expanduser()) if v.startswith("~") else v for v in command]
++    # The core process is a directly invoked interpreter; no shell activation needed.
++    if len(settings["gob5_python"]) != 1:
++        raise ValueError("gob5_python must contain the direct interpreter path")
++    if os.environ.get("WL_PYTHON"):
++        settings["gob5_python"] = [str(Path(os.environ["WL_PYTHON"]).expanduser())]
++    return settings
++
++
++def role_for_driver(path):
++    if path.name in MCALENS_DRIVERS:
++        return "mcalens"
++    if path.parent.name == "glimpse":
++        return "glimpse"
++    return "gob5"
++
++
++def python_command(settings, role):
++    if role == "mcalens":
++        return list(settings["mcalens_python"])
++    if role == "glimpse":
++        return [*settings["glimpse_prefix"], *settings["gob5_python"]]
++    if role == "gob5":
++        return list(settings["gob5_python"])
++    raise ValueError(f"Unknown role: {role}")
++
++
++def process_environment(paths, role):
++    env = os.environ.copy()
++    # Never import packages from the caller's unrelated Python environment.
++    env.pop("PYTHONHOME", None)
++    env.pop("VIRTUAL_ENV", None)
++    roots = [str(paths.code_root)]
++    if role == "mcalens":
++        roots.insert(0, str(paths.mcalens_root))
++    env["PYTHONPATH"] = os.pathsep.join(roots)
++    env["PYTHONDONTWRITEBYTECODE"] = "1"
++    return env
+--- v4/tools/mcalens_smoke_worker.py
++++ v5/tools/mcalens_smoke_worker.py
+@@ -0,0 +1,40 @@
++"""Run only production MCALens C0/R10/P0 in the dedicated mcalens interpreter."""
++import argparse
++import importlib
++import json
++import os
++from pathlib import Path
++import sys
++import traceback
++
++ROOT = Path(__file__).resolve().parents[1]
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--paths", type=Path, required=True)
++    parser.add_argument("--output", type=Path, required=True)
++    args = parser.parse_args()
++    os.environ["WL_PATHS_CONFIG"] = str(args.paths.absolute())
++    sys.path.insert(0, str(ROOT / "code/pipeline"))
++    from project_paths import PATHS
++    if not args.output.resolve().is_relative_to(PATHS.work_root) or args.output.exists():
++        raise ValueError("Worker report must be a new file in this run's work_root")
++    sys.path.insert(0, str(PATHS.mcalens_root))
++    report = {"case": [0, 10, 0], "python_executable": sys.executable,
++              "python_version": sys.version, "prefix": sys.prefix, "ok": False}
++    try:
++        mc = importlib.import_module("run_mcalens_test")
++        report["result"] = mc.run_one((0, 10, 0))
++        report["mcalens_source"] = importlib.import_module("pycs.astro.wl.mass_mapping").__file__
++        report["ok"] = bool(report["result"]["finite"])
++    except Exception as exc:
++        report["error"] = str(exc)
++        report["traceback"] = traceback.format_exc()
++        traceback.print_exc()
++    args.output.write_text(json.dumps(report, indent=2, allow_nan=False) + "\n", encoding="utf-8")
++    return 0 if report["ok"] else 1
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- v4/tools/run_pipeline.py
++++ v5/tools/run_pipeline.py
+@@ -12,6 +12,7 @@
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--paths", type=Path, help="Alternative config_paths.toml")
++    parser.add_argument("--environments", type=Path, help="Route drivers to the recorded server interpreters")
+     parser.add_argument("--list", action="store_true", help="List drivers without importing them")
+     parser.add_argument("--dry-run", action="store_true", help="Resolve paths and command without executing")
+     parser.add_argument("script", nargs="?", help="Driver filename, e.g. run_square_starlet_comparison.py")
+@@ -29,18 +30,27 @@
+     sys.path.insert(0, str(ROOT / "code" / "pipeline"))
+     from project_paths import PATHS
+     arguments = args.arguments[1:] if args.arguments[:1] == ["--"] else args.arguments
++    command = [sys.executable, str(scripts[args.script]), *arguments]
++    role = "current interpreter"
++    if args.environments:
++        from execution_environments import load_environments, role_for_driver, python_command, process_environment
++        role = role_for_driver(scripts[args.script])
++        command = [*python_command(load_environments(args.environments), role),
++                   str(scripts[args.script]), *arguments]
+     if args.dry_run:
+         print(json.dumps({"driver": str(scripts[args.script]), "arguments": arguments,
+-                          "paths": PATHS.as_dict()}, indent=2))
++                          "paths": PATHS.as_dict(), "environment": role, "command": command}, indent=2))
+         return
+     env = os.environ.copy()
+     entries = [str(PATHS.code_root), str(PATHS.mcalens_root)]
+     if env.get("PYTHONPATH"):
+         entries.append(env["PYTHONPATH"])
+     env["PYTHONPATH"] = os.pathsep.join(entries)
++    if args.environments:
++        env = process_environment(PATHS, role)
+     # A real script process preserves multiprocessing spawn semantics; workers
+     # inherit the configured module roots and configuration-file environment.
+-    result = subprocess.run([sys.executable, str(scripts[args.script]), *arguments], env=env)
++    result = subprocess.run(command, env=env)
+     raise SystemExit(result.returncode)
+ 
+ 
+--- v4/tools/server_smoke.py
++++ v5/tools/server_smoke.py
+@@ -25,6 +25,7 @@
+ from project_paths import load_paths
+ from smoke_preflight import preflight, file_sha
+ from verify_scientific_invariants import verify
++from execution_environments import load_environments, python_command, process_environment
+ 
+ CASE = (0, 10, 0)
+ REFERENCE_TOLERANCE = 1e-4  # smoke diagnostic only; never used inside a solver
+@@ -94,6 +95,61 @@
+     if not np.isclose(omega, float(square.labels[CASE[0], CASE[1], 0]), rtol=0, atol=1e-12):
+         raise ValueError("Cache cosmology differs from FAIR labels")
+     return truth, gamma, omega
++
++
++def probe_environments(settings, runtime_config, run_dir, with_glimpse=False):
++    paths = load_paths(runtime_config)
++    reports = {}
++    for role in ("gob5", "mcalens"):
++        output = run_dir / f"imports_{role}.json"
++        command = [*python_command(settings, role), "-B", str(ROOT / "tools/environment_probe.py"),
++                   "--kind", role, "--paths", str(runtime_config), "--output", str(output)]
++        try:
++            with (run_dir / f"imports_{role}.log").open("w", encoding="utf-8") as log:
++                proc = subprocess.run(command, env=process_environment(paths, role), stdout=log,
++                                      stderr=subprocess.STDOUT, timeout=120)
++            reports[role] = json.loads(output.read_text(encoding="utf-8")) if output.is_file() else {
++                "ok": False, "error": f"No import report; inspect imports_{role}.log"}
++            reports[role]["ok"] = reports[role]["ok"] and proc.returncode == 0
++            reports[role]["returncode"] = proc.returncode
++        except (OSError, subprocess.TimeoutExpired) as exc:
++            reports[role] = {"ok": False, "error": str(exc)}
++        reports[role]["command"] = command
++        print(f"{role} imports: {'OK' if reports[role]['ok'] else 'FAILED'}", flush=True)
++        for name, details in reports[role].get("imports", {}).items():
++            if not details["ok"]:
++                print(f"  {name}: {details.get('error', 'wrong source/classes')}", flush=True)
++        if "error" in reports[role]:
++            print(" ", reports[role]["error"], flush=True)
++    if with_glimpse:
++        command = [*settings["glimpse_prefix"], "ldd", str(paths.glimpse_executable)]
++        try:
++            with (run_dir / "imports_glimpse.log").open("w", encoding="utf-8") as log:
++                proc = subprocess.run(command, env=process_environment(paths, "glimpse"), stdout=log,
++                                      stderr=subprocess.STDOUT, timeout=60)
++            diagnostic = (run_dir / "imports_glimpse.log").read_text(encoding="utf-8", errors="replace")
++            reports["glimpse"] = {"ok": proc.returncode == 0 and "not found" not in diagnostic,
++                                  "returncode": proc.returncode,
++                                  "scope": "Native executable dynamic-library resolution via ldd; not a reconstruction"}
++        except (OSError, subprocess.TimeoutExpired) as exc:
++            reports["glimpse"] = {"ok": False, "error": str(exc)}
++        reports["glimpse"]["command"] = command
++    return reports
++
++
++def run_mcalens_process(settings, runtime_config, run_dir):
++    output = run_dir / "mcalens_worker.json"
++    command = [*python_command(settings, "mcalens"), "-B", "-u",
++               str(ROOT / "tools/mcalens_smoke_worker.py"),
++               "--paths", str(runtime_config), "--output", str(output)]
++    with (run_dir / "mcalens.log").open("w", encoding="utf-8") as log:
++        proc = subprocess.run(command, env=process_environment(load_paths(runtime_config), "mcalens"),
++                              stdout=log, stderr=subprocess.STDOUT)
++    details = json.loads(output.read_text(encoding="utf-8")) if output.is_file() else {}
++    if proc.returncode != 0 or not details.get("ok"):
++        raise RuntimeError(f"MCALens child failed: {details.get('error', 'see mcalens.log')}; {run_dir}")
++    details["command"] = command
++    return details
+ 
+ 
+ def numerical_run(args, paths, run_dir, report):
+@@ -146,6 +202,7 @@
+         print(method, vals, flush=True)
+ 
+     print("KS, then Starlet with the production 6000 iterations...", flush=True)
++    report["numerical_smoke_executed"] = True
+     started = time.perf_counter()
+     with torch.no_grad():
+         ks_rec = square.ks_reconstruct(y, square.G15)
+@@ -173,12 +230,12 @@
+     report["gs_last_relative_change"] = float(rel[0].cpu())
+ 
+     print("MCALens with the production Nsigma=5, 100 iterations, four scales...", flush=True)
+-    mc = importlib.import_module("run_mcalens_test")
+     started = time.perf_counter()
+-    mc_result = mc.run_one(CASE)
++    mc_worker = run_mcalens_process(args.environments_config, run_dir / "paths.toml", run_dir)
++    mc_result = mc_worker["result"]
+     with np.load(mc_result["recon_file"]) as data:
+         record("MCALENS", data["mcalens"], started)
+-    report["mcalens_source"] = importlib.import_module("pycs.astro.wl.mass_mapping").__file__
++    report["mcalens_worker"] = mc_worker
+ 
+     if args.with_glimpse:
+         print("GLIMPSE: this single case took about 18 minutes in the archived run.", flush=True)
+@@ -186,9 +243,10 @@
+         cat, cfg, output = gl.CAT_DIR / "C0_R10_P0.fits", gl.CFG_DIR / "C0.ini", gl.REC_DIR / "C0_R10_P0.fits"
+         gl.write_catalog(cat, gamma, mask)
+         gl.write_config(cfg, omega)
+-        env = os.environ.copy()
++        env = process_environment(paths, "glimpse")
+         env["GSL_RNG_SEED"] = str(CASE[0]*10000 + CASE[1]*100 + CASE[2])
+-        command = [str(gl.GLIMPSE), "--config", str(cfg), "--data", str(cat), "--output", str(output)]
++        command = [*args.environments_config["glimpse_prefix"], str(gl.GLIMPSE),
++                   "--config", str(cfg), "--data", str(cat), "--output", str(output)]
+         started = time.perf_counter()
+         with (run_dir / "glimpse.log").open("w", encoding="utf-8") as stream:
+             subprocess.run(command, env=env, stdout=stream, stderr=subprocess.STDOUT, check=True)
+@@ -203,10 +261,16 @@
+ def main():
+     parser = argparse.ArgumentParser(description=__doc__)
+     parser.add_argument("--paths", type=Path, default=ROOT / "config_paths.server.toml")
+-    parser.add_argument("--preflight-only", action="store_true", help="No solver imports or runs")
++    parser.add_argument("--environments", type=Path, default=ROOT / "config_environments.server.toml")
++    parser.add_argument("--preflight-only", action="store_true", help="Check files and actual imports in both environments; no reconstruction")
+     parser.add_argument("--with-glimpse", action="store_true", help="Also run the slower native GLIMPSE solver")
+     parser.add_argument("--generate-input", action="store_true", help="Generate full-survey C0/R10 shear instead of copying the historical observation")
+     args = parser.parse_args()
++    args.environments_config = load_environments(args.environments)
++    desired_python = args.environments_config["gob5_python"][0]
++    if os.path.normcase(os.path.abspath(sys.executable)) != os.path.normcase(os.path.abspath(desired_python)):
++        # The shell's active environment must not silently choose the core solver environment.
++        return subprocess.run([desired_python, "-B", "-u", str(Path(__file__).absolute()), *sys.argv[1:]]).returncode
+     paths = load_paths(args.paths)
+     tag = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "_" + uuid.uuid4().hex[:8]
+     run_dir = paths.work_root / tag
+@@ -219,11 +283,11 @@
+     os.environ["WL_PATHS_CONFIG"] = str(runtime_config)
+     os.environ["PYTHONDONTWRITEBYTECODE"] = "1"
+     sys.dont_write_bytecode = True
+-    sys.path.insert(0, str(paths.mcalens_root))
+     import project_paths
+     project_paths.PATHS = load_paths(runtime_config)
+     report = {"status": "running", "case": list(CASE), "run_directory": str(run_dir),
+               "numerical_smoke_executed": False,
++              "core_python_executable": sys.executable, "execution_environments": args.environments_config,
+               "scope": "One-patch execution and diagnostic comparison, not a full benchmark reproduction."}
+     print("Outputs:", run_dir, flush=True)
+     code = 1
+@@ -233,18 +297,20 @@
+             raise RuntimeError("Scientific source/invariant verification failed")
+         report["invariants"] = {k: v for k, v in guards.items() if k not in ("scripts", "unchanged_originals")}
+         report["preflight"] = preflight(runtime_config)
++        report["environment_imports"] = probe_environments(
++            args.environments_config, runtime_config, run_dir, args.with_glimpse)
+         pre = report["preflight"]
+         ready = (pre["core_prerequisites_present"] and pre["mcalens"]["checkout_present"]
+                  and pre["mcalens"]["commit_matches"] and pre["mcalens"]["local_starlet_patch_matches"])
+         if args.with_glimpse:
+             ready = ready and pre["glimpse_executable_present"]
++        ready = ready and all(item["ok"] for item in report["environment_imports"].values())
+         if args.preflight_only:
+             report["status"] = "preflight_ready" if ready else "preflight_missing_prerequisites"
+             code = 0 if ready else 1
+         elif not ready:
+             raise RuntimeError("Preflight failed. Inspect smoke_report.json; no scientific environment was installed/modified.")
+         else:
+-            report["numerical_smoke_executed"] = True
+             numerical_run(args, paths, run_dir, report)
+             close = all(r["comparison"]["within_smoke_tolerance"] for r in report["methods"].values())
+             report["status"] = "passed" if close else "completed_needs_numerical_review"
+--- v4/tools/smoke_preflight.py
++++ v5/tools/smoke_preflight.py
+@@ -1,4 +1,4 @@
+-"""Read-only dependency/data checks for the proposed one-case numerical smoke test."""
++"""Static checks only. For actual per-environment imports use server_smoke.py --preflight-only."""
+ import argparse
+ import hashlib
+ import importlib.metadata

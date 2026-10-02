@@ -1,0 +1,72 @@
+Repository:
+/u/gob5/Glimpse
+
+HEAD:
+a0e09a4a3faf050e4809fc537d6b45a626ece4fc
+
+Latest commit:
+commit a0e09a4a3faf050e4809fc537d6b45a626ece4fc
+Author:     Francois <francois@orioncloud.fr>
+AuthorDate: 2017-11-28 15:23:24 +0100
+Commit:     Francois <francois@orioncloud.fr>
+CommitDate: 2017-11-28 15:23:24 +0100
+
+    Added modifications  to CMakelists
+
+Branch:
+
+Status:
+ M CMakeLists.txt
+ M src/survey.cpp
+?? CMakeLists.txt.before_nicaea_git
+?? CMakeLists.txt.original
+?? bootstrap_glimpse_comparison.py
+?? build/
+?? catalog_C0_R0_P0.fits
+?? catalog_C0_R10_P0.fits
+?? catalog_smoke.fits
+?? config.ini
+?? config_fair_base.ini
+?? config_fair_default.ini
+?? config_lambda_0p25.ini
+?? config_lambda_0p5.ini
+?? config_lambda_1p0.ini
+?? config_lambda_2p0.ini
+?? config_lambda_2p5.ini
+?? config_lambda_3p0.ini
+?? config_lambda_3p5.ini
+?? config_lambda_4p0.ini
+?? config_lambda_4p5.ini
+?? config_lambda_5p0.ini
+?? config_smoke.ini
+?? config_smoke_flip.ini
+?? evaluate_glimpse_sweep.py
+?? fair_C0_R0_P0.npz
+?? fair_C0_R10_P0.npz
+?? glimpse_C0_R0_P0_L0p25.fits
+?? glimpse_C0_R0_P0_L0p5.fits
+?? glimpse_C0_R0_P0_L1p0.fits
+?? glimpse_C0_R0_P0_L2p0.fits
+?? glimpse_C0_R0_P0_L2p5.fits
+?? glimpse_C0_R0_P0_L3p0.fits
+?? glimpse_C0_R0_P0_L3p5.fits
+?? glimpse_C0_R0_P0_L4p0.fits
+?? glimpse_C0_R0_P0_L4p5.fits
+?? glimpse_C0_R0_P0_L5p0.fits
+?? glimpse_C0_R10_P0.fits
+?? glimpse_repo_stage/
+?? glimpse_smoke.fits
+?? glimpse_smoke_flip.fits
+?? make_glimpse_repo_tar.log
+?? make_glimpse_repo_tar.sh
+?? make_glimpse_repo_tar_v2.log
+?? mask_C0_R0_P0.fits
+?? mask_C0_R10_P0.fits
+?? run_glimpse_fine_sweep.py
+?? run_glimpse_validation.py
+?? test/
+?? truth_C0_R0_P0.fits
+?? truth_C0_R10_P0.fits
+?? truth_smoke.fits
+?? validation/
+?? wiener_gaussian_only/

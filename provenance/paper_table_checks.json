@@ -1,0 +1,1414 @@
+{
+  "scope": "Consistency of archived CSV values with printed manuscript tables; no scientific pipeline rerun.",
+  "tables_checked": [
+    "tab:peak_bootstrap",
+    "tab:peak_summary",
+    "tab:photoz",
+    "tab:prior_factorial",
+    "tab:solver_audit",
+    "tab:spectral_summary",
+    "tab:test_field"
+  ],
+  "checks": [
+    {
+      "table": "tab:test_field",
+      "quantity": "KS complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "KS nmse",
+      "value": 0.7242421334400696,
+      "printed": "0.724",
+      "expected": "0.724",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "KS pcc",
+      "value": 0.5310822919703687,
+      "printed": "0.531",
+      "expected": "0.531",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "KS std_ratio",
+      "value": 0.6067451973492123,
+      "printed": "0.607",
+      "expected": "0.607",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GLIMPSE complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GLIMPSE nmse",
+      "value": 0.8241426283817889,
+      "printed": "0.824",
+      "expected": "0.824",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GLIMPSE pcc",
+      "value": 0.4373114886214083,
+      "printed": "0.437",
+      "expected": "0.437",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GLIMPSE std_ratio",
+      "value": 0.5647426316120602,
+      "printed": "0.565",
+      "expected": "0.565",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "WIENER complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "WIENER nmse",
+      "value": 0.6867691553469383,
+      "printed": "0.687",
+      "expected": "0.687",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "WIENER pcc",
+      "value": 0.5685331648701343,
+      "printed": "0.569",
+      "expected": "0.569",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "WIENER std_ratio",
+      "value": 0.47153685683605817,
+      "printed": "0.472",
+      "expected": "0.472",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_NOMASK complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_NOMASK nmse",
+      "value": 0.6933550496621884,
+      "printed": "0.693",
+      "expected": "0.693",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_NOMASK pcc",
+      "value": 0.5552843854594477,
+      "printed": "0.555",
+      "expected": "0.555",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_NOMASK std_ratio",
+      "value": 0.4870165641895274,
+      "printed": "0.487",
+      "expected": "0.487",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_MASK complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_MASK nmse",
+      "value": 0.6788489710230368,
+      "printed": "0.679",
+      "expected": "0.679",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_MASK pcc",
+      "value": 0.5649835171228885,
+      "printed": "0.565",
+      "expected": "0.565",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "STARLET_MASK std_ratio",
+      "value": 0.5311142426882259,
+      "printed": "0.531",
+      "expected": "0.531",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "MCALENS complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "MCALENS nmse",
+      "value": 0.65136913855193,
+      "printed": "0.651",
+      "expected": "0.651",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "MCALENS pcc",
+      "value": 0.5956976942822484,
+      "printed": "0.596",
+      "expected": "0.596",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "MCALENS std_ratio",
+      "value": 0.6857835449110024,
+      "printed": "0.686",
+      "expected": "0.686",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GAUSSIAN_STARLET complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GAUSSIAN_STARLET nmse",
+      "value": 0.6428054803892881,
+      "printed": "0.643",
+      "expected": "0.643",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GAUSSIAN_STARLET pcc",
+      "value": 0.5966004076764386,
+      "printed": "0.597",
+      "expected": "0.597",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "GAUSSIAN_STARLET std_ratio",
+      "value": 0.5834501580000201,
+      "printed": "0.583",
+      "expected": "0.583",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "FUSION complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "FUSION nmse",
+      "value": 0.6341957914238658,
+      "printed": "0.634",
+      "expected": "0.634",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "FUSION pcc",
+      "value": 0.6038646806744166,
+      "printed": "0.604",
+      "expected": "0.604",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:test_field",
+      "quantity": "FUSION std_ratio",
+      "value": 0.6314803766250817,
+      "printed": "0.631",
+      "expected": "0.631",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "STARLET_MASK",
+      "value": 0.6788489710230368,
+      "printed": "0.679",
+      "expected": "0.679",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "STARLET_MASK minus KS",
+      "value": -0.04539316241703284,
+      "printed": "-0.045",
+      "expected": "-0.045",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "WIENER",
+      "value": 0.6867691553469383,
+      "printed": "0.687",
+      "expected": "0.687",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "WIENER minus KS",
+      "value": -0.037472978093131326,
+      "printed": "-0.037",
+      "expected": "-0.037",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "GAUSSIAN_STARLET",
+      "value": 0.6428054803892881,
+      "printed": "0.643",
+      "expected": "0.643",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "GAUSSIAN_STARLET minus KS",
+      "value": -0.08143665305078152,
+      "printed": "-0.081",
+      "expected": "-0.081",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:prior_factorial",
+      "quantity": "KS",
+      "value": 0.7242421334400696,
+      "printed": "0.724",
+      "expected": "0.724",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "GAUSSIAN_STARLET rows",
+      "value": 320,
+      "expected": 320,
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "GAUSSIAN_STARLET T",
+      "value": 0.554919265949514,
+      "printed": "0.555",
+      "expected": "0.555",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "GAUSSIAN_STARLET A",
+      "value": 0.5735683849153421,
+      "printed": "0.574",
+      "expected": "0.574",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "GAUSSIAN_STARLET r",
+      "value": 0.6545863771724539,
+      "printed": "0.655",
+      "expected": "0.655",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "MCALENS rows",
+      "value": 320,
+      "expected": 320,
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "MCALENS T",
+      "value": 0.4690767334769361,
+      "printed": "0.469",
+      "expected": "0.469",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "MCALENS A",
+      "value": 0.3952417457870226,
+      "printed": "0.395",
+      "expected": "0.395",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "MCALENS r",
+      "value": 0.6557278366610799,
+      "printed": "0.656",
+      "expected": "0.656",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "FUSION rows",
+      "value": 320,
+      "expected": 320,
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "FUSION T",
+      "value": 0.5126138655180185,
+      "printed": "0.513",
+      "expected": "0.513",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "FUSION A",
+      "value": 0.49871659576045435,
+      "printed": "0.499",
+      "expected": "0.499",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:spectral_summary",
+      "quantity": "FUSION r",
+      "value": 0.6620761363334469,
+      "printed": "0.662",
+      "expected": "0.662",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 2.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 2.0 PR-AUC",
+      "value": 0.7216605710878028,
+      "printed": "0.722",
+      "expected": "0.722",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 2.0 amplitude",
+      "value": 0.49984374817980126,
+      "printed": "0.500",
+      "expected": "0.500",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 4.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 4.0 PR-AUC",
+      "value": 0.7402835747692628,
+      "printed": "0.740",
+      "expected": "0.740",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 4.0 amplitude",
+      "value": 0.640136264849693,
+      "printed": "0.640",
+      "expected": "0.640",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 6.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 6.0 PR-AUC",
+      "value": 0.7292394633451298,
+      "printed": "0.729",
+      "expected": "0.729",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "GAUSSIAN_STARLET 6.0 amplitude",
+      "value": 0.7084211029310692,
+      "printed": "0.708",
+      "expected": "0.708",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 2.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 2.0 PR-AUC",
+      "value": 0.6759248494878399,
+      "printed": "0.676",
+      "expected": "0.676",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 2.0 amplitude",
+      "value": 0.5731380135211434,
+      "printed": "0.573",
+      "expected": "0.573",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 4.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 4.0 PR-AUC",
+      "value": 0.7289154934923333,
+      "printed": "0.729",
+      "expected": "0.729",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 4.0 amplitude",
+      "value": 0.9785488396584885,
+      "printed": "0.979",
+      "expected": "0.979",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 6.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 6.0 PR-AUC",
+      "value": 0.7468377819199034,
+      "printed": "0.747",
+      "expected": "0.747",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "MCALENS 6.0 amplitude",
+      "value": 0.95673125716536,
+      "printed": "0.957",
+      "expected": "0.957",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 2.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 2.0 PR-AUC",
+      "value": 0.7107524471795456,
+      "printed": "0.711",
+      "expected": "0.711",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 2.0 amplitude",
+      "value": 0.5611137302777993,
+      "printed": "0.561",
+      "expected": "0.561",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 4.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 4.0 PR-AUC",
+      "value": 0.7535246186365553,
+      "printed": "0.754",
+      "expected": "0.754",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 4.0 amplitude",
+      "value": 0.7984304497887921,
+      "printed": "0.798",
+      "expected": "0.798",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 6.0 constant AUC column",
+      "value": 1,
+      "expected": 1,
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 6.0 PR-AUC",
+      "value": 0.76315072555753,
+      "printed": "0.763",
+      "expected": "0.763",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_summary",
+      "quantity": "FUSION 6.0 amplitude",
+      "value": 0.8165129701035806,
+      "printed": "0.817",
+      "expected": "0.817",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'GAUSSIAN_STARLET') delta",
+      "value": -0.010908123908257239,
+      "printed": "-0.0109",
+      "expected": "-0.0109",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_low",
+      "value": -0.013800775379455012,
+      "printed": "-0.0138",
+      "expected": "-0.0138",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_high",
+      "value": -0.006197796896391023,
+      "printed": "-0.0062",
+      "expected": "-0.0062",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'MCALENS') delta",
+      "value": 0.034827597691705625,
+      "printed": "0.0348",
+      "expected": "0.0348",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'MCALENS') ci95_low",
+      "value": 0.031376565191575806,
+      "printed": "0.0314",
+      "expected": "0.0314",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'FUSION', 'MCALENS') ci95_high",
+      "value": 0.03896199953495071,
+      "printed": "0.0390",
+      "expected": "0.0390",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'GAUSSIAN_STARLET', 'MCALENS') delta",
+      "value": 0.045735721599962864,
+      "printed": "0.0457",
+      "expected": "0.0457",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_low",
+      "value": 0.039281817273113376,
+      "printed": "0.0393",
+      "expected": "0.0393",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(2.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_high",
+      "value": 0.0509133874917688,
+      "printed": "0.0509",
+      "expected": "0.0509",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'GAUSSIAN_STARLET') delta",
+      "value": 0.013241043867292523,
+      "printed": "0.0132",
+      "expected": "0.0132",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_low",
+      "value": 0.008565269277777388,
+      "printed": "0.0086",
+      "expected": "0.0086",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_high",
+      "value": 0.018696227237233642,
+      "printed": "0.0187",
+      "expected": "0.0187",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'MCALENS') delta",
+      "value": 0.024609125144221977,
+      "printed": "0.0246",
+      "expected": "0.0246",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'MCALENS') ci95_low",
+      "value": 0.018312706641900746,
+      "printed": "0.0183",
+      "expected": "0.0183",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'FUSION', 'MCALENS') ci95_high",
+      "value": 0.029327262024149717,
+      "printed": "0.0293",
+      "expected": "0.0293",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'GAUSSIAN_STARLET', 'MCALENS') delta",
+      "value": 0.011368081276929454,
+      "printed": "0.0114",
+      "expected": "0.0114",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_low",
+      "value": 0.0030543205232219047,
+      "printed": "0.0031",
+      "expected": "0.0031",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(4.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_high",
+      "value": 0.018357442852777055,
+      "printed": "0.0184",
+      "expected": "0.0184",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'GAUSSIAN_STARLET') delta",
+      "value": 0.03391126221240026,
+      "printed": "0.0339",
+      "expected": "0.0339",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_low",
+      "value": 0.022426639033812736,
+      "printed": "0.0224",
+      "expected": "0.0224",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'GAUSSIAN_STARLET') ci95_high",
+      "value": 0.04526951119741407,
+      "printed": "0.0453",
+      "expected": "0.0453",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'MCALENS') delta",
+      "value": 0.016312943637626698,
+      "printed": "0.0163",
+      "expected": "0.0163",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'MCALENS') ci95_low",
+      "value": 0.006762149870470187,
+      "printed": "0.0068",
+      "expected": "0.0068",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'FUSION', 'MCALENS') ci95_high",
+      "value": 0.025056610417697515,
+      "printed": "0.0251",
+      "expected": "0.0251",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'GAUSSIAN_STARLET', 'MCALENS') delta",
+      "value": -0.017598318574773564,
+      "printed": "-0.0176",
+      "expected": "-0.0176",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_low",
+      "value": -0.033257842428927896,
+      "printed": "-0.0333",
+      "expected": "-0.0333",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:peak_bootstrap",
+      "quantity": "(6.0, 'GAUSSIAN_STARLET', 'MCALENS') ci95_high",
+      "value": -0.0015226551247192331,
+      "printed": "-0.0015",
+      "expected": "-0.0015",
+      "format": ".4f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "GAUSSIAN_STARLET slope_nmse_per_delta_z",
+      "value": 0.16136055339469388,
+      "printed": "0.161",
+      "expected": "0.161",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "GAUSSIAN_STARLET slope_ci95_low",
+      "value": -0.23470179270116195,
+      "printed": "-0.235",
+      "expected": "-0.235",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "GAUSSIAN_STARLET slope_ci95_high",
+      "value": 0.4742456130030037,
+      "printed": "0.474",
+      "expected": "0.474",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "GAUSSIAN_STARLET relative_effect_0p022_percent",
+      "value": 0.555922787017845,
+      "printed": "0.56",
+      "expected": "0.56",
+      "format": ".2f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "MCALENS slope_nmse_per_delta_z",
+      "value": 0.20902828631034862,
+      "printed": "0.209",
+      "expected": "0.209",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "MCALENS slope_ci95_low",
+      "value": -0.22671927800540395,
+      "printed": "-0.227",
+      "expected": "-0.227",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "MCALENS slope_ci95_high",
+      "value": 0.5566865967171117,
+      "printed": "0.557",
+      "expected": "0.557",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "MCALENS relative_effect_0p022_percent",
+      "value": 0.710055662230044,
+      "printed": "0.71",
+      "expected": "0.71",
+      "format": ".2f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "FUSION slope_nmse_per_delta_z",
+      "value": 0.17405213681940557,
+      "printed": "0.174",
+      "expected": "0.174",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "FUSION slope_ci95_low",
+      "value": -0.2593035479167618,
+      "printed": "-0.259",
+      "expected": "-0.259",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "FUSION slope_ci95_high",
+      "value": 0.5091698225196924,
+      "printed": "0.509",
+      "expected": "0.509",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "tab:photoz",
+      "quantity": "FUSION relative_effect_0p022_percent",
+      "value": 0.6076972781347288,
+      "printed": "0.61",
+      "expected": "0.61",
+      "format": ".2f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "case count",
+      "value": 30,
+      "expected": 30,
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "both stopping criteria satisfied",
+      "value": 30,
+      "expected": 30,
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean iterations",
+      "value": 421.6666666666667,
+      "printed": "421.7",
+      "expected": "421.7",
+      "format": ".1f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "median obj_rel_diff",
+      "value": 1.6867323956440368e-05,
+      "printed": "1.69e-05",
+      "expected": "1.69e-05",
+      "format": ".2e",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "max obj_rel_diff",
+      "value": 2.05272434556431e-05,
+      "printed": "2.05e-05",
+      "expected": "2.05e-05",
+      "format": ".2e",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "median map_rel_diff_observed_centered",
+      "value": 0.002604760354294041,
+      "printed": "2.60e-03",
+      "expected": "2.60e-03",
+      "format": ".2e",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "max map_rel_diff_observed_centered",
+      "value": 0.003146931493129561,
+      "printed": "3.15e-03",
+      "expected": "3.15e-03",
+      "format": ".2e",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean nmse_admm",
+      "value": 0.6365906674398931,
+      "printed": "0.6365907",
+      "expected": "0.6365907",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean nmse_pdhg",
+      "value": 0.6365985015489383,
+      "printed": "0.6365985",
+      "expected": "0.6365985",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean pcc_admm",
+      "value": 0.6015128694972969,
+      "printed": "0.6015129",
+      "expected": "0.6015129",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean pcc_pdhg",
+      "value": 0.601506871496463,
+      "printed": "0.6015069",
+      "expected": "0.6015069",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean std_admm",
+      "value": 0.5892283520208292,
+      "printed": "0.5892284",
+      "expected": "0.5892284",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "tab:solver_audit",
+      "quantity": "mean std_pdhg",
+      "value": 0.589252306359387,
+      "printed": "0.5892523",
+      "expected": "0.5892523",
+      "format": ".7f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_field",
+      "quantity": "GS vs Wiener percent point",
+      "value": 6.40152147419037,
+      "printed": "6.4",
+      "expected": "6.4",
+      "format": ".1f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_field",
+      "quantity": "GS vs Wiener percent ci95_low",
+      "value": 5.682480500796977,
+      "printed": "5.7",
+      "expected": "5.7",
+      "format": ".1f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_field",
+      "quantity": "GS vs Wiener percent ci95_high",
+      "value": 7.128653311695503,
+      "printed": "7.1",
+      "expected": "7.1",
+      "format": ".1f",
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 2.5 validation cases",
+      "value": 240,
+      "expected": 240,
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 2.5 mean NMSE",
+      "value": 0.9983919365484266,
+      "printed": "0.998",
+      "expected": "0.998",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 3.0 validation cases",
+      "value": 240,
+      "expected": 240,
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 3.0 mean NMSE",
+      "value": 0.82827070279848,
+      "printed": "0.828",
+      "expected": "0.828",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 3.5 validation cases",
+      "value": 240,
+      "expected": 240,
+      "pass": true
+    },
+    {
+      "table": "sec:comparators",
+      "quantity": "GLIMPSE lambda 3.5 mean NMSE",
+      "value": 0.8327150366229691,
+      "printed": "0.833",
+      "expected": "0.833",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "complete 480-case grid",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "realization blocks",
+      "value": 20,
+      "expected": 20,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "mean forward mismatch percent",
+      "value": 2.0196694135665894,
+      "printed": "2.02",
+      "expected": "2.02",
+      "format": ".2f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "median forward mismatch percent",
+      "value": 1.7631160095334053,
+      "printed": "1.76",
+      "expected": "1.76",
+      "format": ".2f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "nominal mean NMSE",
+      "value": 0.6428054803892881,
+      "printed": "0.643",
+      "expected": "0.643",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "reduced-shear mean NMSE",
+      "value": 0.6398605708377115,
+      "printed": "0.640",
+      "expected": "0.640",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "relative change in mean NMSE percent",
+      "value": -0.45813385875196344,
+      "printed": "-0.458",
+      "expected": "-0.458",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "paired mean delta pcc",
+      "value": 0.0022323305548208852,
+      "printed": "0.00223",
+      "expected": "0.00223",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "paired mean delta std_ratio",
+      "value": 0.0041530753138223206,
+      "printed": "0.00415",
+      "expected": "0.00415",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "stored summary agrees with cases: nominal_nmse",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "stored summary agrees with cases: reduced_shear_nmse",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "stored summary agrees with cases: mean_reduced_shear_mismatch_relative",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "stored summary agrees with cases: median_reduced_shear_mismatch_relative",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "bootstrap metadata",
+      "value": true,
+      "expected": true,
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "relative_nmse_change_pct point",
+      "value": -0.4581338587519832,
+      "printed": "-0.458",
+      "expected": "-0.458",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "relative_nmse_change_pct ci95_low",
+      "value": -0.5007030755387013,
+      "printed": "-0.501",
+      "expected": "-0.501",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "relative_nmse_change_pct ci95_high",
+      "value": -0.41661483776429786,
+      "printed": "-0.417",
+      "expected": "-0.417",
+      "format": ".3f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_pcc point",
+      "value": 0.0022323305548207495,
+      "printed": "0.00223",
+      "expected": "0.00223",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_pcc ci95_low",
+      "value": 0.0020790092833716496,
+      "printed": "0.00208",
+      "expected": "0.00208",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_pcc ci95_high",
+      "value": 0.00237930967247591,
+      "printed": "0.00238",
+      "expected": "0.00238",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_std_ratio point",
+      "value": 0.004153075313822474,
+      "printed": "0.00415",
+      "expected": "0.00415",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_std_ratio ci95_low",
+      "value": 0.003686316343649518,
+      "printed": "0.00369",
+      "expected": "0.00369",
+      "format": ".5f",
+      "pass": true
+    },
+    {
+      "table": "sec:results_systematics reduced shear",
+      "quantity": "delta_std_ratio ci95_high",
+      "value": 0.004624923733703212,
+      "printed": "0.00462",
+      "expected": "0.00462",
+      "format": ".5f",
+      "pass": true
+    }
+  ],
+  "failed": 0,
+  "not_verified": [
+    "Generation of maps and figures from the raw data.",
+    "Regeneration of the frozen P_kappa and noise-calibration arrays.",
+    "Bootstrap resampling; archived confidence intervals were compared only."
+  ]
+}

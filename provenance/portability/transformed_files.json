@@ -1,0 +1,152 @@
+[
+  {
+    "file": "code/glimpse/audit_glimpse_fits_final.py",
+    "baseline_sha256": "66725feebd4a31799bd6d17637e2204709492de8e63c7ca19e3935df5e0d8258",
+    "portable_sha256": "0ef0a7befcf9905066095f37512ecd0b4727fa92f82836891c564f369fb514bc",
+    "path_edits": 3
+  },
+  {
+    "file": "code/glimpse/bootstrap_glimpse_comparison.py",
+    "baseline_sha256": "794c1d0525124ceff0866dfd5ec2014c07aa35b4fa8ecef1066263558939eca0",
+    "portable_sha256": "b5c229fd5c4cb9632579fa923be839f77a926528a19c40af83a8f2cbfcc2ddb3",
+    "path_edits": 1
+  },
+  {
+    "file": "code/glimpse/prepare_glimpse_validation.py",
+    "baseline_sha256": "d985024e62c8f0e6efe3d00bc715395b6887f283b459af632d7d89f124edd50a",
+    "portable_sha256": "176f85f7bfc58d1930b38b3d3767e7800a4e3352a83589a7a0312a7a728698ae",
+    "path_edits": 3
+  },
+  {
+    "file": "code/glimpse/run_glimpse_test_final.py",
+    "baseline_sha256": "4cc6d1a8bc38b4d5231c3e4eb6298cd36c89461d5b199bbb84579646324bc524",
+    "portable_sha256": "2cbfffceee217c7451590403f350b66aa8dbac9fdbf0589c8d3f0e92d0f8101b",
+    "path_edits": 3
+  },
+  {
+    "file": "code/glimpse/run_glimpse_validation.py",
+    "baseline_sha256": "6239231cc9283c78d4936f3223d06a076f09f26a65afc1e766bb64e3ef1ed080",
+    "portable_sha256": "1884147289138c4fe227d38b2dd6b21d3bd061529dbe7194e44e899472e371c3",
+    "path_edits": 3
+  },
+  {
+    "file": "code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py",
+    "baseline_sha256": "961a5e229d966b570552e89be00711058d84c3486f38bb0f7c5964c66c96d5af",
+    "portable_sha256": "e96201beaab8c485c3ea7de33795b218410ecfc053a2a7c2c35c8ee39917d2c2",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/bootstrap_wiener_vs_gs.py",
+    "baseline_sha256": "9e11e2648037f31802a661582a3f83ce82c0e4474c9f9103e0953800bb929039",
+    "portable_sha256": "b0186843a6def04ed0439984dce42328a4a9ae8de6c2d68195369d26658e874d",
+    "path_edits": 4
+  },
+  {
+    "file": "code/pipeline/build_fair_validation_pk.py",
+    "baseline_sha256": "e8e57a5bcbf19b446624a1ab7de87b120ec24f97a55b5c35070ea3965f05f18a",
+    "portable_sha256": "5dc41a9f7a21629244a53b750cdcc1de2301ff5f767ee9c2bc2a606dceeacac1",
+    "path_edits": 3
+  },
+  {
+    "file": "code/pipeline/generate_mcalens_validation_maps.py",
+    "baseline_sha256": "8b5559ba8231004756ca01514b61b045ac6b448fb061382a31fc24e04420e5a6",
+    "portable_sha256": "d76326fef6b998ca70846c4d5aad63f868843aab8dff089c8de64d61a3e8f962",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/make_revised_figures_v12.py",
+    "baseline_sha256": "2117958af97ce14c0d506cffe57f21ee1a08bb3d27ef1592d355178246973839",
+    "portable_sha256": "12c9fe642172328734af31b45a42786386ade0fc2150d6e40f294927dee15d69",
+    "path_edits": 6
+  },
+  {
+    "file": "code/pipeline/quantify_photoz_trend.py",
+    "baseline_sha256": "d9b46ed5df247d2d581290c1040bf3ac55bd5a2b50c32415c698d65721cf1477",
+    "portable_sha256": "54d9cc432cd14c09ba094af1d279678a77b2884871fd35c2138bcc778553e50a",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_admm_gaussian_starlet_audit.py",
+    "baseline_sha256": "b162e6f899704cfed2f5c3000f19f454b99ba956e37fd2b93f32330ece18beb4",
+    "portable_sha256": "a6259345e6a750d45b0051e3bd6b74b4b349b4e03b975d72180ca3678ec162e9",
+    "path_edits": 6
+  },
+  {
+    "file": "code/pipeline/run_gaussian_starlet_joint_validation.py",
+    "baseline_sha256": "28cd0305568df5f2d60976281db5f9aaa345b2e1f8866e061a76d4a23cca6fce",
+    "portable_sha256": "c6e8fa5c7b1431f6fcb0ee4c5fb5c7446cc87c33162dc36918e8b6855aca44e7",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_gaussian_starlet_reduced_shear.py",
+    "baseline_sha256": "0636b37dbb6e9b0efee07a0e520c059175ef697585fea1d349af11569af7c500",
+    "portable_sha256": "dbee5562d54b549c29ede3adfd131d8fd21892e813ea1f04b2aceec29581218b",
+    "path_edits": 6
+  },
+  {
+    "file": "code/pipeline/run_gaussian_starlet_test.py",
+    "baseline_sha256": "aa165377164da3e9f9b2650df931f67c2f4695bd7911db9e85f1595f6656d059",
+    "portable_sha256": "d72448ace6bcb8786dbf531ed12983395c6c224c2dab952d78fe95f70bff6c56",
+    "path_edits": 10
+  },
+  {
+    "file": "code/pipeline/run_gaussian_starlet_validation.py",
+    "baseline_sha256": "d672dbb76a0dd8fa06770c53e29bd166a79704f2a85864fb152af69c63ad7d78",
+    "portable_sha256": "ffc4c038c48778c6ebbfb2856c70fcc6887a3b96ed6b0e7a11218740165f72f6",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_mcalens_test.py",
+    "baseline_sha256": "e8bf1ff9aea06ba0a50d0f4176c4e228433a20f5fdbed32df8c4f56b05c75009",
+    "portable_sha256": "ea25b5f9922652e798199642e5593b82a265a57c7e5b833d8b53ec9975ad9cca",
+    "path_edits": 7
+  },
+  {
+    "file": "code/pipeline/run_mcalens_validation.py",
+    "baseline_sha256": "e6d02871fed1f22e867491d7955b3a42456407c63a292270ba3224da7eb4f9ee",
+    "portable_sha256": "55fdcd5892b33e24c6717378cd7b44b5b825ee647ba5ad7a93c99004a55a9e83",
+    "path_edits": 4
+  },
+  {
+    "file": "code/pipeline/run_multiscale_fusion_validation.py",
+    "baseline_sha256": "ed5778a0ef58f5f4ba03be0d7634dc9339a624ff38926ccdda04cf52ccb02cc6",
+    "portable_sha256": "6bbccba4b06791a3d20ac5dc323b3a2861f2633549509c7b38666c49ed3c4b39",
+    "path_edits": 6
+  },
+  {
+    "file": "code/pipeline/run_reweighted_gaussian_starlet_validation.py",
+    "baseline_sha256": "9a2b77681dd58e2564e0ab7348074e23a4ba2f4eb0f53d3e8d52e9210f456c7b",
+    "portable_sha256": "0cc4f7d2f218675b0bcb74240cacc2b184de6e481fce7233d8a578be0007e3e6",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_square_starlet_comparison.py",
+    "baseline_sha256": "cd2604444eef91d1d665cb9f27f206a122882f8a18cf5a13a635791eef283cc2",
+    "portable_sha256": "24839c26262f2590174edb11345d621f6ac8016bf4d0d3c3b3bbd413729b5648",
+    "path_edits": 3
+  },
+  {
+    "file": "code/pipeline/run_weighted_band_fusion_test.py",
+    "baseline_sha256": "0a14046cc48bc50b05cf7540e59dfb899799a04576d5aaf46e56091fa6dd4156",
+    "portable_sha256": "df4b9baf9c89845f55d177b72eb6c012635aad0da04e9c6c3c2d03e75d8bcc6e",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_weighted_band_fusion_validation.py",
+    "baseline_sha256": "66eb482f3c544516284399675737cf5cd1b91bdb33289c6efebfa70f325b6ebb",
+    "portable_sha256": "57e7102ae26d578812e0ad76c3a5c0c080d8e24efac56984296eb63a56c97d84",
+    "path_edits": 5
+  },
+  {
+    "file": "code/pipeline/run_wiener_gaussian_only.py",
+    "baseline_sha256": "8d008be60c542f57ac156d3678bc7245b1e1d5ba7442b5d74ae31c54f373d6ef",
+    "portable_sha256": "4c067c5b543f6bcbd95ab7c1c54920a1d73498f04109aecdf7b77ae7547ef197",
+    "path_edits": 6
+  },
+  {
+    "file": "code/pipeline/weak_lensing_pipeline.py",
+    "baseline_sha256": "dd69b9717e78290c032e581c4e7f24af2ef5033d5f2ec034d317705b72969f73",
+    "portable_sha256": "dd69b9717e78290c032e581c4e7f24af2ef5033d5f2ec034d317705b72969f73",
+    "path_edits": 0
+  }
+]

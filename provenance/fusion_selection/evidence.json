@@ -1,0 +1,165 @@
+{
+  "compared_split": "validation, 240 patches",
+  "comparison": [
+    {
+      "metric": "nmse",
+      "a1_075_a2_075": 0.6395322329318702,
+      "a1_075_a2_050": 0.639125826934319,
+      "delta_chosen_minus_min_nmse": 0.0004064059975512624,
+      "interpretation_direction": "menor",
+      "chosen_improves": false
+    },
+    {
+      "metric": "pcc",
+      "a1_075_a2_075": 0.5995990679028709,
+      "a1_075_a2_050": 0.5995856429479247,
+      "delta_chosen_minus_min_nmse": 1.3424954946161805e-05,
+      "interpretation_direction": "maior",
+      "chosen_improves": true
+    },
+    {
+      "metric": "std_ratio",
+      "a1_075_a2_075": 0.636276923815957,
+      "a1_075_a2_050": 0.6289669041416347,
+      "delta_chosen_minus_min_nmse": 0.007310019674322321,
+      "interpretation_direction": "mais próximo de 1",
+      "chosen_improves": true
+    },
+    {
+      "metric": "mean_abs_T_error",
+      "a1_075_a2_075": 0.4094037928769888,
+      "a1_075_a2_050": 0.415994033329557,
+      "delta_chosen_minus_min_nmse": -0.006590240452568175,
+      "interpretation_direction": "menor",
+      "chosen_improves": true
+    },
+    {
+      "metric": "mean_abs_A_error",
+      "a1_075_a2_075": 0.37834089419450534,
+      "a1_075_a2_050": 0.392055536489867,
+      "delta_chosen_minus_min_nmse": -0.013714642295361679,
+      "interpretation_direction": "menor",
+      "chosen_improves": true
+    },
+    {
+      "metric": "mean_r_ell",
+      "a1_075_a2_075": 0.741660774155644,
+      "a1_075_a2_050": 0.7414018279874938,
+      "delta_chosen_minus_min_nmse": 0.0002589461681502536,
+      "interpretation_direction": "maior",
+      "chosen_improves": true
+    },
+    {
+      "metric": "PR_AUC_2arc",
+      "a1_075_a2_075": 0.6281570916290129,
+      "a1_075_a2_050": 0.6291746397934131,
+      "delta_chosen_minus_min_nmse": -0.0010175481644002504,
+      "interpretation_direction": "maior",
+      "chosen_improves": false
+    },
+    {
+      "metric": "PR_AUC_4arc",
+      "a1_075_a2_075": 0.6153356641041499,
+      "a1_075_a2_050": 0.61549606990996,
+      "delta_chosen_minus_min_nmse": -0.00016040580581011543,
+      "interpretation_direction": "maior",
+      "chosen_improves": false
+    },
+    {
+      "metric": "PR_AUC_6arc",
+      "a1_075_a2_075": 0.6345976072495065,
+      "a1_075_a2_050": 0.6219931249286367,
+      "delta_chosen_minus_min_nmse": 0.012604482320869859,
+      "interpretation_direction": "maior",
+      "chosen_improves": true
+    },
+    {
+      "metric": "peak_amp_2arc",
+      "a1_075_a2_075": 0.5805653057608076,
+      "a1_075_a2_050": 0.5737897556546732,
+      "delta_chosen_minus_min_nmse": 0.006775550106134398,
+      "interpretation_direction": "mais próximo de 1",
+      "chosen_improves": true
+    },
+    {
+      "metric": "peak_amp_4arc",
+      "a1_075_a2_075": 0.8291270742829298,
+      "a1_075_a2_050": 0.804561066543722,
+      "delta_chosen_minus_min_nmse": 0.024566007739207807,
+      "interpretation_direction": "mais próximo de 1",
+      "chosen_improves": true
+    },
+    {
+      "metric": "peak_amp_6arc",
+      "a1_075_a2_075": 0.8723094532941924,
+      "a1_075_a2_050": 0.8527391256448411,
+      "delta_chosen_minus_min_nmse": 0.019570327649351293,
+      "interpretation_direction": "mais próximo de 1",
+      "chosen_improves": true
+    }
+  ],
+  "chosen_nmse_rank_among_9": 2,
+  "relative_nmse_increase_percent": 0.06358779139010728,
+  "historical_selection_rule_found": true,
+  "evidence_summary": [
+    "Updated after consulting the project conversation on 2026-10-01.",
+    "A documented qualitative validation decision exists; see historical_decision.json.",
+    "No deterministic scalar selection rule or formal Pareto selection was documented."
+  ],
+  "bootstrap_baselines": [
+    "GAUSSIAN_STARLET",
+    "MCALENS"
+  ],
+  "inspected_sources": [
+    {
+      "source": "results/validation/weighted_band_fusion/SCIENCE_SUMMARY.csv",
+      "sha256": "84da84225c0a8cd4a4ac0891ffeecff295ebe0e78e5e2014d328824bbcc252b2"
+    },
+    {
+      "source": "results/validation/weighted_band_fusion/field_metrics_summary.csv",
+      "sha256": "58b54524afa4d7eab2848808abb04a24127685532331ee1ac8065eada4d8a513"
+    },
+    {
+      "source": "results/validation/weighted_band_fusion/field_bootstrap.csv",
+      "sha256": "3aba7c3701dc3ae9a23896e8c411339fbbea4562a2d7e323b7b99d13ae453ddb"
+    },
+    {
+      "source": "results/validation/weighted_band_fusion/spectral_scores.csv",
+      "sha256": "e8e3cb6acbc0d4520119739de2b8164541cae2964632da6b3fbfadc33f29ad65"
+    },
+    {
+      "source": "code/pipeline/run_weighted_band_fusion_validation.py",
+      "sha256": "66eb482f3c544516284399675737cf5cd1b91bdb33289c6efebfa70f325b6ebb"
+    },
+    {
+      "source": "code/pipeline/run_weighted_band_fusion_test.py",
+      "sha256": "0a14046cc48bc50b05cf7540e59dfb899799a04576d5aaf46e56091fa6dd4156"
+    },
+    {
+      "source": "main.tex",
+      "sha256": "124dcde186628df00b1deb94e07de73b22085de075daad31115e8e96e78d4f9f"
+    },
+    {
+      "source": "Texto colado.txt",
+      "sha256": "52e1fc58131e2b7ab0433fbd99e4f30aefe0f64040400f641a96f5eff5be8f3c"
+    },
+    {
+      "source": "36 - DWT e Starlet ponderados.ipynb",
+      "sha256": "6ff4affae67faca98f3bcf7a2201b6428c94b57a9f95f4126f345c72882d1918"
+    },
+    {
+      "source": "cd tatugob5992 - Cosmos.txt",
+      "sha256": "1a8756233fdb373dcdbfa144e8685cda7bf0a8b4ea749b641df8057811eeba31"
+    },
+    {
+      "source": "cd tatugob599 - Cosmos.txt",
+      "sha256": "0f0e3855588fb167490e17845c466d45bc85764b85551517fcdb3f267035f689"
+    },
+    {
+      "source": "11 - Run Figures.txt",
+      "sha256": "c99863c8f31c61b19ce6cc167e29aaf142f304894df03e9f150c95ff5086d669"
+    }
+  ],
+  "historical_selection_rule_kind": "Qualitative joint inspection of validation field, spectral and peak diagnostics; no scalar automatic objective or formal Pareto optimization documented.",
+  "historical_conversation_evidence": "historical_decision.json"
+}

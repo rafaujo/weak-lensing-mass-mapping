@@ -1,0 +1,1011 @@
+--- v2/code/glimpse/audit_glimpse_fits_final.py
++++ portable/code/glimpse/audit_glimpse_fits_final.py
+@@ -13,6 +13,7 @@
+ 
+ No retuning. No reconstruction.
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ 
+@@ -27,17 +28,17 @@
+ 
+ N = 176
+ 
+-DATA = Path("/tatu/gob5/99 - Cosmos/data")
++DATA = Path(str(PATHS.data_root))
+ 
+ MASK_FILE = DATA / "WIDE12H_bin2_2arcmin_mask.npy"
+ KAPPA_FILE = DATA / "sampled_WIDE12H_bin2_2arcmin_kappa.npy"
+ 
+ REC_DIR = Path(
+-    "/u/gob5/Glimpse/test/glimpse_recon"
++    str(PATHS.work_root / 'test/glimpse_recon')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/glimpse_final_audit"
++    str(PATHS.work_root / 'test/glimpse_final_audit')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/glimpse/bootstrap_glimpse_comparison.py
++++ portable/code/glimpse/bootstrap_glimpse_comparison.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ import numpy as np
+ import pandas as pd
+@@ -5,7 +6,7 @@
+ # ============================================================
+ # INPUT
+ # ============================================================
+-B = Path("/u/gob5/Glimpse/test")
++B = Path(str(PATHS.work_root / 'test'))
+ 
+ OURS_FILE = B / "square_ours_metrics.csv"
+ GLIMPSE_FILE = B / "glimpse_test_metrics.csv"
+--- v2/code/glimpse/prepare_glimpse_validation.py
++++ portable/code/glimpse/prepare_glimpse_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ import csv
+ import numpy as np
+@@ -7,10 +8,10 @@
+ # ============================================================
+ # Frozen benchmark
+ # ============================================================
+-ROOT = Path("/tatu/gob5/99 - Cosmos")
+-DATA = ROOT / "data"
+-
+-OUT = Path("/u/gob5/Glimpse/validation")
++ROOT = Path(str(PATHS.code_root))
++DATA = PATHS.data_root
++
++OUT = Path(str(PATHS.work_root / 'validation'))
+ NPZ_DIR = OUT / "fair_npz"
+ 
+ OUT.mkdir(parents=True, exist_ok=True)
+--- v2/code/glimpse/run_glimpse_test_final.py
++++ portable/code/glimpse/run_glimpse_test_final.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ import csv
+ import os
+@@ -7,7 +8,7 @@
+ import numpy as np
+ from astropy.io import fits
+ 
+-B = Path("/u/gob5/Glimpse")
++B = Path(str(PATHS.work_root))
+ TEST = B / "test"
+ 
+ NPZ_DIR = TEST / "fair_npz"
+@@ -27,11 +28,10 @@
+         exist_ok=True
+     )
+ 
+-GLIMPSE = B / "build" / "glimpse"
++GLIMPSE = PATHS.glimpse_root / 'build' / 'glimpse'
+ 
+ MASK = np.load(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ ).astype(bool)
+ 
+ LAMBDA = 3.0
+--- v2/code/glimpse/run_glimpse_validation.py
++++ portable/code/glimpse/run_glimpse_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ import csv
+ import os
+@@ -11,7 +12,7 @@
+ # ============================================================
+ # Frozen validation configuration
+ # ============================================================
+-B = Path("/u/gob5/Glimpse")
++B = Path(str(PATHS.work_root))
+ 
+ VAL = B / "validation"
+ NPZ_DIR = VAL / "fair_npz"
+@@ -28,11 +29,10 @@
+ ]:
+     d.mkdir(parents=True, exist_ok=True)
+ 
+-GLIMPSE = B / "build" / "glimpse"
++GLIMPSE = PATHS.glimpse_root / 'build' / 'glimpse'
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ mask_full = np.load(MASK_FILE).astype(bool)
+--- v2/code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py
++++ portable/code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py
+@@ -25,6 +25,7 @@
+ 
+ No generic NPZ-key fallback is used.
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ 
+@@ -91,7 +92,7 @@
+ # =============================================================================
+ 
+ DATA = Path(
+-    "/tatu/gob5/99 - Cosmos/data"
++    str(PATHS.data_root)
+ )
+ 
+ MASK_FILE = (
+@@ -105,25 +106,19 @@
+ )
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ MC_ROOT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "mcalens/recon"
++    str(PATHS.work_root / 'test/mcalens/recon')
+ )
+ 
+ FUSION_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "weighted_band_fusion/"
+-    "W_A1_075_A2_075_test_maps.npy"
++    str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "peak_bootstrap_v5"
++    str(PATHS.work_root / 'test/peak_bootstrap_v5')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/bootstrap_wiener_vs_gs.py
++++ portable/code/pipeline/bootstrap_wiener_vs_gs.py
+@@ -26,6 +26,7 @@
+ 
+ No tuning is performed.
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ 
+@@ -42,7 +43,7 @@
+ SEED = 20260930
+ 
+ DATA = Path(
+-    "/tatu/gob5/99 - Cosmos/data"
++    str(PATHS.data_root)
+ )
+ 
+ MASK_FILE = (
+@@ -56,20 +57,15 @@
+ )
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ WIENER_CSV = Path(
+-    "/u/gob5/Glimpse/"
+-    "wiener_gaussian_only/"
+-    "wiener_test_cases.csv"
++    str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_cases.csv')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "wiener_vs_gaussian_starlet_bootstrap"
++    str(PATHS.work_root / 'test/wiener_vs_gaussian_starlet_bootstrap')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/build_fair_validation_pk.py
++++ portable/code/pipeline/build_fair_validation_pk.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ import json
+ import numpy as np
+@@ -6,12 +7,12 @@
+ # ============================================================
+ # CONFIG
+ # ============================================================
+-BASE = Path("/u/gob5/Glimpse/validation/fair_npz")
+-
+-DATA_DIR = Path("/tatu/gob5/99 - Cosmos/data")
++BASE = Path(str(PATHS.work_root / 'validation/fair_npz'))
++
++DATA_DIR = Path(str(PATHS.data_root))
+ MASK_FILE = DATA_DIR / "WIDE12H_bin2_2arcmin_mask.npy"
+ 
+-OUT = Path("/u/gob5/Glimpse/validation/mcalens")
++OUT = Path(str(PATHS.work_root / 'validation/mcalens'))
+ OUT.mkdir(parents=True, exist_ok=True)
+ 
+ COSMOS = range(3)
+--- v2/code/pipeline/generate_mcalens_validation_maps.py
++++ portable/code/pipeline/generate_mcalens_validation_maps.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import os
+ import sys
+ import time
+@@ -11,7 +12,7 @@
+ # =============================================================================
+ # PATHS
+ # =============================================================================
+-COSMOSTAT_ROOT = Path.home() / "cosmostat_mcalens"
++COSMOSTAT_ROOT = PATHS.mcalens_root
+ 
+ if str(COSMOSTAT_ROOT) not in sys.path:
+     sys.path.insert(
+@@ -79,21 +80,19 @@
+ # DATA
+ # =============================================================================
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/mcalens"
++    str(PATHS.work_root / 'validation/mcalens')
+ )
+ 
+ RECON_DIR = (
+--- v2/code/pipeline/make_revised_figures_v12.py
++++ portable/code/pipeline/make_revised_figures_v12.py
+@@ -41,6 +41,7 @@
+     fig_peak_pr_revised
+     fig_peak_amplitude_revised
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ 
+@@ -69,8 +70,7 @@
+ # =============================================================================
+ 
+ V8_WIENER_FILE = Path(
+-    "/u/gob5/Glimpse/wiener_gaussian_only/"
+-    "wiener_test_reconstruction.npy"
++    str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_reconstruction.npy')
+ )
+ 
+ 
+@@ -144,7 +144,7 @@
+ # =============================================================================
+ 
+ DATA_DIR = Path(
+-    "/tatu/gob5/99 - Cosmos/data"
++    str(PATHS.data_root)
+ )
+ 
+ KAPPA_FILE = (
+@@ -164,26 +164,20 @@
+ 
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ MC_ROOT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "mcalens/recon"
++    str(PATHS.work_root / 'test/mcalens/recon')
+ )
+ 
+ FUSION_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "weighted_band_fusion/"
+-    "W_A1_075_A2_075_test_maps.npy"
++    str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')
+ )
+ 
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "revised_paper_figures_v12"
++    str(PATHS.work_root / 'test/revised_paper_figures_v12')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/quantify_photoz_trend.py
++++ portable/code/pipeline/quantify_photoz_trend.py
+@@ -24,6 +24,7 @@
+ 
+     "mcalens"
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ 
+@@ -51,7 +52,7 @@
+ # =============================================================================
+ 
+ DATA = Path(
+-    "/tatu/gob5/99 - Cosmos/data"
++    str(PATHS.data_root)
+ )
+ 
+ LABEL_FILE = (
+@@ -70,25 +71,19 @@
+ )
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ MC_ROOT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "mcalens/recon"
++    str(PATHS.work_root / 'test/mcalens/recon')
+ )
+ 
+ FUSION_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "weighted_band_fusion/"
+-    "W_A1_075_A2_075_test_maps.npy"
++    str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "photoz_audit"
++    str(PATHS.work_root / 'test/photoz_audit')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/run_admm_gaussian_starlet_audit.py
++++ portable/code/pipeline/run_admm_gaussian_starlet_audit.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ import time
+ from pathlib import Path
+@@ -6,7 +7,7 @@
+ import pandas as pd
+ import torch
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ from weak_lensing_pipeline import (
+     WeakLensingOperator,
+@@ -38,22 +39,19 @@
+ )
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ PDHG_ROOT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "reweighted_gaussian_starlet"
++    str(PATHS.work_root / 'validation/reweighted_gaussian_starlet')
+ )
+ 
+ PDHG_REC_FILE = (
+@@ -72,8 +70,7 @@
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "admm_solver_audit"
++    str(PATHS.work_root / 'validation/admm_solver_audit')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/run_gaussian_starlet_joint_validation.py
++++ portable/code/pipeline/run_gaussian_starlet_joint_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ import time
+ from pathlib import Path
+@@ -6,7 +7,7 @@
+ import pandas as pd
+ import torch
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ from weak_lensing_pipeline import (
+     WeakLensingOperator,
+@@ -22,22 +23,19 @@
+ )
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "starlet_gaussian_prior"
++    str(PATHS.work_root / 'validation/starlet_gaussian_prior')
+ )
+ OUT.mkdir(
+     parents=True,
+--- v2/code/pipeline/run_gaussian_starlet_reduced_shear.py
++++ portable/code/pipeline/run_gaussian_starlet_reduced_shear.py
+@@ -54,6 +54,7 @@
+ Outputs are checkpointed one held-out realization at a time:
+ R10 ... R29.
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ import sys
+@@ -69,7 +70,7 @@
+ # =============================================================================
+ 
+ ROOT = Path(
+-    "/tatu/gob5/99 - Cosmos"
++    str(PATHS.code_root)
+ )
+ 
+ sys.path.insert(
+@@ -80,7 +81,7 @@
+ from weak_lensing_pipeline import WeakLensingOperator
+ 
+ 
+-DATA = ROOT / "data"
++DATA = PATHS.data_root
+ 
+ MASK_FILE = (
+     DATA
+@@ -88,23 +89,19 @@
+ )
+ 
+ FAIR_ROOT = Path(
+-    "/u/gob5/Glimpse/test/fair_npz"
++    str(PATHS.work_root / 'test/fair_npz')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ GS_NOMINAL_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "gaussian_starlet_reduced_shear"
++    str(PATHS.work_root / 'test/gaussian_starlet_reduced_shear')
+ )
+ 
+ BLOCK_DIR = (
+--- v2/code/pipeline/run_gaussian_starlet_test.py
++++ portable/code/pipeline/run_gaussian_starlet_test.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ import time
+ from pathlib import Path
+@@ -6,7 +7,7 @@
+ import pandas as pd
+ import torch
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ from weak_lensing_pipeline import (
+     WeakLensingOperator,
+@@ -22,24 +23,21 @@
+ )
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/test/fair_npz"
++    str(PATHS.work_root / 'test/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ # IMPORTANT:
+ # Estimated exclusively from VALIDATION truth maps R0-R9.
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior')
+ )
+ OUT.mkdir(
+     parents=True,
+@@ -1751,8 +1749,7 @@
+ # OUR EXISTING METHODS
+ # ------------------------------------------------------------
+ OURS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "square_ours_metrics.csv"
++    str(PATHS.work_root / 'test/square_ours_metrics.csv')
+ )
+ 
+ if OURS_FILE.exists():
+@@ -1795,8 +1792,7 @@
+ # MCALENS
+ # ------------------------------------------------------------
+ MC_FILE = Path(
+-    "/u/gob5/Glimpse/test/mcalens/"
+-    "mcalens_test_metrics.csv"
++    str(PATHS.work_root / 'test/mcalens/mcalens_test_metrics.csv')
+ )
+ 
+ if MC_FILE.exists():
+@@ -1831,18 +1827,15 @@
+ # ============================================================
+ glimpse_candidates = [
+     Path(
+-        "/u/gob5/Glimpse/test/"
+-        "glimpse_test_metrics.csv"
++        str(PATHS.work_root / 'test/glimpse_test_metrics.csv')
+     ),
+ 
+     Path(
+-        "/u/gob5/Glimpse/test/"
+-        "glimpse_metrics.csv"
++        str(PATHS.work_root / 'test/glimpse_metrics.csv')
+     ),
+ 
+     Path(
+-        "/u/gob5/Glimpse/test/"
+-        "fair_glimpse_test_metrics.csv"
++        str(PATHS.work_root / 'test/fair_glimpse_test_metrics.csv')
+     ),
+ ]
+ 
+--- v2/code/pipeline/run_gaussian_starlet_validation.py
++++ portable/code/pipeline/run_gaussian_starlet_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ import time
+ from pathlib import Path
+@@ -6,7 +7,7 @@
+ import pandas as pd
+ import torch
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ from weak_lensing_pipeline import WeakLensingOperator, KaiserSquires
+ 
+@@ -19,22 +20,19 @@
+ )
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "starlet_gaussian_prior"
++    str(PATHS.work_root / 'validation/starlet_gaussian_prior')
+ )
+ OUT.mkdir(parents=True, exist_ok=True)
+ 
+--- v2/code/pipeline/run_mcalens_test.py
++++ portable/code/pipeline/run_mcalens_test.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ from concurrent.futures import ProcessPoolExecutor, as_completed
+ import os
+@@ -8,23 +9,21 @@
+ # ============================================================
+ # FROZEN TEST CONFIGURATION
+ # ============================================================
+-BASE = Path("/u/gob5/Glimpse/test/fair_npz")
++BASE = Path(str(PATHS.work_root / 'test/fair_npz'))
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ # IMPORTANT:
+ # This spectrum was built exclusively from validation:
+ # C0-C2, R0-R9, P0-P7.
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/mcalens"
++    str(PATHS.work_root / 'test/mcalens')
+ )
+ OUT.mkdir(parents=True, exist_ok=True)
+ 
+@@ -886,18 +885,15 @@
+     # ========================================================
+     candidates = [
+         Path(
+-            "/u/gob5/Glimpse/test/"
+-            "square_ours_metrics.csv"
++            str(PATHS.work_root / 'test/square_ours_metrics.csv')
+         ),
+ 
+         Path(
+-            "/u/gob5/Glimpse/test/"
+-            "square_method_metrics.csv"
++            str(PATHS.work_root / 'test/square_method_metrics.csv')
+         ),
+ 
+         Path(
+-            "/u/gob5/Glimpse/test/"
+-            "our_square_metrics.csv"
++            str(PATHS.work_root / 'test/our_square_metrics.csv')
+         ),
+     ]
+ 
+--- v2/code/pipeline/run_mcalens_validation.py
++++ portable/code/pipeline/run_mcalens_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ from pathlib import Path
+ from concurrent.futures import ProcessPoolExecutor, as_completed
+ import os
+@@ -8,19 +9,17 @@
+ # ============================================================
+ # CONFIG
+ # ============================================================
+-BASE = Path("/u/gob5/Glimpse/validation/fair_npz")
++BASE = Path(str(PATHS.work_root / 'validation/fair_npz'))
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/mcalens"
++    str(PATHS.work_root / 'validation/mcalens')
+ )
+ OUT.mkdir(parents=True, exist_ok=True)
+ 
+--- v2/code/pipeline/run_multiscale_fusion_validation.py
++++ portable/code/pipeline/run_multiscale_fusion_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ from pathlib import Path
+ 
+@@ -6,7 +7,7 @@
+ from scipy.ndimage import gaussian_filter, maximum_filter
+ from scipy.spatial import cKDTree
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ 
+ # =============================================================================
+@@ -17,29 +18,25 @@
+ PIXEL_ARCMIN = 2.0
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ # Frozen Gaussian+Starlet validation reconstruction.
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "reweighted_gaussian_starlet/"
+-    "stage1_gaussian_starlet_rec.npy"
++    str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy')
+ )
+ 
+ # Root under which we try to locate MCALens validation maps.
+ MC_ROOT = Path(
+-    "/u/gob5/Glimpse/validation/mcalens"
++    str(PATHS.work_root / 'validation/mcalens')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "multiscale_fusion"
++    str(PATHS.work_root / 'validation/multiscale_fusion')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/run_reweighted_gaussian_starlet_validation.py
++++ portable/code/pipeline/run_reweighted_gaussian_starlet_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ import time
+ from pathlib import Path
+@@ -6,7 +7,7 @@
+ import pandas as pd
+ import torch
+ 
+-sys.path.insert(0, "/tatu/gob5/99 - Cosmos")
++sys.path.insert(0, str(PATHS.code_root))
+ 
+ from weak_lensing_pipeline import (
+     WeakLensingOperator,
+@@ -22,22 +23,19 @@
+ )
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "reweighted_gaussian_starlet"
++    str(PATHS.work_root / 'validation/reweighted_gaussian_starlet')
+ )
+ OUT.mkdir(
+     parents=True,
+--- v2/code/pipeline/run_square_starlet_comparison.py
++++ portable/code/pipeline/run_square_starlet_comparison.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import argparse
+ import csv
+ from pathlib import Path
+@@ -11,9 +12,9 @@
+ # ============================================================
+ # FROZEN SCIENTIFIC SETTINGS
+ # ============================================================
+-ROOT = Path("/tatu/gob5/99 - Cosmos")
+-DATA = ROOT / "data"
+-GLROOT = Path("/u/gob5/Glimpse")
++ROOT = Path(str(PATHS.code_root))
++DATA = PATHS.data_root
++GLROOT = Path(str(PATHS.work_root))
+ 
+ MASK_FILE = DATA / "WIDE12H_bin2_2arcmin_mask.npy"
+ KAPPA_FILE = DATA / "sampled_WIDE12H_bin2_2arcmin_kappa.npy"
+--- v2/code/pipeline/run_weighted_band_fusion_test.py
++++ portable/code/pipeline/run_weighted_band_fusion_test.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import time
+ from pathlib import Path
+ 
+@@ -23,27 +24,23 @@
+ METHOD_HYBRID = "W_A1_075_A2_075"
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/test/fair_npz"
++    str(PATHS.work_root / 'test/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "starlet_gaussian_prior/"
+-    "gaussian_starlet_test_reconstruction.npy"
++    str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')
+ )
+ 
+ MC_DIR = Path(
+-    "/u/gob5/Glimpse/test/mcalens/recon"
++    str(PATHS.work_root / 'test/mcalens/recon')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/test/"
+-    "weighted_band_fusion"
++    str(PATHS.work_root / 'test/weighted_band_fusion')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/run_weighted_band_fusion_validation.py
++++ portable/code/pipeline/run_weighted_band_fusion_validation.py
+@@ -1,3 +1,4 @@
++from project_paths import PATHS
+ import sys
+ from pathlib import Path
+ 
+@@ -20,28 +21,23 @@
+ PIXEL_ARCMIN = 2.0
+ 
+ BASE = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ GS_FILE = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "reweighted_gaussian_starlet/"
+-    "stage1_gaussian_starlet_rec.npy"
++    str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy')
+ )
+ 
+ MC_DIR = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "mcalens/recon"
++    str(PATHS.work_root / 'validation/mcalens/recon')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/validation/"
+-    "weighted_band_fusion"
++    str(PATHS.work_root / 'validation/weighted_band_fusion')
+ )
+ 
+ OUT.mkdir(
+--- v2/code/pipeline/run_wiener_gaussian_only.py
++++ portable/code/pipeline/run_wiener_gaussian_only.py
+@@ -19,6 +19,7 @@
+ 
+ beta is selected ONLY on validation.
+ """
++from project_paths import PATHS
+ 
+ from pathlib import Path
+ import sys
+@@ -29,7 +30,7 @@
+ 
+ sys.path.insert(
+     0,
+-    "/tatu/gob5/99 - Cosmos"
++    str(PATHS.code_root)
+ )
+ 
+ from weak_lensing_pipeline import WeakLensingOperator
+@@ -48,25 +49,23 @@
+ N = 176
+ 
+ MASK_FILE = Path(
+-    "/tatu/gob5/99 - Cosmos/data/"
+-    "WIDE12H_bin2_2arcmin_mask.npy"
++    str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')
+ )
+ 
+ PK_FILE = Path(
+-    "/u/gob5/Glimpse/validation/mcalens/"
+-    "fair_validation_pk_mean.npy"
++    str(PATHS.prior_file)
+ )
+ 
+ VAL_DATA_ROOT = Path(
+-    "/u/gob5/Glimpse/validation/fair_npz"
++    str(PATHS.work_root / 'validation/fair_npz')
+ )
+ 
+ TEST_DATA_ROOT = Path(
+-    "/u/gob5/Glimpse/test/fair_npz"
++    str(PATHS.work_root / 'test/fair_npz')
+ )
+ 
+ OUT = Path(
+-    "/u/gob5/Glimpse/wiener_gaussian_only"
++    str(PATHS.work_root / 'wiener_gaussian_only')
+ )
+ 
+ OUT.mkdir(

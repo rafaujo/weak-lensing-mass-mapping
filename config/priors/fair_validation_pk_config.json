@@ -1,0 +1,77 @@
+{
+  "source_cache": "/u/gob5/Glimpse/validation/fair_npz",
+  "mask_file": "/tatu/gob5/99 - Cosmos/data/WIDE12H_bin2_2arcmin_mask.npy",
+  "cosmologies": [
+    0,
+    1,
+    2
+  ],
+  "realizations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "patches": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "patch_rows": [
+    [
+      0,
+      176
+    ],
+    [
+      176,
+      352
+    ],
+    [
+      352,
+      528
+    ],
+    [
+      528,
+      704
+    ],
+    [
+      704,
+      880
+    ],
+    [
+      880,
+      1056
+    ],
+    [
+      1056,
+      1232
+    ],
+    [
+      1232,
+      1408
+    ]
+  ],
+  "n_validation_maps": 240,
+  "patch_shape": [
+    176,
+    176
+  ],
+  "truth_usage": "validation only",
+  "test_truth_used": false,
+  "mass_sheet": "mean removed over observed pixels before spectrum estimation",
+  "outside_mask": "set explicitly to zero",
+  "mask_correction": "each patch spectrum divided by f_obs",
+  "aggregation_primary": "mean over all 240 validation patches",
+  "spectrum_convention": "Python reproduction of CosmoStat/Sparse2D im_isospec normalization"
+}

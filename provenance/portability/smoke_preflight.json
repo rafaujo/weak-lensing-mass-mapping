@@ -1,0 +1,76 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "paths": {
+    "data_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\data",
+    "work_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\work",
+    "glimpse_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\external\\glimpse",
+    "mcalens_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\external\\cosmostat",
+    "repository_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable",
+    "code_root": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\code\\pipeline",
+    "prior_file": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\config\\priors\\fair_validation_pk_mean.npy",
+    "glimpse_executable": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\external\\glimpse\\build\\glimpse"
+  },
+  "inputs": [
+    {
+      "path": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\data\\sampled_WIDE12H_bin2_2arcmin_kappa.npy",
+      "exists": false,
+      "sha256_matches": false
+    },
+    {
+      "path": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\data\\sampled_label.npy",
+      "exists": false,
+      "sha256_matches": false
+    },
+    {
+      "path": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\data\\WIDE12H_bin2_2arcmin_mask.npy",
+      "exists": false,
+      "sha256_matches": false
+    },
+    {
+      "path": "D:\\00 Doutorado\\EGRR 3D\\publication_review_2026-10-01\\weak_lensing_mass_mapping_portable\\config\\priors\\fair_validation_pk_mean.npy",
+      "exists": true,
+      "sha256_matches": true
+    }
+  ],
+  "modules": {
+    "numpy": {
+      "discoverable": true,
+      "version": "2.3.5"
+    },
+    "torch": {
+      "discoverable": false,
+      "version": null
+    },
+    "scipy": {
+      "discoverable": false,
+      "version": null
+    },
+    "pandas": {
+      "discoverable": true,
+      "version": "3.0.1"
+    },
+    "astropy": {
+      "discoverable": false,
+      "version": null
+    },
+    "pywt": {
+      "discoverable": false,
+      "version": null
+    },
+    "matplotlib": {
+      "discoverable": false,
+      "version": null
+    }
+  },
+  "mcalens": {
+    "checkout_present": false,
+    "expected_commit": "7ae457db1697ac966fc6e739c00b91fa6a47ec2c",
+    "observed_commit": null,
+    "commit_matches": false,
+    "local_starlet_patch_matches": false
+  },
+  "glimpse_executable_present": false,
+  "core_prerequisites_present": false,
+  "numerical_smoke_executed": false,
+  "scope": "File hashes, module discovery and checkout metadata only; no import/solver/device validation or numerical execution."
+}

@@ -1,0 +1,91 @@
+{
+  "project": "Artigo Cosmologia",
+  "conversation_title": "Revisão do artigo",
+  "conversation_id": "6aaa6e1e-5db0-83e9-9228-342be8a76097",
+  "retrieved_on": "2026-10-01",
+  "historical_selection_rationale_found": true,
+  "selection_kind": "Qualitative joint inspection of validation field, spectral and peak diagnostics; no scalar automatic objective or formal Pareto optimization documented.",
+  "events": [
+    {
+      "turn_id": "cdc73e0a-3c30-45cc-acab-8bbe5be6285f",
+      "started_at_utc": "2026-09-29T20:28:02.933000+00:00",
+      "interpretation": "The initial NMSE ranking was available; the response explicitly deferred freezing weights until spectral and peak diagnostics were inspected.",
+      "local_audit_page": "revisao_artigo_page_6.json",
+      "local_audit_page_sha256": "f0b86651b7a4a16961bf6a23a8a91421bb91f428ccae72555391a29a73d80335",
+      "messages": [
+        {
+          "id": "cdc73e0a-3c30-45cc-acab-8bbe5be6285f",
+          "type": "userMessage",
+          "sha256": "cbd209fb76d1bb28feb0bf495d34d04c6c82c9fbc048cc28d889a304843c703e"
+        },
+        {
+          "id": "ea518137-1ea3-4eea-bab3-7bbf2a01d112",
+          "type": "agentMessage",
+          "sha256": "a5d7d0a54f0033b26f4942486ab8e90e19b0809f1cc7038a9b69c0a57b5b2424"
+        }
+      ]
+    },
+    {
+      "turn_id": "5c4870d4-c5a1-473e-85a9-0329a4ab8a60",
+      "started_at_utc": "2026-09-29T20:36:41.373000+00:00",
+      "interpretation": "The user supplied the validation science summary. The assistant recommended (.75,.75), explicitly comparing the small NMSE penalty with improvements in spectral errors, amplitude recovery and 6-arcmin peak PR-AUC.",
+      "local_audit_page": "revisao_artigo_page_6.json",
+      "local_audit_page_sha256": "f0b86651b7a4a16961bf6a23a8a91421bb91f428ccae72555391a29a73d80335",
+      "messages": [
+        {
+          "id": "5c4870d4-c5a1-473e-85a9-0329a4ab8a60",
+          "type": "userMessage",
+          "sha256": "ec038ac1b514012773484ce9f248d74ab611fb697e06b394994fd2b323b6bd3f"
+        },
+        {
+          "id": "b1ea111d-09c6-4093-bb21-5760756ee1ec",
+          "type": "agentMessage",
+          "sha256": "a499a42c4cfeec1c760b4212bbc25864f50465ce22631b29227b1c4046b7a959"
+        }
+      ]
+    },
+    {
+      "turn_id": "bbb21326-5ac3-4b73-9d03-0afda6848bae",
+      "started_at_utc": "2026-09-29T20:39:26.877408+00:00",
+      "interpretation": "The user requested code. The response supplied the test runner with (.75,.75) frozen and no further weight tuning.",
+      "local_audit_page": "revisao_artigo_page_6.json",
+      "local_audit_page_sha256": "f0b86651b7a4a16961bf6a23a8a91421bb91f428ccae72555391a29a73d80335",
+      "messages": [
+        {
+          "id": "bbb21326-5ac3-4b73-9d03-0afda6848bae",
+          "type": "userMessage",
+          "sha256": "95d164d5bc517d1e7608b19d007c031a226d30a829c0620e98f4b4a7d07ebbb2"
+        },
+        {
+          "id": "b40069be-b459-41a3-81ec-ae37bc25c2c0",
+          "type": "agentMessage",
+          "sha256": "745e6eb5fcf6fe8209079b110d9644089f05a216ab46834c2b9638324c456c57"
+        }
+      ]
+    },
+    {
+      "turn_id": "92d9a784-a555-4321-b86f-780d176956ba",
+      "started_at_utc": "2026-09-29T20:45:11.761000+00:00",
+      "interpretation": "The user supplied the fusion test results after the validation decision and frozen test script.",
+      "local_audit_page": "revisao_artigo_page_6.json",
+      "local_audit_page_sha256": "f0b86651b7a4a16961bf6a23a8a91421bb91f428ccae72555391a29a73d80335",
+      "messages": [
+        {
+          "id": "92d9a784-a555-4321-b86f-780d176956ba",
+          "type": "userMessage",
+          "sha256": "d84ae65ec2455fbf64760754abc3002850144c585607f2d83d2ce798926ace85"
+        },
+        {
+          "id": "cd1b9488-4028-41ce-8b90-54eaca6b60bc",
+          "type": "agentMessage",
+          "sha256": "2cbd78377c6dd64e33989f8e72ab1bc2c212ef9462a782152fb80e7a0bd41d22"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "The conversation records the recommendation, subsequent request for the frozen script, and resulting test outputs; it is not an independent preregistration.",
+    "Test results for constituent methods were already known in the development conversation. The supported timing claim is before evaluating the frozen fusion on test, not before anyone had inspected any test results.",
+    "The original private conversation pages remain in the local audit folder, outside this distributable archive."
+  ]
+}

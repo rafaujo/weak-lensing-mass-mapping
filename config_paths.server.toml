@@ -1,0 +1,5 @@
+# Existing scientific environment/data; no files there are overwritten by the smoke runner.
+data_root = "/tatu/gob5/99 - Cosmos/data"
+work_root = "work/server_smoke"
+glimpse_root = "/u/gob5/Glimpse"
+mcalens_root = "~/cosmostat_mcalens"

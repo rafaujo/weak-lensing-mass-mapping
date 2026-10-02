@@ -1,0 +1,34 @@
+--- upstream starlet.py (line endings normalized)
++++ recorded local starlet.py
+@@ -154,17 +154,20 @@
+     return decor
+ 
+ 
+-class MRStarlet(pysparse.MRStarlet):
+-    @vectorize(signature="(n,m)->(p,n,m)")
+-    def transform(self, im, nz, *args, **kwargs):
+-        wl = super().transform(im.astype(np.float64), nz, *args, **kwargs)
+-        return np.stack(wl).astype(np.float64)
+-
+-    @vectorize(signature="(p,n,m)->(n,m)")
+-    def recons(self, wt, *args, **kwargs):
+-        wl = list(wt.astype(np.float64))
+-        return super().recons(wl, *args, **kwargs).astype(np.float64)
+-
++if PYSAP_CXX:
++    class MRStarlet(pysparse.MRStarlet):
++        @vectorize(signature="(n,m)->(p,n,m)")
++        def transform(self, im, nz, *args, **kwargs):
++            wl = super().transform(im.astype(np.float64), nz, *args, **kwargs)
++            return np.stack(wl).astype(np.float64)
++
++        @vectorize(signature="(p,n,m)->(n,m)")
++        def recons(self, wt, *args, **kwargs):
++            wl = list(wt.astype(np.float64))
++            return super().recons(wl, *args, **kwargs).astype(np.float64)
++
++else:
++    MRStarlet = None
+ 
+ def star2d(im, scale, gen2=False, bord=1, nb_procs=0, fast=True, verb=0):
+     """

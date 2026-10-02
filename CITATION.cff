@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Please cite this software and the associated manuscript; release DOI will be added after archival publication."
+type: software
+repository-code: "https://github.com/rafaujo/weak-lensing-mass-mapping"
+title: "Reproducibility code for Sparse and Gaussian Priors for Weak-Lensing Mass Mapping: Observable-Dependent Performance on FAIR Universe Simulations"
+authors:
+  - family-names: "de Araujo"
+    given-names: "Rafael L."
+    affiliation: "Federal University of Bahia"
+  - family-names: "Pestana"
+    given-names: "Reynam da C."
+    affiliation: "Federal University of Bahia"
+abstract: "Code, frozen settings and compact results for the FAIR Universe weak-lensing mass-mapping comparison."
+keywords:
+  - weak gravitational lensing
+  - mass mapping
+  - reproducibility

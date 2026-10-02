@@ -1,0 +1,938 @@
+# ============================================================
+# FAIR — NOISE-WEIGHTED STARLET EXPERIMENT
+#
+# Goal:
+#   Test whether the poor unweighted-Starlet result was caused
+#   by using the same L1 threshold at all Starlet scales.
+#
+# Prior:
+#
+#   R(kappa) = sum_j alpha_j || w_j ||_1
+#
+# with
+#
+#   alpha_j = sigma_j / sigma_1
+#
+# and sigma_j measured empirically by propagating pure shape
+# noise through:
+#
+#   n_gamma -> M n_gamma -> A^T M n_gamma -> Starlet
+#
+# Solver:
+#   Condat-Vu primal-dual, with exact K and K^T.
+#
+# Comparison:
+#   tuned KS, sigma=1.5
+#
+# Screen:
+#   C0,C1,C2 x realizations R0,R3 = 6 maps
+# ============================================================
+
+
+from pathlib import Path
+import importlib
+import time
+
+import numpy as np
+import pandas as pd
+import torch
+
+import weak_lensing_pipeline as wlp
+importlib.reload(wlp)
+
+
+# ============================================================
+# 0. CONFIG
+# ============================================================
+
+DEVICE = torch.device(
+    "cuda"
+    if torch.cuda.is_available()
+    else "cpu"
+)
+
+COSMOLOGY_IDS = [
+    0,
+    1,
+    2,
+]
+
+SCREEN_REALIZATION_IDS = [
+    0,
+    3,
+]
+
+
+# ------------------------------------------------------------
+# Starlet
+# ------------------------------------------------------------
+
+J = 4
+
+
+# ------------------------------------------------------------
+# Shape noise
+# ------------------------------------------------------------
+
+SIGMA_E = 0.4
+N_GAL = 30.0
+PIXEL_SIZE_ARCMIN = 2.0
+
+PIXEL_AREA_ARCMIN2 = (
+    PIXEL_SIZE_ARCMIN**2
+)
+
+SIGMA_N = (
+    SIGMA_E
+    /
+    np.sqrt(
+        2.0
+        *
+        N_GAL
+        *
+        PIXEL_AREA_ARCMIN2
+    )
+)
+
+
+# ------------------------------------------------------------
+# Noise propagation used to estimate alpha_j
+# ------------------------------------------------------------
+
+N_NOISE_CAL = 64
+
+NOISE_CAL_SEED0 = 10000
+
+
+# ------------------------------------------------------------
+# Lambda grid
+#
+# lambda multiplies alpha_j.
+#
+# Because alpha_1 = 1, these are directly comparable in scale
+# to the previous unweighted Starlet experiment.
+# ------------------------------------------------------------
+
+LAMBDA_GRID = np.array(
+    [
+        0.020,
+        0.030,
+        0.040,
+        0.050,
+        0.060,
+        0.080,
+        0.120,
+    ],
+    dtype=float,
+)
+
+
+# ------------------------------------------------------------
+# Tuned KS reference
+# ------------------------------------------------------------
+
+KS_SIGMA = 1.5
+
+
+# ------------------------------------------------------------
+# Fixed iterative-method initialization
+# ------------------------------------------------------------
+
+INIT_SIGMA = 1.0
+
+
+# ------------------------------------------------------------
+# Primal-dual
+# ------------------------------------------------------------
+
+MAX_ITER = 2500
+
+CHECK_EVERY = 10
+
+MIN_ITER = 50
+
+KKT_TOL = 1e-4
+
+
+print("=" * 110)
+print("FAIR — NOISE-WEIGHTED STARLET")
+print("=" * 110)
+
+print(
+    "Device       :",
+    DEVICE
+)
+
+print(
+    "sigma_n      :",
+    SIGMA_N
+)
+
+print(
+    "Starlet J    :",
+    J
+)
+
+print(
+    "noise MC     :",
+    N_NOISE_CAL
+)
+
+print(
+    "lambda grid  :",
+    LAMBDA_GRID
+)
+
+print(
+    "screen maps  :",
+    3
+    *
+    len(
+        SCREEN_REALIZATION_IDS
+    )
+)
+
+
+# ============================================================
+# 1. FIND DATA
+# ============================================================
+
+def find_local_file(
+    filename,
+):
+
+    cwd = Path.cwd()
+
+    candidates = [
+        cwd / filename,
+        cwd / "data" / filename,
+        cwd / "DATA" / filename,
+        cwd / "FAIR" / filename,
+        cwd / "fair" / filename,
+    ]
+
+    for path in candidates:
+
+        if path.exists():
+
+            return path.resolve()
+
+    matches = list(
+        cwd.rglob(
+            filename
+        )
+    )
+
+    if len(matches) == 0:
+
+        raise FileNotFoundError(
+            filename
+        )
+
+    return (
+        matches[0]
+        .resolve()
+    )
+
+
+kappa_path = find_local_file(
+    "sampled_WIDE12H_bin2_2arcmin_kappa.npy"
+)
+
+mask_path = find_local_file(
+    "WIDE12H_bin2_2arcmin_mask.npy"
+)
+
+label_path = find_local_file(
+    "sampled_label.npy"
+)
+
+
+kappa_all = np.load(
+    kappa_path
+).astype(
+    np.float32
+)
+
+mask_full = np.load(
+    mask_path
+).astype(
+    bool
+)
+
+labels = np.load(
+    label_path
+)
+
+
+H, W = (
+    mask_full.shape
+)
+
+
+mask_t = torch.from_numpy(
+    mask_full.astype(
+        np.float32
+    )
+).to(
+    DEVICE
+)
+
+
+print(
+    "\nGeometry:",
+    H,
+    "x",
+    W
+)
+
+print(
+    "f_obs:",
+    mask_full.mean()
+)
+
+
+# ============================================================
+# 2. WEAK-LENSING OPERATOR
+# ============================================================
+
+op = wlp.WeakLensingOperator(
+    H,
+    W,
+    DEVICE,
+)
+
+ks = wlp.KaiserSquires(
+    op
+)
+
+
+dot = op.dot_test()
+
+print(
+    "\nWeak-lensing operator dot-test:",
+    f"{dot:.3e}"
+)
+
+assert dot < 1e-8
+
+
+# ============================================================
+# 3. STARLET FRAME
+#
+# B3-spline à trous:
+#
+#   h = [1,4,6,4,1]/16
+#
+# c_j = H_j c_{j-1}
+# w_j = c_{j-1} - c_j
+#
+# The Fourier implementation gives exact K and K^T under the
+# periodic boundary convention.
+# ============================================================
+
+def periodic_response_1d(
+    N,
+    taps,
+    offsets,
+    device,
+):
+
+    kernel = torch.zeros(
+        N,
+        dtype=torch.float32,
+        device=device,
+    )
+
+    for a, offset in zip(
+        taps,
+        offsets,
+    ):
+
+        kernel[
+            int(offset)
+            %
+            N
+        ] += float(
+            a
+        )
+
+    return torch.fft.fft(
+        kernel
+    ).to(
+        torch.complex64
+    )
+
+
+class StarletFrame:
+
+    def __init__(
+        self,
+        H,
+        W,
+        J,
+        device,
+    ):
+
+        self.H = int(
+            H
+        )
+
+        self.W = int(
+            W
+        )
+
+        self.J = int(
+            J
+        )
+
+        self.device = torch.device(
+            device
+        )
+
+
+        h = (
+            np.array(
+                [
+                    1.0,
+                    4.0,
+                    6.0,
+                    4.0,
+                    1.0,
+                ],
+                dtype=np.float64,
+            )
+            /
+            16.0
+        )
+
+        base_offsets = np.array(
+            [
+                -2,
+                -1,
+                0,
+                1,
+                2,
+            ],
+            dtype=int,
+        )
+
+
+        cumulative = torch.ones(
+            self.H,
+            self.W,
+            dtype=torch.complex64,
+            device=self.device,
+        )
+
+        transfers = []
+
+
+        for level in range(
+            1,
+            self.J + 1,
+        ):
+
+            dilation = (
+                2 **
+                (
+                    level -
+                    1
+                )
+            )
+
+            offsets = (
+                base_offsets
+                *
+                dilation
+            )
+
+
+            Hy = periodic_response_1d(
+                self.H,
+                h,
+                offsets,
+                self.device,
+            )
+
+            Hx = periodic_response_1d(
+                self.W,
+                h,
+                offsets,
+                self.device,
+            )
+
+
+            smooth = (
+                Hy[:, None]
+                *
+                Hx[None, :]
+            )
+
+
+            detail = (
+                cumulative
+                *
+                (
+                    1.0
+                    -
+                    smooth
+                )
+            )
+
+
+            transfers.append(
+                detail
+            )
+
+
+            cumulative = (
+                cumulative
+                *
+                smooth
+            )
+
+
+        self.transfers = (
+            torch.stack(
+                transfers,
+                dim=0,
+            )
+            .to(
+                self.device,
+                dtype=torch.complex64,
+            )
+        )
+
+
+        self.coarse_transfer = (
+            cumulative
+        )
+
+
+        # ||K||² exactly from Fourier diagonalization.
+        frame_power = torch.sum(
+            torch.abs(
+                self.transfers
+            )**2,
+            dim=0,
+        )
+
+
+        self.norm_sq = float(
+            frame_power
+            .max()
+            .item()
+        )
+
+
+    # --------------------------------------------------------
+    # Kx
+    # --------------------------------------------------------
+
+    def analysis(
+        self,
+        x,
+    ):
+
+        X = torch.fft.fft2(
+            x
+        )
+
+
+        Y = (
+            self.transfers
+            *
+            X[
+                None,
+                :,
+                :
+            ]
+        )
+
+
+        return (
+            torch.fft.ifft2(
+                Y,
+                dim=(-2, -1),
+            )
+            .real
+            .to(
+                torch.float32
+            )
+        )
+
+
+    # --------------------------------------------------------
+    # K^T p
+    # --------------------------------------------------------
+
+    def adjoint(
+        self,
+        coeff,
+    ):
+
+        C = torch.fft.fft2(
+            coeff,
+            dim=(-2, -1),
+        )
+
+
+        X = torch.sum(
+            torch.conj(
+                self.transfers
+            )
+            *
+            C,
+            dim=0,
+        )
+
+
+        return (
+            torch.fft.ifft2(
+                X
+            )
+            .real
+            .to(
+                torch.float32
+            )
+        )
+
+
+    # --------------------------------------------------------
+    # coarse c_J
+    # --------------------------------------------------------
+
+    def coarse(
+        self,
+        x,
+    ):
+
+        X = torch.fft.fft2(
+            x
+        )
+
+
+        return (
+            torch.fft.ifft2(
+                self.coarse_transfer
+                *
+                X
+            )
+            .real
+            .to(
+                torch.float32
+            )
+        )
+
+
+    # --------------------------------------------------------
+    # dot test
+    # --------------------------------------------------------
+
+    def adjoint_test(
+        self,
+        seed=1234,
+    ):
+
+        generator = torch.Generator(
+            device=self.device
+        )
+
+        generator.manual_seed(
+            seed
+        )
+
+
+        x = torch.randn(
+            self.H,
+            self.W,
+            generator=generator,
+            device=self.device,
+        )
+
+
+        p = torch.randn(
+            self.J,
+            self.H,
+            self.W,
+            generator=generator,
+            device=self.device,
+        )
+
+
+        Kx = self.analysis(
+            x
+        )
+
+        KTp = self.adjoint(
+            p
+        )
+
+
+        lhs = torch.sum(
+            Kx
+            *
+            p
+        )
+
+        rhs = torch.sum(
+            x
+            *
+            KTp
+        )
+
+
+        denom = (
+            Kx.norm()
+            *
+            p.norm()
+            +
+            1e-30
+        )
+
+
+        return float(
+            (
+                torch.abs(
+                    lhs -
+                    rhs
+                )
+                /
+                denom
+            )
+            .item()
+        )
+
+
+starlet = StarletFrame(
+    H=H,
+    W=W,
+    J=J,
+    device=DEVICE,
+)
+
+
+starlet_dot = (
+    starlet.adjoint_test()
+)
+
+
+print("\n" + "=" * 110)
+print("STARLET CHECK")
+print("=" * 110)
+
+print(
+    "bands       :",
+    J
+)
+
+print(
+    "||K||^2     :",
+    starlet.norm_sq
+)
+
+print(
+    "adjoint test:",
+    f"{starlet_dot:.3e}"
+)
+
+
+assert (
+    starlet_dot
+    <
+    1e-7
+)
+
+
+# ============================================================
+# 4. PROPAGATE PURE SHAPE NOISE
+#
+# gradient noise:
+#
+#   eta = A^T M n
+#
+# Then estimate:
+#
+#   sigma_j^2 = E || (K eta)_j ||² / Npix
+#
+# The regularizer acts over the whole reconstruction domain,
+# therefore sigma_j is measured over the whole Starlet band.
+# ============================================================
+
+print("\n" + "=" * 110)
+print("PROPAGATED-NOISE CALIBRATION")
+print("=" * 110)
+
+
+band_var_accum = torch.zeros(
+    J,
+    dtype=torch.float64,
+    device=DEVICE,
+)
+
+
+for mc in range(
+    N_NOISE_CAL
+):
+
+    generator = torch.Generator(
+        device=DEVICE
+    )
+
+    generator.manual_seed(
+        NOISE_CAL_SEED0
+        +
+        mc
+    )
+
+
+    n1 = (
+        SIGMA_N
+        *
+        torch.randn(
+            H,
+            W,
+            generator=generator,
+            device=DEVICE,
+            dtype=torch.float32,
+        )
+    )
+
+    n2 = (
+        SIGMA_N
+        *
+        torch.randn(
+            H,
+            W,
+            generator=generator,
+            device=DEVICE,
+            dtype=torch.float32,
+        )
+    )
+
+
+    # W=M applied to noise.
+    noise_gamma = torch.complex(
+        mask_t
+        *
+        n1,
+
+        mask_t
+        *
+        n2,
+    )
+
+
+    # eta = A^T M n
+    eta = op.adjoint(
+        noise_gamma
+    )
+
+
+    coeff = starlet.analysis(
+        eta
+    )
+
+
+    band_var = torch.mean(
+        coeff.double()**2,
+        dim=(-2, -1),
+    )
+
+
+    band_var_accum += (
+        band_var
+    )
+
+
+sigma_bands = torch.sqrt(
+    band_var_accum
+    /
+    float(
+        N_NOISE_CAL
+    )
+).float()
+
+
+# Normalize such that alpha_1 = 1.
+alpha = (
+    sigma_bands
+    /
+    sigma_bands[0]
+)
+
+
+print(
+    "\nEmpirical propagated noise:"
+)
+
+print(
+    "\n level   sigma_j             alpha_j"
+)
+
+print(
+    " -------------------------------------"
+)
+
+
+for j in range(
+    J
+):
+
+    print(
+        f"   {j+1:1d}    "
+        f"{sigma_bands[j].item():.9e}    "
+        f"{alpha[j].item():.6f}"
+    )
+
+
+print(
+    "\nalpha =",
+    alpha.detach()
+    .cpu()
+    .numpy()
+)
+
+
+# Sanity checks.
+assert torch.all(
+    sigma_bands >
+    0
+)
+
+assert abs(
+    float(
+        alpha[0]
+        .item()
+    )
+    -
+    1.0
+) < 1e-6
+
+noise_table = pd.DataFrame(
+    {
+        "level":
+            np.arange(
+                1,
+                J + 1
+            ),
+
+        "sigma_propagated":
+            sigma_bands
+            .detach()
+            .cpu()
+            .numpy(),
+
+        "alpha":
+            alpha
+            .detach()
+            .cpu()
+            .numpy(),
+    }
+)
+
+noise_table.to_csv(
+    "fair_starlet_noise_weights.csv",
+    index=False,
+)

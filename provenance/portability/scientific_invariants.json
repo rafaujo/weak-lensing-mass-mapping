@@ -1,0 +1,614 @@
+{
+  "baseline_archive_sha256": "0cb915e0b59676df38bf1ddef5ce31c3cfcfb4312d225195ebb553531cd7db34",
+  "scientific_scripts": 25,
+  "path_edits": 114,
+  "numeric_literals_checked": 3091,
+  "unchanged_original_files": 94,
+  "scripts": [
+    {
+      "file": "code/glimpse/audit_glimpse_fits_final.py",
+      "path_edits": 3,
+      "numeric_literals": 82,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/glimpse/bootstrap_glimpse_comparison.py",
+      "path_edits": 1,
+      "numeric_literals": 43,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/glimpse/prepare_glimpse_validation.py",
+      "path_edits": 3,
+      "numeric_literals": 44,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/glimpse/run_glimpse_test_final.py",
+      "path_edits": 3,
+      "numeric_literals": 27,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/glimpse/run_glimpse_validation.py",
+      "path_edits": 3,
+      "numeric_literals": 44,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py",
+      "path_edits": 5,
+      "numeric_literals": 110,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/bootstrap_wiener_vs_gs.py",
+      "path_edits": 4,
+      "numeric_literals": 58,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/build_fair_validation_pk.py",
+      "path_edits": 3,
+      "numeric_literals": 96,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/generate_mcalens_validation_maps.py",
+      "path_edits": 5,
+      "numeric_literals": 84,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/make_revised_figures_v12.py",
+      "path_edits": 6,
+      "numeric_literals": 342,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/quantify_photoz_trend.py",
+      "path_edits": 5,
+      "numeric_literals": 85,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_admm_gaussian_starlet_audit.py",
+      "path_edits": 6,
+      "numeric_literals": 194,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_joint_validation.py",
+      "path_edits": 5,
+      "numeric_literals": 164,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_reduced_shear.py",
+      "path_edits": 6,
+      "numeric_literals": 155,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_test.py",
+      "path_edits": 10,
+      "numeric_literals": 155,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_validation.py",
+      "path_edits": 5,
+      "numeric_literals": 120,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_mcalens_test.py",
+      "path_edits": 7,
+      "numeric_literals": 89,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_mcalens_validation.py",
+      "path_edits": 4,
+      "numeric_literals": 54,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_multiscale_fusion_validation.py",
+      "path_edits": 6,
+      "numeric_literals": 247,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_reweighted_gaussian_starlet_validation.py",
+      "path_edits": 5,
+      "numeric_literals": 154,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_square_starlet_comparison.py",
+      "path_edits": 3,
+      "numeric_literals": 78,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_weighted_band_fusion_test.py",
+      "path_edits": 5,
+      "numeric_literals": 236,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_weighted_band_fusion_validation.py",
+      "path_edits": 5,
+      "numeric_literals": 232,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/run_wiener_gaussian_only.py",
+      "path_edits": 6,
+      "numeric_literals": 75,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    },
+    {
+      "file": "code/pipeline/weak_lensing_pipeline.py",
+      "path_edits": 0,
+      "numeric_literals": 123,
+      "numeric_literals_identical": true,
+      "entire_ast_identical_after_reversing_planned_paths": true,
+      "bytes_match_recorded_refactoring": true,
+      "pass": true
+    }
+  ],
+  "unchanged_originals": [
+    {
+      "file": "code/pipeline/weak_lensing_pipeline.py",
+      "pass": true
+    },
+    {
+      "file": "config/pipeline/fair_frozen_hyperparameters.json",
+      "pass": true
+    },
+    {
+      "file": "config/pipeline/fair_starlet_noise_weights.csv",
+      "pass": true
+    },
+    {
+      "file": "provenance/python_environment_original.txt",
+      "pass": true
+    },
+    {
+      "file": "results/validation/initial_selection/fair_validation_KS_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/initial_selection/fair_validation_starlet_MASK_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/initial_selection/fair_validation_starlet_NOMASK_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "config/glimpse/config_lambda_2p5.ini",
+      "pass": true
+    },
+    {
+      "file": "config/glimpse/config_lambda_3p0.ini",
+      "pass": true
+    },
+    {
+      "file": "config/glimpse/config_lambda_3p5.ini",
+      "pass": true
+    },
+    {
+      "file": "provenance/glimpse/cmake_dependencies.txt",
+      "pass": true
+    },
+    {
+      "file": "provenance/glimpse/git_state.txt",
+      "pass": true
+    },
+    {
+      "file": "provenance/glimpse/local_source_changes.patch",
+      "pass": true
+    },
+    {
+      "file": "results/test/glimpse_final_audit/glimpse_case_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/glimpse_final_audit/glimpse_hdu_audit.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/glimpse_final_audit/glimpse_transform_audit.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/admm_solver_audit/admm_vs_pdhg_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/mcalens/mcalens_validation_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/mcalens/mcalens_validation_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/field_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/field_metrics_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/field_metrics_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/peak_height_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/peak_PR_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/spectral_score_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/multiscale_fusion/spectral_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/starlet_gaussian_prior/gaussian_starlet_joint_validation_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/starlet_gaussian_prior/gaussian_starlet_joint_validation_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/starlet_gaussian_prior/gaussian_starlet_validation_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/starlet_gaussian_prior/gaussian_starlet_validation_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/field_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/field_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/field_metrics_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/peak_height_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/peak_PR_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/spectral_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/cmake/Modules/FindCCFits.cmake",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/cmake/Modules/FindFFTW.cmake",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/cmake/Modules/FindNFFT.cmake",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/CMakeLists.txt",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/LICENSE",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/README.md",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/field.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/field.h",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/glimpse.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/redshift_distribution.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/redshift_distribution.h",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/starlet_2d.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/starlet_2d.h",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/surface_reconstruction.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/surface_reconstruction.h",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/survey.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/survey.h",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/wavelet_transform.cpp",
+      "pass": true
+    },
+    {
+      "file": "external/glimpse/src/wavelet_transform.h",
+      "pass": true
+    },
+    {
+      "file": "results/test/peak_bootstrap_v5/peak_prauc_block_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/photoz_audit/photoz_block_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/photoz_audit/photoz_regression_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/paper/field_metrics_frozen.csv",
+      "pass": true
+    },
+    {
+      "file": "results/paper/peak_amplitude.csv",
+      "pass": true
+    },
+    {
+      "file": "results/paper/peak_completeness_purity.csv",
+      "pass": true
+    },
+    {
+      "file": "results/paper/spectral_curves.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/square/square_method_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/square/square_method_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/square/square_ours_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/square/square_pairwise_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/starlet_gaussian_prior/gaussian_starlet_test_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/starlet_gaussian_prior/gaussian_starlet_test_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/starlet_gaussian_prior/gaussian_starlet_test_pairwise_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/starlet_gaussian_prior/gaussian_starlet_test_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/fusion/field_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/fusion/field_metrics_all.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/fusion/field_metrics_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/fusion/field_metrics_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/wiener_vs_gaussian_starlet_bootstrap/wiener_vs_gs_block_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/wiener_vs_gaussian_starlet_bootstrap/wiener_vs_gs_paired_cases.csv",
+      "pass": true
+    },
+    {
+      "file": "results/wiener/wiener_test_cases.csv",
+      "pass": true
+    },
+    {
+      "file": "results/wiener/wiener_validation_cases.csv",
+      "pass": true
+    },
+    {
+      "file": "results/wiener/wiener_validation_grid.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/glimpse_test_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/mcalens/mcalens_test_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/mcalens/mcalens_test_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/mcalens/mcalens_test_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/admm_solver_audit/admm_vs_pdhg_cases.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/glimpse_validation_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "config/priors/fair_validation_pk_config.json",
+      "pass": true
+    },
+    {
+      "file": "config/priors/fair_validation_pk_mean.npy",
+      "pass": true
+    },
+    {
+      "file": "results/validation/mcalens/mcalens_validation_metrics.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/gaussian_starlet_reduced_shear/gaussian_starlet_reduced_shear_bootstrap.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/gaussian_starlet_reduced_shear/gaussian_starlet_reduced_shear_by_cosmology.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/gaussian_starlet_reduced_shear/gaussian_starlet_reduced_shear_cases.csv",
+      "pass": true
+    },
+    {
+      "file": "results/test/gaussian_starlet_reduced_shear/gaussian_starlet_reduced_shear_summary.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/SCIENCE_SUMMARY.csv",
+      "pass": true
+    },
+    {
+      "file": "results/validation/weighted_band_fusion/spectral_scores.csv",
+      "pass": true
+    }
+  ],
+  "failed": 0,
+  "scope": "Source-structure and input-integrity preservation, not numerical solver equivalence across environments."
+}

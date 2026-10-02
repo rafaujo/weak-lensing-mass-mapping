@@ -1,0 +1,105 @@
+{
+  "split": {
+    "validation_realization_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "test_realization_ids": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "cosmology_ids": [
+      0,
+      1,
+      2
+    ]
+  },
+  "selection_metric": "mean masked mass-sheet-invariant NMSE",
+  "noise_model": {
+    "sigma_e": 0.4,
+    "n_gal_arcmin2": 30.0,
+    "pixel_size_arcmin": 2.0,
+    "sigma_n_per_component": 0.025819888974716113,
+    "paired_noise_seed": "seed = realization_idx across cosmologies"
+  },
+  "KS": {
+    "best_sigma": 1.5,
+    "grid": [
+      1.0,
+      1.25,
+      1.5,
+      1.75,
+      2.0
+    ]
+  },
+  "Starlet_MASK": {
+    "J": 4,
+    "alpha": [
+      1.0,
+      0.22514846920967102,
+      0.09602882713079453,
+      0.04628632590174675
+    ],
+    "best_lambda": 0.05,
+    "grid": [
+      0.04,
+      0.045,
+      0.05,
+      0.055,
+      0.06
+    ],
+    "W": "survey mask M"
+  },
+  "Starlet_NO_MASK": {
+    "J": 4,
+    "alpha": [
+      1.0,
+      0.22514846920967102,
+      0.09602882713079453,
+      0.04628632590174675
+    ],
+    "best_lambda": 0.05,
+    "grid": [
+      0.04,
+      0.045,
+      0.05,
+      0.055,
+      0.06
+    ],
+    "W": "identity"
+  },
+  "solver": {
+    "max_iter": 6000,
+    "tol": 0.0001,
+    "check_every": 20,
+    "min_iter": 50
+  },
+  "grid_minima_bracketed": true,
+  "test_set_accessed": false
+}

@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-02",
+  "archive": "smoke_resultados_v6.tar.gz",
+  "archive_sha256": "ccc69c68fa789cba6b5219465431172e6404643d99f89149bd1a9feab7aa9135",
+  "archive_bytes": 2822006,
+  "source_report_status": "passed",
+  "review_status": "passed_single_case_mcalens_and_output_isolation",
+  "case": [
+    0,
+    10,
+    0
+  ],
+  "requested_methods": [
+    "MCALENS"
+  ],
+  "driver_sha256": "ea25b5f9922652e798199642e5593b82a265a57c7e5b833d8b53ec9975ad9cca",
+  "driver_matches_local_and_tested_package": true,
+  "tested_package_sha256": "df2a44bb020f7d43518a6a7450d486d0ac57ce3ad2597d7b2e264427a02cc12f",
+  "output_npz_present_inside_submitted_run": true,
+  "output_npz_sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+  "declared_output": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens/recon/C0_R10_P0.npz",
+  "reported_historical_before_after_identical": true,
+  "historical_output_check": {
+    "path": "/u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz",
+    "before": {
+      "exists": true,
+      "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+      "bytes": 502838,
+      "mtime_ns": 1790906585874133000
+    },
+    "after": {
+      "exists": true,
+      "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+      "bytes": 502838,
+      "mtime_ns": 1790906585874133000
+    },
+    "unchanged": true
+  },
+  "historical_check_scope": "Before/after SHA256, bytes and mtime recorded by the tested server worker during v6; no direct server access here and no inference about pre-v5 state.",
+  "observed_pixels": 12899,
+  "mask_matches_independent_v5_catalogue_recovery": true,
+  "input_cache_matches_v5_byte_for_byte": true,
+  "truth_and_masked_shear_match_cache": true,
+  "noise_scale_and_cosmology_match": true,
+  "npz_map_equals_saved_npy": true,
+  "saved_npy_equals_v5_byte_for_byte": true,
+  "saved_npy_sha256": "3d863b74de423fa6621f643f1ac4683a6310983f61875023e7b9a25bf39eb33e",
+  "independently_recomputed_metrics": {
+    "nmse": 0.6925870361903356,
+    "pcc": 0.5615613631935216,
+    "std_ratio": 0.6506579446212163
+  },
+  "expected_from_local_archived_csv": {
+    "nmse": 0.6925870357953903,
+    "pcc": 0.5615613636618906,
+    "std_ratio": 0.6506579458252513
+  },
+  "delta": {
+    "nmse": 3.949452986873325e-10,
+    "pcc": -4.683690102424976e-10,
+    "std_ratio": -1.2040349828268404e-09
+  },
+  "largest_absolute_metric_delta": 1.2040349828268404e-09,
+  "matches_server_report": true,
+  "passes_smoke_tolerance": true,
+  "reported_pre_float32_metrics_equal_archived_csv": true,
+  "scope": "MCALens C0/R10/P0 artifact audit, combined with earlier independent v5 checks of KS, Starlet, G+S and GLIMPSE. No solver rerun locally; no claim of 480-case, bootstrap, calibration or figure regeneration."
+}

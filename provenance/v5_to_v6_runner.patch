@@ -1,0 +1,398 @@
+--- v5/tools/check_execution_environments.py
++++ v6/tools/check_execution_environments.py
+@@ -95,16 +95,31 @@
+         cfg.write_text("".join(f"{k}={json.dumps(v)}\n" for k, v in values.items()))
+         shutil.copyfile(cfg, fixture / "config_paths.toml")
+         fake_driver = '''import os, sys
++from project_paths import PATHS
+ assert "torch" not in sys.modules
+ assert os.environ.get("WL_TEST_ROLE") == "mcalens"
++BASE = PATHS.work_root / "test/fair_npz"
++OUT = PATHS.work_root / "test/mcalens"
++RECON_DIR = OUT / "recon"
++PK_FILE = PATHS.prior_file
++MASK_FILE = PATHS.data_root / "WIDE12H_bin2_2arcmin_mask.npy"
++RECON_DIR.mkdir(parents=True)
+ def run_one(case):
+     assert case == (0, 10, 0)
+-    return {"finite": True, "pid": os.getpid(), "case": list(case)}
++    output = RECON_DIR / "C0_R10_P0.npz"
++    output.write_bytes(b"synthetic reconstruction fixture")
++    return {"finite": True, "pid": os.getpid(), "case": list(case), "recon_file": str(output)}
+ '''
+         (fixture / "code/pipeline/run_mcalens_test.py").write_text(fake_driver)
+         pycs = Path(values["mcalens_root"]) / "pycs/astro/wl"
+         pycs.mkdir(parents=True)
+         (pycs / "mass_mapping.py").write_text("# synthetic source for subprocess routing test\n")
++        # This same-name historical script took precedence in the v5 worker.
++        (Path(values["mcalens_root"]) / "run_mcalens_test.py").write_text(
++            'raise RuntimeError("Historical driver shadowed the packaged driver")\n')
++        historical = Path(values["glimpse_root"]) / "test/mcalens/recon/C0_R10_P0.npz"
++        historical.parent.mkdir(parents=True)
++        historical.write_bytes(b"preserve historical result")
+         dispatch = self.folder / "mcalens dispatch.py"
+         dispatch.write_text('import os, subprocess, sys\nos.environ["WL_TEST_ROLE"]="mcalens"\n'
+                             'raise SystemExit(subprocess.run([sys.executable,*sys.argv[1:]],env=os.environ.copy()).returncode)\n')
+@@ -114,6 +129,9 @@
+         self.assertTrue(result["ok"])
+         self.assertNotEqual(result["result"]["pid"], os.getpid())
+         self.assertEqual(result["command"][:2], settings["mcalens_python"])
++        self.assertTrue(result["historical_output_check"]["unchanged"])
++        self.assertEqual(historical.read_bytes(), b"preserve historical result")
++        self.assertEqual(Path(result["driver"]["path"]), fixture / "code/pipeline/run_mcalens_test.py")
+ 
+     def test_launcher_dry_run_routes_three_environments(self):
+         cfg = self.folder / "environments.toml"
+--- v5/tools/check_smoke_isolation.py
++++ v6/tools/check_smoke_isolation.py
+@@ -0,0 +1,124 @@
++"""Regression tests for escaped MCALens output and unwanted GS cube allocation."""
++import ast
++import json
++from pathlib import Path
++import tempfile
++import types
++import sys
++import unittest
++from unittest.mock import patch
++
++import mcalens_smoke_worker as worker
++import server_smoke as smoke
++
++
++class IsolationChecks(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory(prefix="wl isolation checks ")
++        self.folder = Path(self.temp.name)
++
++    def tearDown(self):
++        self.assertTrue(self.folder.resolve().is_relative_to(Path(tempfile.gettempdir()).resolve()))
++        self.assertTrue(self.folder.name.startswith("wl isolation checks "))
++        self.temp.cleanup()
++
++    def test_gs_loader_does_not_allocate_any_full_benchmark_cube(self):
++        source = self.folder / "gs.py"
++        source.write_text('''REC_FILE="rec.npy"
++GAUSS_FILE="gauss.npy"
++SPARSE_FILE="sparse.npy"
++def open_output_map(path):
++    raise RuntimeError("Full benchmark allocation reached")
++rec_map=open_output_map(REC_FILE)
++gauss_map=open_output_map(GAUSS_FILE)
++sparse_map=open_output_map(SPARSE_FILE)
++def solve():
++    return "production solver definition retained"
++mask_full=None
++raise RuntimeError("Full benchmark loop reached")
++''')
++        tree = smoke.prefix_tree(source, "mask_full", exclude_allocations=True)
++        values = {}
++        exec(compile(tree, str(source), "exec"), values)
++        self.assertEqual(values["solve"](), "production solver definition retained")
++        self.assertTrue(all(name not in values for name in ("rec_map", "gauss_map", "sparse_map")))
++
++    def test_actual_gs_solver_definitions_are_unchanged_by_loader(self):
++        source = smoke.ROOT / "code/pipeline/run_gaussian_starlet_test.py"
++        original = ast.parse(source.read_bytes())
++        selected = smoke.prefix_tree(source, "mask_full", exclude_allocations=True)
++        definitions = lambda tree: {n.name: ast.dump(n, include_attributes=False) for n in tree.body
++                                   if isinstance(n, (ast.FunctionDef, ast.ClassDef))}
++        before, after = definitions(original), definitions(selected)
++        self.assertTrue(all(before[name] == dump for name, dump in after.items()))
++        self.assertIn("solve", after)
++        self.assertIn("FourierStarlet", after)
++
++    def test_changed_gs_allocation_fails_closed(self):
++        source = self.folder / "gs.py"
++        source.write_text('rec_map=unexpected_call()\nmask_full=None\n')
++        with self.assertRaises(ValueError):
++            smoke.prefix_tree(source, "mask_full", exclude_allocations=True)
++
++    def test_packaged_driver_wrong_output_root_rejected_before_run(self):
++        repo = self.folder / "repo"
++        code = repo / "code/pipeline"
++        code.mkdir(parents=True)
++        historical = self.folder / "historical.npz"
++        historical.write_bytes(b"preserve")
++        (code / "run_mcalens_test.py").write_text('from pathlib import Path\n'
++            f'BASE=Path({str(self.folder / "wrong").__repr__()})\n'
++            f'def run_one(case):\n    Path({str(historical).__repr__()}).write_bytes(b"modified")\n')
++        paths = types.SimpleNamespace(work_root=self.folder / "run", prior_file=self.folder / "prior.npy",
++                                      data_root=self.folder / "raw")
++        with patch.object(worker, "ROOT", repo), self.assertRaises(ValueError):
++            worker.load_packaged_driver(paths)
++        self.assertEqual(historical.read_bytes(), b"preserve")
++
++    def test_parent_rejects_success_report_pointing_to_historical_result(self):
++        run = self.folder / "run"
++        run.mkdir()
++        cfg = run / "paths.toml"
++        cfg.write_text('data_root="raw"\nwork_root="run"\nglimpse_root="glimpse"\nmcalens_root="mc"\n')
++        (run / "mcalens_worker.json").write_text(json.dumps({"ok": True,
++            "result": {"recon_file": str(self.folder / "historical.npz")}}))
++        with patch.object(smoke.subprocess, "run", return_value=types.SimpleNamespace(returncode=0)):
++            with self.assertRaisesRegex(RuntimeError, "outside this smoke run"):
++                smoke.run_mcalens_process({"mcalens_python": ["synthetic"]}, cfg, run)
++
++    def test_mcalens_only_does_not_run_core_solvers_or_glimpse(self):
++        import numpy as np
++        run = self.folder / "run"
++        run.mkdir()
++        old_cache = self.folder / "historical/test/fair_npz"
++        old_cache.mkdir(parents=True)
++        (old_cache / "C0_R10.npz").write_bytes(b"synthetic cache fixture")
++        truth = np.zeros((1424, 176), dtype=np.float32)
++        gamma = truth.astype(np.complex64)
++        mask = np.ones(truth.shape, dtype=bool)
++        rec = run / "mc_fixture.npz"
++        np.savez(rec, mcalens=truth[:176])
++        square = types.SimpleNamespace(DEVICE="cpu", N=176, mask_full=mask,
++                                       metrics_ms=lambda *args: (0.0, 0.0, 0.0))
++        torch = types.ModuleType("torch")
++        torch.__version__ = "fixture"
++        torch.version = types.SimpleNamespace(cuda=None)
++        torch.cuda = types.SimpleNamespace(is_available=lambda: False)
++        torch.float32, torch.complex64 = np.float32, np.complex64
++        torch.as_tensor = lambda value, **kwargs: value
++        args = types.SimpleNamespace(generate_input=False, mcalens_only=True,
++                                     with_glimpse=False, environments_config={})
++        paths = types.SimpleNamespace(glimpse_root=self.folder / "historical")
++        report = {}
++        with patch.dict(sys.modules, {"torch": torch}), \
++             patch.object(smoke.importlib, "import_module", return_value=square), \
++             patch.object(smoke, "validate_cache", return_value=(truth, gamma, 0.3)), \
++             patch.object(smoke, "load_prefix", side_effect=AssertionError("GS/GLIMPSE should not load")), \
++             patch.object(smoke, "run_mcalens_process", return_value={"result": {"recon_file": str(rec)}}):
++            smoke.numerical_run(args, paths, run, report)
++        self.assertEqual(set(report["methods"]), {"MCALENS"})
++        self.assertTrue(report["numerical_smoke_executed"])
++
++
++if __name__ == "__main__":
++    unittest.main(verbosity=2)
+--- v5/tools/mcalens_smoke_worker.py
++++ v6/tools/mcalens_smoke_worker.py
+@@ -1,6 +1,8 @@
+ """Run only production MCALens C0/R10/P0 in the dedicated mcalens interpreter."""
+ import argparse
+ import importlib
++import importlib.util
++import hashlib
+ import json
+ import os
+ from pathlib import Path
+@@ -8,6 +10,35 @@
+ import traceback
+ 
+ ROOT = Path(__file__).resolve().parents[1]
++
++
++def file_state(path):
++    if not path.exists():
++        return {"exists": False}
++    digest = hashlib.sha256(path.read_bytes()).hexdigest()
++    stat = path.stat()
++    return {"exists": True, "sha256": digest, "bytes": stat.st_size, "mtime_ns": stat.st_mtime_ns}
++
++
++def load_packaged_driver(paths):
++    # The checkout can itself contain a historical run_mcalens_test.py.
++    # A bare import by name would prefer it after prepending mcalens_root.
++    source = ROOT / "code/pipeline/run_mcalens_test.py"
++    name = "wl_packaged_mcalens_test"
++    spec = importlib.util.spec_from_file_location(name, source)
++    module = importlib.util.module_from_spec(spec)
++    sys.modules[name] = module
++    spec.loader.exec_module(module)
++    expected = {"BASE": paths.work_root / "test/fair_npz",
++                "OUT": paths.work_root / "test/mcalens",
++                "RECON_DIR": paths.work_root / "test/mcalens/recon",
++                "PK_FILE": paths.prior_file,
++                "MASK_FILE": paths.data_root / "WIDE12H_bin2_2arcmin_mask.npy"}
++    for key, value in expected.items():
++        if Path(getattr(module, key)).resolve() != value.resolve():
++            raise ValueError(f"Packaged MCALens {key} escaped the configured paths")
++    return module, {"path": str(source.resolve()), "sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
++                    "validated_paths": {key: str(value) for key, value in expected.items()}}
+ 
+ 
+ def main():
+@@ -20,12 +51,26 @@
+     from project_paths import PATHS
+     if not args.output.resolve().is_relative_to(PATHS.work_root) or args.output.exists():
+         raise ValueError("Worker report must be a new file in this run's work_root")
++    if args.paths.resolve().parent != PATHS.work_root:
++        raise ValueError("Smoke paths.toml must be inside its dedicated work_root")
+     sys.path.insert(0, str(PATHS.mcalens_root))
+     report = {"case": [0, 10, 0], "python_executable": sys.executable,
+               "python_version": sys.version, "prefix": sys.prefix, "ok": False}
+     try:
+-        mc = importlib.import_module("run_mcalens_test")
++        historical = PATHS.glimpse_root / "test/mcalens/recon/C0_R10_P0.npz"
++        before = file_state(historical)
++        mc, report["driver"] = load_packaged_driver(PATHS)
++        expected_recon = PATHS.work_root / "test/mcalens/recon/C0_R10_P0.npz"
++        if expected_recon.exists():
++            raise ValueError("MCALens output already exists; use a new smoke directory")
+         report["result"] = mc.run_one((0, 10, 0))
++        if Path(report["result"]["recon_file"]).resolve() != expected_recon.resolve() or not expected_recon.is_file():
++            raise ValueError("MCALens did not produce its reconstruction inside this run")
++        after = file_state(historical)
++        report["historical_output_check"] = {"path": str(historical), "before": before, "after": after,
++                                              "unchanged": before == after}
++        if before != after:
++            raise RuntimeError("Historical MCALens output changed during smoke")
+         report["mcalens_source"] = importlib.import_module("pycs.astro.wl.mass_mapping").__file__
+         report["ok"] = bool(report["result"]["finite"])
+     except Exception as exc:
+--- v5/tools/server_smoke.py
++++ v6/tools/server_smoke.py
+@@ -38,7 +38,7 @@
+ }
+ 
+ 
+-def prefix_tree(path, sentinel):
++def prefix_tree(path, sentinel, exclude_allocations=False):
+     """Stop before exactly one top-level assignment; never include later loops."""
+     tree = ast.parse(path.read_bytes(), filename=str(path))
+     indices = [i for i, node in enumerate(tree.body) if isinstance(node, ast.Assign)
+@@ -46,6 +46,26 @@
+     if len(indices) != 1:
+         raise ValueError(f"Expected one boundary {sentinel!r} in {path}, got {indices}")
+     tree.body = tree.body[:indices[0]]
++    if exclude_allocations:
++        # Production GS allocates three full-benchmark cubes before mask_full.
++        # The smoke calls solve() directly and needs none of these output buffers.
++        expected = {"rec_map": "REC_FILE", "gauss_map": "GAUSS_FILE", "sparse_map": "SPARSE_FILE"}
++        found = set()
++        body = []
++        for node in tree.body:
++            targets = [t.id for t in node.targets if isinstance(t, ast.Name)] if isinstance(node, ast.Assign) else []
++            matching = set(targets) & set(expected)
++            if matching:
++                name = next(iter(matching))
++                reference = ast.parse(f"{name} = open_output_map({expected[name]})").body[0]
++                if ast.dump(node, include_attributes=False) != ast.dump(reference, include_attributes=False):
++                    raise ValueError(f"Unexpected GS allocation: {name}")
++                found.add(name)
++            else:
++                body.append(node)
++        if found != set(expected):
++            raise ValueError("Expected exactly the three production GS output allocations")
++        tree.body = body
+     return tree
+ 
+ 
+@@ -53,7 +73,8 @@
+     path = ROOT / relative
+     mod = types.ModuleType("smoke_" + path.stem)
+     mod.__file__ = str(path)
+-    exec(compile(prefix_tree(path, sentinel), str(path), "exec"), mod.__dict__)
++    tree = prefix_tree(path, sentinel, exclude_allocations=relative == "code/pipeline/run_gaussian_starlet_test.py")
++    exec(compile(tree, str(path), "exec"), mod.__dict__)
+     return mod
+ 
+ 
+@@ -148,6 +169,15 @@
+     details = json.loads(output.read_text(encoding="utf-8")) if output.is_file() else {}
+     if proc.returncode != 0 or not details.get("ok"):
+         raise RuntimeError(f"MCALens child failed: {details.get('error', 'see mcalens.log')}; {run_dir}")
++    expected = (run_dir / "test/mcalens/recon/C0_R10_P0.npz").resolve()
++    source = ROOT / "code/pipeline/run_mcalens_test.py"
++    if Path(details["result"]["recon_file"]).resolve() != expected or not expected.is_file():
++        raise RuntimeError("MCALens returned a reconstruction outside this smoke run")
++    if (Path(details.get("driver", {}).get("path", "")).resolve() != source.resolve()
++            or details["driver"]["sha256"] != file_sha(source)):
++        raise RuntimeError("MCALens worker did not attest the packaged scientific driver")
++    if not details.get("historical_output_check", {}).get("unchanged"):
++        raise RuntimeError("Missing/failed historical-output integrity check")
+     details["command"] = command
+     return details
+ 
+@@ -201,36 +231,38 @@
+         write_json(run_dir / "smoke_report.json", report)
+         print(method, vals, flush=True)
+ 
+-    print("KS, then Starlet with the production 6000 iterations...", flush=True)
+-    report["numerical_smoke_executed"] = True
+-    started = time.perf_counter()
+-    with torch.no_grad():
+-        ks_rec = square.ks_reconstruct(y, square.G15)
+-        x0 = square.ks_reconstruct(y, square.G1)
+-    record("KS", ks_rec[0].cpu().numpy(), started)
+-    started = time.perf_counter()
+-    starlet = square.starlet_pdhg(y, m, x0)
+-    record("STARLET_MASK", starlet[0].cpu().numpy(), started)
+-
+-    print("Gaussian+Starlet with the production 6000 iterations...", flush=True)
+-    gs = load_prefix("code/pipeline/run_gaussian_starlet_test.py", "mask_full")
+-    op = gs.WeakLensingOperator(gs.N, gs.N, gs.DEVICE)
+-    ks = gs.KaiserSquires(op)
+-    star = gs.FourierStarlet(gs.N, gs.N, gs.J, gs.DEVICE)
+-    pk_np = gs.make_pk_map(np.load(gs.PK_FILE).astype(np.float64), gs.N, gs.N)
+-    pk = torch.as_tensor(pk_np, dtype=torch.float32, device=gs.DEVICE).unsqueeze(0)
+-    alpha = torch.as_tensor(gs.ALPHA, dtype=torch.float32, device=gs.DEVICE).view(1, gs.J, 1, 1)
+-    x0 = gs.ks_reconstruct_batch(ks, y, smooth_sigma=1.0)
+-    if torch.is_complex(x0):
+-        x0 = x0.real
+-    started = time.perf_counter()
+-    rec, xg, xs, rel = gs.solve(op=op, star=star, y=y, mask=m, pk=pk, alpha=alpha,
+-                               x0=x0.to(dtype=torch.float32))
+-    record("GAUSSIAN_STARLET", rec[0].cpu().numpy(), started)
+-    report["gs_last_relative_change"] = float(rel[0].cpu())
++    if not args.mcalens_only:
++        print("KS, then Starlet with the production 6000 iterations...", flush=True)
++        report["numerical_smoke_executed"] = True
++        started = time.perf_counter()
++        with torch.no_grad():
++            ks_rec = square.ks_reconstruct(y, square.G15)
++            x0 = square.ks_reconstruct(y, square.G1)
++        record("KS", ks_rec[0].cpu().numpy(), started)
++        started = time.perf_counter()
++        starlet = square.starlet_pdhg(y, m, x0)
++        record("STARLET_MASK", starlet[0].cpu().numpy(), started)
++
++        print("Gaussian+Starlet with the production 6000 iterations...", flush=True)
++        gs = load_prefix("code/pipeline/run_gaussian_starlet_test.py", "mask_full")
++        op = gs.WeakLensingOperator(gs.N, gs.N, gs.DEVICE)
++        ks = gs.KaiserSquires(op)
++        star = gs.FourierStarlet(gs.N, gs.N, gs.J, gs.DEVICE)
++        pk_np = gs.make_pk_map(np.load(gs.PK_FILE).astype(np.float64), gs.N, gs.N)
++        pk = torch.as_tensor(pk_np, dtype=torch.float32, device=gs.DEVICE).unsqueeze(0)
++        alpha = torch.as_tensor(gs.ALPHA, dtype=torch.float32, device=gs.DEVICE).view(1, gs.J, 1, 1)
++        x0 = gs.ks_reconstruct_batch(ks, y, smooth_sigma=1.0)
++        if torch.is_complex(x0):
++            x0 = x0.real
++        started = time.perf_counter()
++        rec, xg, xs, rel = gs.solve(op=op, star=star, y=y, mask=m, pk=pk, alpha=alpha,
++                                   x0=x0.to(dtype=torch.float32))
++        record("GAUSSIAN_STARLET", rec[0].cpu().numpy(), started)
++        report["gs_last_relative_change"] = float(rel[0].cpu())
+ 
+     print("MCALens with the production Nsigma=5, 100 iterations, four scales...", flush=True)
+     started = time.perf_counter()
++    report["numerical_smoke_executed"] = True
+     mc_worker = run_mcalens_process(args.environments_config, run_dir / "paths.toml", run_dir)
+     mc_result = mc_worker["result"]
+     with np.load(mc_result["recon_file"]) as data:
+@@ -263,7 +295,9 @@
+     parser.add_argument("--paths", type=Path, default=ROOT / "config_paths.server.toml")
+     parser.add_argument("--environments", type=Path, default=ROOT / "config_environments.server.toml")
+     parser.add_argument("--preflight-only", action="store_true", help="Check files and actual imports in both environments; no reconstruction")
+-    parser.add_argument("--with-glimpse", action="store_true", help="Also run the slower native GLIMPSE solver")
++    methods = parser.add_mutually_exclusive_group()
++    methods.add_argument("--with-glimpse", action="store_true", help="Also run the slower native GLIMPSE solver")
++    methods.add_argument("--mcalens-only", action="store_true", help="Recheck only MCALens, with input/source/output integrity checks")
+     parser.add_argument("--generate-input", action="store_true", help="Generate full-survey C0/R10 shear instead of copying the historical observation")
+     args = parser.parse_args()
+     args.environments_config = load_environments(args.environments)
+@@ -288,6 +322,9 @@
+     report = {"status": "running", "case": list(CASE), "run_directory": str(run_dir),
+               "numerical_smoke_executed": False,
+               "core_python_executable": sys.executable, "execution_environments": args.environments_config,
++              "requested_methods": (["MCALENS"] if args.mcalens_only else
++                                    ["KS", "STARLET_MASK", "GAUSSIAN_STARLET", "MCALENS"] +
++                                    (["GLIMPSE"] if args.with_glimpse else [])),
+               "scope": "One-patch execution and diagnostic comparison, not a full benchmark reproduction."}
+     print("Outputs:", run_dir, flush=True)
+     code = 1

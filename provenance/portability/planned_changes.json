@@ -1,0 +1,6150 @@
+{
+  "baseline_archive": "weak_lensing_mass_mapping_curated_v2_2026-10-01.tar.gz",
+  "baseline_archive_sha256": "0cb915e0b59676df38bf1ddef5ce31c3cfcfb4312d225195ebb553531cd7db34",
+  "source_edits_applied": false,
+  "files": [
+    {
+      "file": "code/glimpse/audit_glimpse_fits_final.py",
+      "baseline_sha256": "66725feebd4a31799bd6d17637e2204709492de8e63c7ca19e3935df5e0d8258",
+      "baseline_ast_sha256": "54505d42cd8c950cd7bfac848146a0dd17933b440c7b2b26eec44029ea90fc51",
+      "numeric_literal_sha256": "a3fd40a3d67e1ff76dd7282c37a8b364ef7c346f7448e9e56643d154c8ec50c7",
+      "numeric_literal_count": 82,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 28
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 32
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 33
+        },
+        {
+          "names": [
+            "EXPECTED"
+          ],
+          "expression": "np.array([0.824143, 0.437311, 0.564743], dtype=float)",
+          "line": 48
+        },
+        {
+          "names": [
+            "TOL"
+          ],
+          "expression": "0.0005",
+          "line": 57
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(8)]",
+          "line": 73
+        },
+        {
+          "names": [
+            "MASK_PATCH"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 81
+        },
+        {
+          "names": [
+            "TRUTH"
+          ],
+          "expression": "np.empty((3, 20, 8, N, N), dtype=np.float32)",
+          "line": 105
+        },
+        {
+          "names": [
+            "FIRST"
+          ],
+          "expression": "REC_DIR / 'C0_R10_P0.fits'",
+          "line": 200
+        },
+        {
+          "names": [
+            "GRID_BY_HDU"
+          ],
+          "expression": "{}",
+          "line": 344
+        },
+        {
+          "names": [
+            "BEST_HDU"
+          ],
+          "expression": "int(hdu_df.iloc[0]['hdu'])",
+          "line": 494
+        },
+        {
+          "names": [
+            "GLIMPSE"
+          ],
+          "expression": "GRID_BY_HDU[BEST_HDU]",
+          "line": 498
+        },
+        {
+          "names": [
+            "TRANSFORMS"
+          ],
+          "expression": "{'identity': lambda x: x, 'minus': lambda x: -x, 'flip_x': lambda x: x[:, ::-1], 'flip_y': lambda x: x[::-1, :], 'flip_xy': lambda x: x[::-1, ::-1], 'transpose': lambda x: x.T, 'minus_transpose': lambda x: -x.T, 'rot90': lambda x: np.rot90(x, 1), 'rot180': lambda x: np.rot90(x, 2), 'rot270': lambda x: np.rot90(x, 3)}",
+          "line": 570
+        },
+        {
+          "names": [
+            "BEST_TRANSFORM"
+          ],
+          "expression": "transform_df.iloc[0]['transform']",
+          "line": 675
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            0
+          ],
+          "line": 30,
+          "column": 12,
+          "end_line": 30,
+          "end_column": 41,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 36,
+          "column": 4,
+          "end_line": 36,
+          "end_column": 40,
+          "before": "\"/u/gob5/Glimpse/test/glimpse_recon\"",
+          "after": "str(PATHS.work_root / 'test/glimpse_recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 40,
+          "column": 4,
+          "end_line": 40,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/glimpse_final_audit\"",
+          "after": "str(PATHS.work_root / 'test/glimpse_final_audit')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/glimpse/bootstrap_glimpse_comparison.py",
+      "baseline_sha256": "794c1d0525124ceff0866dfd5ec2014c07aa35b4fa8ecef1066263558939eca0",
+      "baseline_ast_sha256": "af2cf195afc0be22c4cbaaa6ab3302ec0a5114f4ad5f20bff260739dd3935a0c",
+      "numeric_literal_sha256": "192d1b0bbeb6ab4602fe00beb4c9c2d46d80f09bf37b6dc4d6a9c5988ab43b56",
+      "numeric_literal_count": 43,
+      "settings": [
+        {
+          "names": [
+            "OURS_FILE"
+          ],
+          "expression": "B / 'square_ours_metrics.csv'",
+          "line": 10
+        },
+        {
+          "names": [
+            "GLIMPSE_FILE"
+          ],
+          "expression": "B / 'glimpse_test_metrics.csv'",
+          "line": 11
+        },
+        {
+          "names": [
+            "OUT_SUMMARY"
+          ],
+          "expression": "B / 'square_method_summary.csv'",
+          "line": 13
+        },
+        {
+          "names": [
+            "OUT_PAIRWISE"
+          ],
+          "expression": "B / 'square_pairwise_bootstrap.csv'",
+          "line": 14
+        },
+        {
+          "names": [
+            "OUT_BYCOSMO"
+          ],
+          "expression": "B / 'square_method_by_cosmology.csv'",
+          "line": 15
+        },
+        {
+          "names": [
+            "NBOOT"
+          ],
+          "expression": "50000",
+          "line": 17
+        },
+        {
+          "names": [
+            "SEED"
+          ],
+          "expression": "12345",
+          "line": 18
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            3,
+            "value",
+            "args",
+            0
+          ],
+          "line": 8,
+          "column": 9,
+          "end_line": 8,
+          "end_column": 31,
+          "before": "\"/u/gob5/Glimpse/test\"",
+          "after": "str(PATHS.work_root / 'test')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/glimpse/prepare_glimpse_validation.py",
+      "baseline_sha256": "d985024e62c8f0e6efe3d00bc715395b6887f283b459af632d7d89f124edd50a",
+      "baseline_ast_sha256": "3d43a2e2e43b4b7e28722183f8ae97f50dd2be698b74f3d16e8bb406157d9c39",
+      "numeric_literal_sha256": "1704b661a4b96cefbb8f3b2a710fbea0bde2454a5581a820c58b370874642004",
+      "numeric_literal_count": 44,
+      "settings": [
+        {
+          "names": [
+            "NPZ_DIR"
+          ],
+          "expression": "OUT / 'fair_npz'",
+          "line": 14
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 19
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 20
+        },
+        {
+          "names": [
+            "LABEL_FILE"
+          ],
+          "expression": "DATA / 'sampled_label.npy'",
+          "line": 21
+        },
+        {
+          "names": [
+            "SIGMA_N"
+          ],
+          "expression": "0.4 / np.sqrt(2.0 * 30.0 * 4.0)",
+          "line": 23
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 26
+        },
+        {
+          "names": [
+            "REALIZATIONS"
+          ],
+          "expression": "range(10)",
+          "line": 27
+        },
+        {
+          "names": [
+            "PATCH"
+          ],
+          "expression": "176",
+          "line": 31
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "[(p, p * PATCH, (p + 1) * PATCH) for p in range(8)]",
+          "line": 32
+        },
+        {
+          "names": [
+            "KS_SIGMA"
+          ],
+          "expression": "1.5",
+          "line": 37
+        },
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 39
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            5,
+            "value",
+            "args",
+            0
+          ],
+          "line": 10,
+          "column": 12,
+          "end_line": 10,
+          "end_column": 36,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            6,
+            "value"
+          ],
+          "line": 11,
+          "column": 7,
+          "end_line": 11,
+          "end_column": 20,
+          "before": "ROOT / \"data\"",
+          "after": "PATHS.data_root",
+          "reason": "Separate FAIR input location from scientific-module location"
+        },
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 13,
+          "column": 11,
+          "end_line": 13,
+          "end_column": 39,
+          "before": "\"/u/gob5/Glimpse/validation\"",
+          "after": "str(PATHS.work_root / 'validation')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/glimpse/run_glimpse_test_final.py",
+      "baseline_sha256": "4cc6d1a8bc38b4d5231c3e4eb6298cd36c89461d5b199bbb84579646324bc524",
+      "baseline_ast_sha256": "6d5a44644930a720af492a2fe542bea573aefad7850317185248239d441f7c71",
+      "numeric_literal_sha256": "c895f5d6de6f29bb4822fd32b307152ae9721ddc74329d815f79adf66f842baa",
+      "numeric_literal_count": 27,
+      "settings": [
+        {
+          "names": [
+            "TEST"
+          ],
+          "expression": "B / 'test'",
+          "line": 11
+        },
+        {
+          "names": [
+            "NPZ_DIR"
+          ],
+          "expression": "TEST / 'fair_npz'",
+          "line": 13
+        },
+        {
+          "names": [
+            "CAT_DIR"
+          ],
+          "expression": "TEST / 'catalogs'",
+          "line": 14
+        },
+        {
+          "names": [
+            "REC_DIR"
+          ],
+          "expression": "TEST / 'glimpse_recon'",
+          "line": 15
+        },
+        {
+          "names": [
+            "CFG_DIR"
+          ],
+          "expression": "TEST / 'configs'",
+          "line": 16
+        },
+        {
+          "names": [
+            "LOG_DIR"
+          ],
+          "expression": "TEST / 'logs'",
+          "line": 17
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "3.0",
+          "line": 37
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 39
+        },
+        {
+          "names": [
+            "PIX"
+          ],
+          "expression": "2.0",
+          "line": 40
+        },
+        {
+          "names": [
+            "RESULTS"
+          ],
+          "expression": "TEST / 'glimpse_test_metrics.csv'",
+          "line": 42
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 10,
+          "column": 9,
+          "end_line": 10,
+          "end_column": 26,
+          "before": "\"/u/gob5/Glimpse\"",
+          "after": "str(PATHS.work_root)",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value"
+          ],
+          "line": 30,
+          "column": 10,
+          "end_line": 30,
+          "end_column": 33,
+          "before": "B / \"build\" / \"glimpse\"",
+          "after": "PATHS.glimpse_root / 'build' / 'glimpse'",
+          "reason": "Separate GLIMPSE executable location from experiment outputs"
+        },
+        {
+          "address": [
+            "body",
+            16,
+            "value",
+            "func",
+            "value",
+            "args",
+            0
+          ],
+          "line": 33,
+          "column": 4,
+          "end_line": 34,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/glimpse/run_glimpse_validation.py",
+      "baseline_sha256": "6239231cc9283c78d4936f3223d06a076f09f26a65afc1e766bb64e3ef1ed080",
+      "baseline_ast_sha256": "3556002b453901b840c04a6a80bd924a3927f582c4bc85a5896d512fb2d558e9",
+      "numeric_literal_sha256": "8b732b9f89baea726fe4abd1cbae7fb5c6e2b0be50d7704cddd602881a3a99c7",
+      "numeric_literal_count": 44,
+      "settings": [
+        {
+          "names": [
+            "VAL"
+          ],
+          "expression": "B / 'validation'",
+          "line": 16
+        },
+        {
+          "names": [
+            "NPZ_DIR"
+          ],
+          "expression": "VAL / 'fair_npz'",
+          "line": 17
+        },
+        {
+          "names": [
+            "CAT_DIR"
+          ],
+          "expression": "VAL / 'catalogs'",
+          "line": 18
+        },
+        {
+          "names": [
+            "OUT_DIR"
+          ],
+          "expression": "VAL / 'recon'",
+          "line": 19
+        },
+        {
+          "names": [
+            "CFG_DIR"
+          ],
+          "expression": "VAL / 'configs'",
+          "line": 20
+        },
+        {
+          "names": [
+            "LOG_DIR"
+          ],
+          "expression": "VAL / 'logs'",
+          "line": 21
+        },
+        {
+          "names": [
+            "PATCH"
+          ],
+          "expression": "176",
+          "line": 40
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "[(p, p * PATCH, (p + 1) * PATCH) for p in range(8)]",
+          "line": 42
+        },
+        {
+          "names": [
+            "LAMBDAS"
+          ],
+          "expression": "[2.5, 3.0, 3.5]",
+          "line": 48
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "500",
+          "line": 50
+        },
+        {
+          "names": [
+            "NRANDOM"
+          ],
+          "expression": "1000",
+          "line": 51
+        },
+        {
+          "names": [
+            "NREWEIGHTS"
+          ],
+          "expression": "5",
+          "line": 52
+        },
+        {
+          "names": [
+            "NSCALES"
+          ],
+          "expression": "4",
+          "line": 53
+        },
+        {
+          "names": [
+            "PIXEL_SIZE"
+          ],
+          "expression": "2.0",
+          "line": 55
+        },
+        {
+          "names": [
+            "SIZE"
+          ],
+          "expression": "352.0",
+          "line": 56
+        },
+        {
+          "names": [
+            "RESULTS_CSV"
+          ],
+          "expression": "VAL / 'glimpse_validation_metrics.csv'",
+          "line": 58
+        },
+        {
+          "names": [
+            "TOTAL"
+          ],
+          "expression": "3 * 10 * 8 * len(LAMBDAS)",
+          "line": 253
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 92
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            8,
+            "value",
+            "args",
+            0
+          ],
+          "line": 14,
+          "column": 9,
+          "end_line": 14,
+          "end_column": 26,
+          "before": "\"/u/gob5/Glimpse\"",
+          "after": "str(PATHS.work_root)",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            16,
+            "value"
+          ],
+          "line": 31,
+          "column": 10,
+          "end_line": 31,
+          "end_column": 33,
+          "before": "B / \"build\" / \"glimpse\"",
+          "after": "PATHS.glimpse_root / 'build' / 'glimpse'",
+          "reason": "Separate GLIMPSE executable location from experiment outputs"
+        },
+        {
+          "address": [
+            "body",
+            17,
+            "value",
+            "args",
+            0
+          ],
+          "line": 34,
+          "column": 4,
+          "end_line": 35,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py",
+      "baseline_sha256": "961a5e229d966b570552e89be00711058d84c3486f38bb0f7c5964c66c96d5af",
+      "baseline_ast_sha256": "674206a055203df0afe09ecfa59113c8132ac48229b668d2243eae48ce9f9ef8",
+      "numeric_literal_sha256": "30948c0c49bad287c7bb833cddd854259fa2e2118e39663577bed91d320aa866",
+      "numeric_literal_count": 110,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 47
+        },
+        {
+          "names": [
+            "PIX_ARCMIN"
+          ],
+          "expression": "2.0",
+          "line": 48
+        },
+        {
+          "names": [
+            "TEST_R"
+          ],
+          "expression": "list(range(10, 30))",
+          "line": 50
+        },
+        {
+          "names": [
+            "N_BLOCKS"
+          ],
+          "expression": "20",
+          "line": 57
+        },
+        {
+          "names": [
+            "MASK_SUPPORT_MIN"
+          ],
+          "expression": "0.7",
+          "line": 59
+        },
+        {
+          "names": [
+            "TRUTH_NU"
+          ],
+          "expression": "2.5",
+          "line": 61
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_ARCMIN"
+          ],
+          "expression": "4.0",
+          "line": 63
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_PIX"
+          ],
+          "expression": "MATCH_RADIUS_ARCMIN / PIX_ARCMIN",
+          "line": 65
+        },
+        {
+          "names": [
+            "SMOOTH"
+          ],
+          "expression": "[2.0, 4.0, 6.0]",
+          "line": 70
+        },
+        {
+          "names": [
+            "THRESHOLDS"
+          ],
+          "expression": "np.linspace(8.0, -0.5, 120)",
+          "line": 76
+        },
+        {
+          "names": [
+            "N_BOOT"
+          ],
+          "expression": "10000",
+          "line": 82
+        },
+        {
+          "names": [
+            "SEED"
+          ],
+          "expression": "123456",
+          "line": 84
+        },
+        {
+          "names": [
+            "MCALENS_KEY"
+          ],
+          "expression": "'mcalens'",
+          "line": 86
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 97
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 102
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(8)]",
+          "line": 176
+        },
+        {
+          "names": [
+            "MASK_PATCH"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 189
+        },
+        {
+          "names": [
+            "TRUTH"
+          ],
+          "expression": "np.empty((3, 20, 8, N, N), dtype=np.float32)",
+          "line": 228
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "canonicalize(np.load(GS_FILE, mmap_mode='r'))",
+          "line": 354
+        },
+        {
+          "names": [
+            "FUSION"
+          ],
+          "expression": "canonicalize(np.load(FUSION_FILE, mmap_mode='r'))",
+          "line": 364
+        },
+        {
+          "names": [
+            "MC"
+          ],
+          "expression": "load_mcalens()",
+          "line": 511
+        },
+        {
+          "names": [
+            "MAPS"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': GS, 'MCALENS': MC, 'FUSION': FUSION}",
+          "line": 514
+        },
+        {
+          "names": [
+            "EXPECTED"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': np.array([0.64280548, 0.59660041, 0.58345016]), 'MCALENS': np.array([0.651369139, 0.595698, 0.685784]), 'FUSION': np.array([0.634196, 0.603865, 0.63148])}",
+          "line": 670
+        },
+        {
+          "names": [
+            "BLOCK"
+          ],
+          "expression": "{}",
+          "line": 1263
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            20,
+            "value",
+            "args",
+            0
+          ],
+          "line": 94,
+          "column": 4,
+          "end_line": 94,
+          "end_column": 33,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            23,
+            "value",
+            "args",
+            0
+          ],
+          "line": 108,
+          "column": 4,
+          "end_line": 110,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            24,
+            "value",
+            "args",
+            0
+          ],
+          "line": 114,
+          "column": 4,
+          "end_line": 115,
+          "end_column": 19,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"mcalens/recon\"",
+          "after": "str(PATHS.work_root / 'test/mcalens/recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            25,
+            "value",
+            "args",
+            0
+          ],
+          "line": 119,
+          "column": 4,
+          "end_line": 121,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"weighted_band_fusion/\"\n    \"W_A1_075_A2_075_test_maps.npy\"",
+          "after": "str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            26,
+            "value",
+            "args",
+            0
+          ],
+          "line": 125,
+          "column": 4,
+          "end_line": 126,
+          "end_column": 23,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"peak_bootstrap_v5\"",
+          "after": "str(PATHS.work_root / 'test/peak_bootstrap_v5')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/bootstrap_wiener_vs_gs.py",
+      "baseline_sha256": "9e11e2648037f31802a661582a3f83ce82c0e4474c9f9103e0953800bb929039",
+      "baseline_ast_sha256": "67c033aef56736548a3e87d1df4cd6024acd187e9638c621819cf4575a783d1d",
+      "numeric_literal_sha256": "ab5a82deaf5d3b5b9c0188c219229b1eecdcabf4a749ea1ae5542205350b940e",
+      "numeric_literal_count": 58,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 40
+        },
+        {
+          "names": [
+            "N_BOOT"
+          ],
+          "expression": "10000",
+          "line": 41
+        },
+        {
+          "names": [
+            "SEED"
+          ],
+          "expression": "20260930",
+          "line": 42
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 48
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 53
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(8)]",
+          "line": 108
+        },
+        {
+          "names": [
+            "MASK_PATCH"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 116
+        },
+        {
+          "names": [
+            "TRUTH"
+          ],
+          "expression": "np.empty((3, 20, 8, N, N), dtype=np.float32)",
+          "line": 140
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "np.load(GS_FILE, mmap_mode='r')",
+          "line": 177
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "np.asarray(GS)",
+          "line": 182
+        },
+        {
+          "names": [
+            "REALIZATIONS"
+          ],
+          "expression": "np.arange(10, 30)",
+          "line": 545
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "GS[:, 10:30, :, :, :]",
+          "line": 193
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "GS.reshape(3, 20, 8, N, N)",
+          "line": 208
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 45,
+          "column": 4,
+          "end_line": 45,
+          "end_column": 33,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 59,
+          "column": 4,
+          "end_line": 61,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 65,
+          "column": 4,
+          "end_line": 67,
+          "end_column": 27,
+          "before": "\"/u/gob5/Glimpse/\"\n    \"wiener_gaussian_only/\"\n    \"wiener_test_cases.csv\"",
+          "after": "str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_cases.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 71,
+          "column": 4,
+          "end_line": 72,
+          "end_column": 42,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"wiener_vs_gaussian_starlet_bootstrap\"",
+          "after": "str(PATHS.work_root / 'test/wiener_vs_gaussian_starlet_bootstrap')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/build_fair_validation_pk.py",
+      "baseline_sha256": "e8e57a5bcbf19b446624a1ab7de87b120ec24f97a55b5c35070ea3965f05f18a",
+      "baseline_ast_sha256": "21955d5afea738271db72c0bbc718732caa74bc2db8d42f4aa91da653123fe2d",
+      "numeric_literal_sha256": "f1c3a7b5849cfd97571231fd68238c72f2e2aa96059ced8f31316ccf53270a8c",
+      "numeric_literal_count": 96,
+      "settings": [
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA_DIR / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 12
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 17
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10)",
+          "line": 18
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 19
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 21
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 24
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            4,
+            "value",
+            "args",
+            0
+          ],
+          "line": 9,
+          "column": 12,
+          "end_line": 9,
+          "end_column": 49,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            5,
+            "value",
+            "args",
+            0
+          ],
+          "line": 11,
+          "column": 16,
+          "end_line": 11,
+          "end_column": 45,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 14,
+          "column": 11,
+          "end_line": 14,
+          "end_column": 47,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens\"",
+          "after": "str(PATHS.work_root / 'validation/mcalens')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/generate_mcalens_validation_maps.py",
+      "baseline_sha256": "8b5559ba8231004756ca01514b61b045ac6b448fb061382a31fc24e04420e5a6",
+      "baseline_ast_sha256": "c71ca73f25b7d1d040ced68d5b90ab3f2fc1973e2255404e7221adb72c479582",
+      "numeric_literal_sha256": "57b84e0ac3b332116ee5b27038848f45ecba4d9e2ac28d50d63007c95cddd608",
+      "numeric_literal_count": 84,
+      "settings": [
+        {
+          "names": [
+            "EXPECTED_COMMIT"
+          ],
+          "expression": "'7ae457db1697ac966fc6e739c00b91fa6a47ec2c'",
+          "line": 31
+        },
+        {
+          "names": [
+            "RECON_DIR"
+          ],
+          "expression": "OUT / 'recon'",
+          "line": 99
+        },
+        {
+          "names": [
+            "METRICS_FILE"
+          ],
+          "expression": "OUT / 'mcalens_validation_metrics.csv'",
+          "line": 108
+        },
+        {
+          "names": [
+            "SUMMARY_FILE"
+          ],
+          "expression": "OUT / 'mcalens_validation_summary.csv'",
+          "line": 113
+        },
+        {
+          "names": [
+            "BYCOSMO_FILE"
+          ],
+          "expression": "OUT / 'mcalens_validation_by_cosmology.csv'",
+          "line": 118
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 127
+        },
+        {
+          "names": [
+            "NSCALES"
+          ],
+          "expression": "4",
+          "line": 128
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "100",
+          "line": 130
+        },
+        {
+          "names": [
+            "NSIGMA"
+          ],
+          "expression": "5.0",
+          "line": 131
+        },
+        {
+          "names": [
+            "INPAINT"
+          ],
+          "expression": "False",
+          "line": 133
+        },
+        {
+          "names": [
+            "INP_NITER"
+          ],
+          "expression": "20",
+          "line": 134
+        },
+        {
+          "names": [
+            "ONLY_POS"
+          ],
+          "expression": "True",
+          "line": 136
+        },
+        {
+          "names": [
+            "FIRST_DETECT_SCALE"
+          ],
+          "expression": "1",
+          "line": 137
+        },
+        {
+          "names": [
+            "BMODE"
+          ],
+          "expression": "True",
+          "line": 139
+        },
+        {
+          "names": [
+            "PROPAGATE_NOISE"
+          ],
+          "expression": "False",
+          "line": 141
+        },
+        {
+          "names": [
+            "NREA"
+          ],
+          "expression": "None",
+          "line": 142
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 144
+        },
+        {
+          "names": [
+            "EXPECTED_GLOBAL_NMSE"
+          ],
+          "expression": "0.658007",
+          "line": 159
+        },
+        {
+          "names": [
+            "EXPECTED_GLOBAL_PCC"
+          ],
+          "expression": "0.591189",
+          "line": 160
+        },
+        {
+          "names": [
+            "EXPECTED_GLOBAL_STD"
+          ],
+          "expression": "0.691173",
+          "line": 161
+        },
+        {
+          "names": [
+            "EXPECTED_PILOT_NMSE"
+          ],
+          "expression": "0.670929329",
+          "line": 164
+        },
+        {
+          "names": [
+            "EXPECTED_PILOT_PCC"
+          ],
+          "expression": "0.585494",
+          "line": 165
+        },
+        {
+          "names": [
+            "PILOT_TOL"
+          ],
+          "expression": "0.003",
+          "line": 169
+        },
+        {
+          "names": [
+            "GLOBAL_TOL"
+          ],
+          "expression": "0.003",
+          "line": 170
+        },
+        {
+          "names": [
+            "CURRENT_COMMIT"
+          ],
+          "expression": "subprocess.check_output(['git', '-C', str(COSMOSTAT_ROOT), 'rev-parse', 'HEAD'], text=True).strip()",
+          "line": 36
+        },
+        {
+          "names": [
+            "M"
+          ],
+          "expression": "massmap2d(name='mass')",
+          "line": 465
+        },
+        {
+          "names": [
+            "CURRENT_COMMIT"
+          ],
+          "expression": "'UNKNOWN'",
+          "line": 50
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            7,
+            "value"
+          ],
+          "line": 14,
+          "column": 17,
+          "end_line": 14,
+          "end_column": 50,
+          "before": "Path.home() / \"cosmostat_mcalens\"",
+          "after": "PATHS.mcalens_root",
+          "reason": "Configured CosmoStat checkout"
+        },
+        {
+          "address": [
+            "body",
+            19,
+            "value",
+            "args",
+            0
+          ],
+          "line": 82,
+          "column": 4,
+          "end_line": 82,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            20,
+            "value",
+            "args",
+            0
+          ],
+          "line": 86,
+          "column": 4,
+          "end_line": 87,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            21,
+            "value",
+            "args",
+            0
+          ],
+          "line": 91,
+          "column": 4,
+          "end_line": 92,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            22,
+            "value",
+            "args",
+            0
+          ],
+          "line": 96,
+          "column": 4,
+          "end_line": 96,
+          "end_column": 40,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens\"",
+          "after": "str(PATHS.work_root / 'validation/mcalens')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/make_revised_figures_v12.py",
+      "baseline_sha256": "2117958af97ce14c0d506cffe57f21ee1a08bb3d27ef1592d355178246973839",
+      "baseline_ast_sha256": "ef9186fcb1020057577e8e155296056e3fe71f047b5a7b1afe641ae3d8b15c2a",
+      "numeric_literal_sha256": "62bbc0b31f00f31feafb8be951c65451ac6ad450b9bec5ff71033867a81700b4",
+      "numeric_literal_count": 342,
+      "settings": [
+        {
+          "names": [
+            "V8_WIENER_MAPS"
+          ],
+          "expression": "v8_load_wiener()",
+          "line": 114
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 123
+        },
+        {
+          "names": [
+            "PIX_ARCMIN"
+          ],
+          "expression": "2.0",
+          "line": 125
+        },
+        {
+          "names": [
+            "TEST_REALIZATIONS"
+          ],
+          "expression": "list(range(10, 30))",
+          "line": 127
+        },
+        {
+          "names": [
+            "N_TEST"
+          ],
+          "expression": "len(TEST_REALIZATIONS)",
+          "line": 134
+        },
+        {
+          "names": [
+            "N_COSMO"
+          ],
+          "expression": "3",
+          "line": 138
+        },
+        {
+          "names": [
+            "N_PATCH"
+          ],
+          "expression": "8",
+          "line": 139
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA_DIR / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 150
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA_DIR / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 155
+        },
+        {
+          "names": [
+            "LABEL_FILE"
+          ],
+          "expression": "DATA_DIR / 'sampled_label.npy'",
+          "line": 160
+        },
+        {
+          "names": [
+            "MC_KEY"
+          ],
+          "expression": "None",
+          "line": 199
+        },
+        {
+          "names": [
+            "VIS_C"
+          ],
+          "expression": "0",
+          "line": 206
+        },
+        {
+          "names": [
+            "VIS_R"
+          ],
+          "expression": "10",
+          "line": 207
+        },
+        {
+          "names": [
+            "VIS_P"
+          ],
+          "expression": "3",
+          "line": 208
+        },
+        {
+          "names": [
+            "SMOOTH_ARCMIN"
+          ],
+          "expression": "[2.0, 4.0, 6.0]",
+          "line": 215
+        },
+        {
+          "names": [
+            "TRUTH_NU_PR"
+          ],
+          "expression": "2.5",
+          "line": 221
+        },
+        {
+          "names": [
+            "TRUTH_NU_AMP"
+          ],
+          "expression": "3.0",
+          "line": 223
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_ARCMIN"
+          ],
+          "expression": "4.0",
+          "line": 225
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_PIX"
+          ],
+          "expression": "MATCH_RADIUS_ARCMIN / PIX_ARCMIN",
+          "line": 227
+        },
+        {
+          "names": [
+            "MASK_SUPPORT_MIN"
+          ],
+          "expression": "0.7",
+          "line": 232
+        },
+        {
+          "names": [
+            "REC_NU_THRESHOLDS"
+          ],
+          "expression": "np.linspace(8.0, -0.5, 120)",
+          "line": 235
+        },
+        {
+          "names": [
+            "N_ELL_BINS"
+          ],
+          "expression": "16",
+          "line": 246
+        },
+        {
+          "names": [
+            "SPECTRAL_AMPLITUDE_YMIN"
+          ],
+          "expression": "0.0",
+          "line": 248
+        },
+        {
+          "names": [
+            "SPECTRAL_AMPLITUDE_YMAX"
+          ],
+          "expression": "1.1",
+          "line": 249
+        },
+        {
+          "names": [
+            "SPECTRAL_CORR_YMIN"
+          ],
+          "expression": "0.2",
+          "line": 251
+        },
+        {
+          "names": [
+            "SPECTRAL_CORR_YMAX"
+          ],
+          "expression": "1.03",
+          "line": 252
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "{'KS': '#7f8c8d', 'GLIMPSE': '#999999', 'WIENER': '#CC79A7', 'STARLET_NOMASK': '#9ecae1', 'STARLET_MASK': '#3182bd', 'GAUSSIAN_STARLET': '#0072B2', 'MCALENS': '#D55E00', 'FUSION': '#009E73'}",
+          "line": 269
+        },
+        {
+          "names": [
+            "LABEL"
+          ],
+          "expression": "{'KS': 'Kaiser\u2013Squires', 'GLIMPSE': 'GLIMPSE', 'WIENER': 'Wiener-like', 'STARLET_NOMASK': 'Starlet\\nno mask', 'STARLET_MASK': 'Starlet\\nmask', 'GAUSSIAN_STARLET': 'Gaussian\\n+Starlet', 'MCALENS': 'MCALens', 'FUSION': 'Multiscale\\nfusion'}",
+          "line": 281
+        },
+        {
+          "names": [
+            "FIELD"
+          ],
+          "expression": "pd.DataFrame([{'method': 'KS', 'nmse': 0.724242146, 'pcc': 0.531082, 'std': 0.606745}, {'method': 'GLIMPSE', 'nmse': 0.824143, 'pcc': 0.437311, 'std': 0.564743}, {'method': 'WIENER', 'nmse': 0.686769155, 'pcc': 0.568533165, 'std': 0.471536857}, {'method': 'STARLET_NOMASK', 'nmse': 0.693355, 'pcc': 0.555284, 'std': 0.487017}, {'method': 'STARLET_MASK', 'nmse': 0.678849, 'pcc': 0.564984, 'std': 0.531114}, {'method': 'MCALENS', 'nmse': 0.651369139, 'pcc': 0.595698, 'std': 0.685784}, {'method': 'GAUSSIAN_STARLET', 'nmse': 0.64280548, 'pcc': 0.59660041, 'std': 0.58345016}, {'method': 'FUSION', 'nmse': 0.634196, 'pcc': 0.603865, 'std': 0.63148}])",
+          "line": 297
+        },
+        {
+          "names": [
+            "EXPECTED_MAP_METRICS"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': (0.64280548, 0.59660041, 0.58345016), 'MCALENS': (0.651369139, 0.595698, 0.685784), 'FUSION': (0.634196, 0.603865, 0.63148)}",
+          "line": 356
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(N_PATCH)]",
+          "line": 455
+        },
+        {
+          "names": [
+            "MASK_PATCH"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 466
+        },
+        {
+          "names": [
+            "TRUTH"
+          ],
+          "expression": "build_truth_grid()",
+          "line": 552
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "canonicalize(np.load(GS_FILE, mmap_mode='r'), 'Gaussian+Starlet')",
+          "line": 628
+        },
+        {
+          "names": [
+            "FUSION"
+          ],
+          "expression": "canonicalize(np.load(FUSION_FILE, mmap_mode='r'), 'Fusion')",
+          "line": 637
+        },
+        {
+          "names": [
+            "BAD_KEY_WORDS"
+          ],
+          "expression": "['truth', 'true', 'mask', 'gamma', 'shear', 'noise', 'input', 'target', 'label']",
+          "line": 650
+        },
+        {
+          "names": [
+            "SAFE_RECON_KEYS"
+          ],
+          "expression": "['rec', 'recon', 'reconstruction', 'mcalens', 'mcalens_rec', 'mcalens_recon', 'kappa_rec', 'kappa_recon', 'kappa_reconstruction', 'x_rec', 'x_recon', 'x_final', 'solution']",
+          "line": 663
+        },
+        {
+          "names": [
+            "MC_RECON_KEY"
+          ],
+          "expression": "choose_mcalens_key()",
+          "line": 833
+        },
+        {
+          "names": [
+            "MC"
+          ],
+          "expression": "load_mcalens()",
+          "line": 922
+        },
+        {
+          "names": [
+            "MAPS"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': GS, 'MCALENS': MC, 'FUSION': FUSION}",
+          "line": 925
+        },
+        {
+          "names": [
+            "FIELD_CASES"
+          ],
+          "expression": "{}",
+          "line": 1088
+        },
+        {
+          "names": [
+            "ORDER"
+          ],
+          "expression": "['KS', 'GLIMPSE', 'WIENER', 'STARLET_NOMASK', 'STARLET_MASK', 'MCALENS', 'GAUSSIAN_STARLET', 'FUSION']",
+          "line": 1588
+        },
+        {
+          "names": [
+            "AB_ORDER"
+          ],
+          "expression": "['KS', 'STARLET_NOMASK', 'STARLET_MASK', 'GAUSSIAN_STARLET', 'MCALENS', 'FUSION']",
+          "line": 1784
+        },
+        {
+          "names": [
+            "ELL_MAP"
+          ],
+          "expression": "2.0 * np.pi * np.sqrt(FX ** 2 + FY ** 2) / theta_pix_rad",
+          "line": 1968
+        },
+        {
+          "names": [
+            "ELL_MIN"
+          ],
+          "expression": "max(60.0, np.percentile(nonzero_ell, 0.1))",
+          "line": 1984
+        },
+        {
+          "names": [
+            "ELL_MAX"
+          ],
+          "expression": "min(6000.0, np.percentile(nonzero_ell, 99.0))",
+          "line": 1993
+        },
+        {
+          "names": [
+            "ELL_EDGES"
+          ],
+          "expression": "np.geomspace(ELL_MIN, ELL_MAX, N_ELL_BINS + 1)",
+          "line": 2002
+        },
+        {
+          "names": [
+            "ELL"
+          ],
+          "expression": "np.sqrt(ELL_EDGES[:-1] * ELL_EDGES[1:])",
+          "line": 2010
+        },
+        {
+          "names": [
+            "SPECTRAL"
+          ],
+          "expression": "{}",
+          "line": 2326
+        },
+        {
+          "names": [
+            "V9_SPECTRAL_MAPS"
+          ],
+          "expression": "dict(MAPS)",
+          "line": 2335
+        },
+        {
+          "names": [
+            "PEAK"
+          ],
+          "expression": "{}",
+          "line": 2966
+        },
+        {
+          "names": [
+            "PEAK_AMP"
+          ],
+          "expression": "{}",
+          "line": 2968
+        },
+        {
+          "names": [
+            "AUC"
+          ],
+          "expression": "{}",
+          "line": 3360
+        },
+        {
+          "names": [
+            "R"
+          ],
+          "expression": "np.fft.fft2(r, norm='ortho')",
+          "line": 2151
+        },
+        {
+          "names": [
+            "T"
+          ],
+          "expression": "np.fft.fft2(t, norm='ortho')",
+          "line": 2156
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 72,
+          "column": 4,
+          "end_line": 73,
+          "end_column": 36,
+          "before": "\"/u/gob5/Glimpse/wiener_gaussian_only/\"\n    \"wiener_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            20,
+            "value",
+            "args",
+            0
+          ],
+          "line": 147,
+          "column": 4,
+          "end_line": 147,
+          "end_column": 33,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            24,
+            "value",
+            "args",
+            0
+          ],
+          "line": 167,
+          "column": 4,
+          "end_line": 169,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            25,
+            "value",
+            "args",
+            0
+          ],
+          "line": 173,
+          "column": 4,
+          "end_line": 174,
+          "end_column": 19,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"mcalens/recon\"",
+          "after": "str(PATHS.work_root / 'test/mcalens/recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            26,
+            "value",
+            "args",
+            0
+          ],
+          "line": 178,
+          "column": 4,
+          "end_line": 180,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"weighted_band_fusion/\"\n    \"W_A1_075_A2_075_test_maps.npy\"",
+          "after": "str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            27,
+            "value",
+            "args",
+            0
+          ],
+          "line": 185,
+          "column": 4,
+          "end_line": 186,
+          "end_column": 31,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"revised_paper_figures_v12\"",
+          "after": "str(PATHS.work_root / 'test/revised_paper_figures_v12')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/quantify_photoz_trend.py",
+      "baseline_sha256": "d9b46ed5df247d2d581290c1040bf3ac55bd5a2b50c32415c698d65721cf1477",
+      "baseline_ast_sha256": "525a98b2861da1f31c3d6d10d91cb5d0c8076a04db0b3a74bc8ab050a5376741",
+      "numeric_literal_sha256": "4444b649e4d14e2f515c642af7fffbfb4e2d05781f7987b19bb909a3b77acacd",
+      "numeric_literal_count": 85,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 40
+        },
+        {
+          "names": [
+            "N_BOOT"
+          ],
+          "expression": "10000",
+          "line": 42
+        },
+        {
+          "names": [
+            "SEED"
+          ],
+          "expression": "20260930",
+          "line": 44
+        },
+        {
+          "names": [
+            "MCALENS_KEY"
+          ],
+          "expression": "'mcalens'",
+          "line": 46
+        },
+        {
+          "names": [
+            "LABEL_FILE"
+          ],
+          "expression": "DATA / 'sampled_label.npy'",
+          "line": 57
+        },
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 62
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 67
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(8)]",
+          "line": 179
+        },
+        {
+          "names": [
+            "MASKS"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 192
+        },
+        {
+          "names": [
+            "TRUTH"
+          ],
+          "expression": "np.empty((3, 20, 8, N, N), dtype=np.float32)",
+          "line": 235
+        },
+        {
+          "names": [
+            "GS"
+          ],
+          "expression": "canonicalize(np.load(GS_FILE, mmap_mode='r'))",
+          "line": 365
+        },
+        {
+          "names": [
+            "FUSION"
+          ],
+          "expression": "canonicalize(np.load(FUSION_FILE, mmap_mode='r'))",
+          "line": 375
+        },
+        {
+          "names": [
+            "MC"
+          ],
+          "expression": "load_mcalens()",
+          "line": 492
+        },
+        {
+          "names": [
+            "MAPS"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': GS, 'MCALENS': MC, 'FUSION': FUSION}",
+          "line": 495
+        },
+        {
+          "names": [
+            "EXPECTED"
+          ],
+          "expression": "{'GAUSSIAN_STARLET': np.array([0.64280548, 0.59660041, 0.58345016]), 'MCALENS': np.array([0.651369139, 0.595698, 0.685784]), 'FUSION': np.array([0.634196, 0.603865, 0.63148])}",
+          "line": 661
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 54,
+          "column": 4,
+          "end_line": 54,
+          "end_column": 33,
+          "before": "\"/tatu/gob5/99 - Cosmos/data\"",
+          "after": "str(PATHS.data_root)",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            13,
+            "value",
+            "args",
+            0
+          ],
+          "line": 73,
+          "column": 4,
+          "end_line": 75,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 79,
+          "column": 4,
+          "end_line": 80,
+          "end_column": 19,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"mcalens/recon\"",
+          "after": "str(PATHS.work_root / 'test/mcalens/recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value",
+            "args",
+            0
+          ],
+          "line": 84,
+          "column": 4,
+          "end_line": 86,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"weighted_band_fusion/\"\n    \"W_A1_075_A2_075_test_maps.npy\"",
+          "after": "str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            16,
+            "value",
+            "args",
+            0
+          ],
+          "line": 90,
+          "column": 4,
+          "end_line": 91,
+          "end_column": 18,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"photoz_audit\"",
+          "after": "str(PATHS.work_root / 'test/photoz_audit')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_admm_gaussian_starlet_audit.py",
+      "baseline_sha256": "b162e6f899704cfed2f5c3000f19f454b99ba956e37fd2b93f32330ece18beb4",
+      "baseline_ast_sha256": "29005f344e8bd9d40b4042be8e6e65ec37b43ed0584118c3dacf44fa2a9e9a66",
+      "numeric_literal_sha256": "6f9535e06e349d8a7c93a035a3d8937ea2a55cce1efa4977c2393b437bc14857",
+      "numeric_literal_count": 194,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 20
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 24
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 25
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 27
+        },
+        {
+          "names": [
+            "BETA"
+          ],
+          "expression": "0.001",
+          "line": 28
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 30
+        },
+        {
+          "names": [
+            "PDHG_REC_FILE"
+          ],
+          "expression": "PDHG_ROOT / 'stage1_gaussian_starlet_rec.npy'",
+          "line": 59
+        },
+        {
+          "names": [
+            "PDHG_G_FILE"
+          ],
+          "expression": "PDHG_ROOT / 'stage1_gaussian_component.npy'",
+          "line": 64
+        },
+        {
+          "names": [
+            "PDHG_S_FILE"
+          ],
+          "expression": "PDHG_ROOT / 'stage1_sparse_component.npy'",
+          "line": 69
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'admm_vs_pdhg_cases.csv'",
+          "line": 84
+        },
+        {
+          "names": [
+            "SUMMARY_CSV"
+          ],
+          "expression": "OUT / 'admm_vs_pdhg_summary.csv'",
+          "line": 89
+        },
+        {
+          "names": [
+            "RECON_DIR"
+          ],
+          "expression": "OUT / 'recon'",
+          "line": 94
+        },
+        {
+          "names": [
+            "CASES"
+          ],
+          "expression": "[]",
+          "line": 110
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 130
+        },
+        {
+          "names": [
+            "RHO_INIT"
+          ],
+          "expression": "100.0",
+          "line": 149
+        },
+        {
+          "names": [
+            "ADMM_MAXITER"
+          ],
+          "expression": "2500",
+          "line": 151
+        },
+        {
+          "names": [
+            "ADMM_EPS_ABS"
+          ],
+          "expression": "1e-06",
+          "line": 167
+        },
+        {
+          "names": [
+            "ADMM_EPS_REL"
+          ],
+          "expression": "0.0001",
+          "line": 168
+        },
+        {
+          "names": [
+            "ADAPT_RHO"
+          ],
+          "expression": "True",
+          "line": 170
+        },
+        {
+          "names": [
+            "ADAPT_EVERY"
+          ],
+          "expression": "25",
+          "line": 171
+        },
+        {
+          "names": [
+            "RESIDUAL_MU"
+          ],
+          "expression": "10.0",
+          "line": 173
+        },
+        {
+          "names": [
+            "RHO_FACTOR"
+          ],
+          "expression": "2.0",
+          "line": 174
+        },
+        {
+          "names": [
+            "RHO_MIN"
+          ],
+          "expression": "0.01",
+          "line": 176
+        },
+        {
+          "names": [
+            "RHO_MAX"
+          ],
+          "expression": "100000.0",
+          "line": 177
+        },
+        {
+          "names": [
+            "CG_MAXITER"
+          ],
+          "expression": "40",
+          "line": 180
+        },
+        {
+          "names": [
+            "CG_TOL"
+          ],
+          "expression": "1e-07",
+          "line": 181
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "10",
+          "line": 184
+        },
+        {
+          "names": [
+            "PRINT_EVERY"
+          ],
+          "expression": "50",
+          "line": 186
+        },
+        {
+          "names": [
+            "PRIMAL_DIM_REAL"
+          ],
+          "expression": "2 * N * N",
+          "line": 213
+        },
+        {
+          "names": [
+            "SPLIT_DIM_REAL"
+          ],
+          "expression": "(J + 4) * N * N",
+          "line": 219
+        },
+        {
+          "names": [
+            "SQRT_PRIMAL_DIM"
+          ],
+          "expression": "float(np.sqrt(PRIMAL_DIM_REAL))",
+          "line": 225
+        },
+        {
+          "names": [
+            "SQRT_SPLIT_DIM"
+          ],
+          "expression": "float(np.sqrt(SPLIT_DIM_REAL))",
+          "line": 231
+        },
+        {
+          "names": [
+            "V"
+          ],
+          "expression": "torch.fft.fft2(v, norm='ortho')",
+          "line": 512
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(xg, norm='ortho')",
+          "line": 1620
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 397
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.fft.fft2(coeff, norm='ortho')",
+          "line": 412
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.sum(self.B * C, dim=1)",
+          "line": 417
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 41,
+          "column": 4,
+          "end_line": 41,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value",
+            "args",
+            0
+          ],
+          "line": 45,
+          "column": 4,
+          "end_line": 46,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            16,
+            "value",
+            "args",
+            0
+          ],
+          "line": 50,
+          "column": 4,
+          "end_line": 51,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            17,
+            "value",
+            "args",
+            0
+          ],
+          "line": 55,
+          "column": 4,
+          "end_line": 56,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"reweighted_gaussian_starlet\"",
+          "after": "str(PATHS.work_root / 'validation/reweighted_gaussian_starlet')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            21,
+            "value",
+            "args",
+            0
+          ],
+          "line": 75,
+          "column": 4,
+          "end_line": 76,
+          "end_column": 23,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"admm_solver_audit\"",
+          "after": "str(PATHS.work_root / 'validation/admm_solver_audit')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_joint_validation.py",
+      "baseline_sha256": "28cd0305568df5f2d60976281db5f9aaa345b2e1f8866e061a76d4a23cca6fce",
+      "baseline_ast_sha256": "f7b295cf72c00f7de139c616b4493044cb48af0b09190dac3952f8e3e65121b3",
+      "numeric_literal_sha256": "4c3406fb632319272564752314e8f84fde6d4fa2b3c40d7f42934198f70ebc20",
+      "numeric_literal_count": 164,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 20
+        },
+        {
+          "names": [
+            "OLD_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_validation.csv'",
+          "line": 48
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_joint_validation.csv'",
+          "line": 51
+        },
+        {
+          "names": [
+            "SUMMARY_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_joint_validation_summary.csv'",
+          "line": 53
+        },
+        {
+          "names": [
+            "BYCOSMO_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_joint_validation_by_cosmology.csv'",
+          "line": 58
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 63
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 64
+        },
+        {
+          "names": [
+            "LAMBDA_GRID"
+          ],
+          "expression": "[0.03, 0.05, 0.07]",
+          "line": 69
+        },
+        {
+          "names": [
+            "BETA_GRID"
+          ],
+          "expression": "[0.0006, 0.001, 0.002]",
+          "line": 75
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 81
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "6000",
+          "line": 91
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.5",
+          "line": 93
+        },
+        {
+          "names": [
+            "SIGMA"
+          ],
+          "expression": "0.5",
+          "line": 94
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 95
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 97
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 99
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10)",
+          "line": 100
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 101
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 103
+        },
+        {
+          "names": [
+            "V"
+          ],
+          "expression": "torch.fft.fft2(v, norm='ortho')",
+          "line": 452
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 344
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.fft.fft2(coeff, norm='ortho')",
+          "line": 358
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.sum(self.B * C, dim=1)",
+          "line": 363
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 25,
+          "column": 4,
+          "end_line": 25,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 29,
+          "column": 4,
+          "end_line": 30,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 34,
+          "column": 4,
+          "end_line": 35,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 39,
+          "column": 4,
+          "end_line": 40,
+          "end_column": 28,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"starlet_gaussian_prior\"",
+          "after": "str(PATHS.work_root / 'validation/starlet_gaussian_prior')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_reduced_shear.py",
+      "baseline_sha256": "0636b37dbb6e9b0efee07a0e520c059175ef697585fea1d349af11569af7c500",
+      "baseline_ast_sha256": "53fc44c19395c17728e0cac7676c7b56a5a87dc33a83996ea2708722d6cfd871",
+      "numeric_literal_sha256": "69a76df48e7eb11cac8ff664ade9c227da110cbfc76e8e9f5b1b9a263c252793",
+      "numeric_literal_count": 155,
+      "settings": [
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 85
+        },
+        {
+          "names": [
+            "BLOCK_DIR"
+          ],
+          "expression": "OUT / 'blocks'",
+          "line": 110
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 130
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 131
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 133
+        },
+        {
+          "names": [
+            "BETA"
+          ],
+          "expression": "0.001",
+          "line": 134
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 136
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.5",
+          "line": 146
+        },
+        {
+          "names": [
+            "SIGMA"
+          ],
+          "expression": "0.5",
+          "line": 147
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 148
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "6000",
+          "line": 150
+        },
+        {
+          "names": [
+            "TEST_REALIZATIONS"
+          ],
+          "expression": "list(range(10, 30))",
+          "line": 152
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(p * N, (p + 1) * N) for p in range(8)]",
+          "line": 159
+        },
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 167
+        },
+        {
+          "names": [
+            "DTYPE"
+          ],
+          "expression": "torch.float32",
+          "line": 173
+        },
+        {
+          "names": [
+            "CDTYPE"
+          ],
+          "expression": "torch.complex64",
+          "line": 174
+        },
+        {
+          "names": [
+            "PREFLIGHT_MAP_REL_TOL"
+          ],
+          "expression": "0.005",
+          "line": 182
+        },
+        {
+          "names": [
+            "PREFLIGHT_METRIC_TOL"
+          ],
+          "expression": "0.001",
+          "line": 185
+        },
+        {
+          "names": [
+            "MASK_PATCH"
+          ],
+          "expression": "np.stack([mask_full[r0:r1, :] for r0, r1 in PATCH_ROWS], axis=0)",
+          "line": 257
+        },
+        {
+          "names": [
+            "GS_NOMINAL"
+          ],
+          "expression": "np.load(GS_NOMINAL_FILE, mmap_mode='r')",
+          "line": 269
+        },
+        {
+          "names": [
+            "GS_NOMINAL"
+          ],
+          "expression": "np.asarray(GS_NOMINAL)",
+          "line": 274
+        },
+        {
+          "names": [
+            "OP"
+          ],
+          "expression": "WeakLensingOperator(N, N, DEVICE)",
+          "line": 329
+        },
+        {
+          "names": [
+            "PK"
+          ],
+          "expression": "torch.as_tensor(make_pk_map(pk1d, N, N), dtype=DTYPE, device=DEVICE)",
+          "line": 453
+        },
+        {
+          "names": [
+            "PK_SUPPORT"
+          ],
+          "expression": "(PK > 0).to(DTYPE)",
+          "line": 464
+        },
+        {
+          "names": [
+            "B3"
+          ],
+          "expression": "np.array([1.0, 4.0, 6.0, 4.0, 1.0], dtype=np.float64) / 16.0",
+          "line": 475
+        },
+        {
+          "names": [
+            "STARLET_W"
+          ],
+          "expression": "torch.as_tensor(np.stack(starlet_w, axis=0), dtype=CDTYPE, device=DEVICE)",
+          "line": 571
+        },
+        {
+          "names": [
+            "ALPHA_T"
+          ],
+          "expression": "torch.as_tensor(ALPHA, dtype=DTYPE, device=DEVICE).view(1, J, 1, 1)",
+          "line": 581
+        },
+        {
+          "names": [
+            "PREFLIGHT_CASES"
+          ],
+          "expression": "[(0, 10, 0), (1, 10, 4), (2, 10, 7)]",
+          "line": 1222
+        },
+        {
+          "names": [
+            "RS"
+          ],
+          "expression": "np.empty((3, 20, 8, N, N), dtype=np.float32)",
+          "line": 1866
+        },
+        {
+          "names": [
+            "MISMATCH"
+          ],
+          "expression": "np.empty((3, 20, 8), dtype=np.float32)",
+          "line": 1878
+        },
+        {
+          "names": [
+            "NOISE_REAL"
+          ],
+          "expression": "np.empty_like(MISMATCH)",
+          "line": 1888
+        },
+        {
+          "names": [
+            "NOISE_IMAG"
+          ],
+          "expression": "np.empty_like(MISMATCH)",
+          "line": 1892
+        },
+        {
+          "names": [
+            "N_BOOT"
+          ],
+          "expression": "10000",
+          "line": 2275
+        },
+        {
+          "names": [
+            "BOOT_SEED"
+          ],
+          "expression": "20260930",
+          "line": 2276
+        },
+        {
+          "names": [
+            "RIDS"
+          ],
+          "expression": "np.arange(10, 30)",
+          "line": 2348
+        },
+        {
+          "names": [
+            "GS_NOMINAL"
+          ],
+          "expression": "GS_NOMINAL[:, 10:30, :, :, :]",
+          "line": 287
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 608
+        },
+        {
+          "names": [
+            "W"
+          ],
+          "expression": "X[:, None, :, :] * STARLET_W[None, :, :, :]",
+          "line": 613
+        },
+        {
+          "names": [
+            "Q"
+          ],
+          "expression": "torch.fft.fft2(q, norm='ortho')",
+          "line": 641
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 684
+        },
+        {
+          "names": [
+            "B"
+          ],
+          "expression": "y.shape[0]",
+          "line": 743
+        },
+        {
+          "names": [
+            "GS_NOMINAL"
+          ],
+          "expression": "GS_NOMINAL.reshape(3, 20, 8, N, N)",
+          "line": 302
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 72,
+          "column": 4,
+          "end_line": 72,
+          "end_column": 28,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value"
+          ],
+          "line": 83,
+          "column": 7,
+          "end_line": 83,
+          "end_column": 20,
+          "before": "ROOT / \"data\"",
+          "after": "PATHS.data_root",
+          "reason": "Separate FAIR input location from scientific-module location"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 91,
+          "column": 4,
+          "end_line": 91,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/fair_npz\"",
+          "after": "str(PATHS.work_root / 'test/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            13,
+            "value",
+            "args",
+            0
+          ],
+          "line": 95,
+          "column": 4,
+          "end_line": 96,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 100,
+          "column": 4,
+          "end_line": 102,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value",
+            "args",
+            0
+          ],
+          "line": 106,
+          "column": 4,
+          "end_line": 107,
+          "end_column": 36,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"gaussian_starlet_reduced_shear\"",
+          "after": "str(PATHS.work_root / 'test/gaussian_starlet_reduced_shear')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_test.py",
+      "baseline_sha256": "aa165377164da3e9f9b2650df931f67c2f4695bd7911db9e85f1595f6656d059",
+      "baseline_ast_sha256": "1ceca53c8eb122e6e123183e6b20c8b983758f9762be114c38a1d0e3dfad0794",
+      "numeric_literal_sha256": "bcfbca4291e35d7e51f2395109ceb4fa300b0824e69de02f7068c0c3f0f6a1ab",
+      "numeric_literal_count": 155,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 20
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_metrics.csv'",
+          "line": 49
+        },
+        {
+          "names": [
+            "SUMMARY_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_summary.csv'",
+          "line": 51
+        },
+        {
+          "names": [
+            "BYCOSMO_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_by_cosmology.csv'",
+          "line": 56
+        },
+        {
+          "names": [
+            "PAIRWISE_CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_pairwise_bootstrap.csv'",
+          "line": 61
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 69
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 70
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 72
+        },
+        {
+          "names": [
+            "BETA"
+          ],
+          "expression": "0.001",
+          "line": 73
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 75
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "6000",
+          "line": 85
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.5",
+          "line": 87
+        },
+        {
+          "names": [
+            "SIGMA"
+          ],
+          "expression": "0.5",
+          "line": 88
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 89
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 91
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 93
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10, 30)",
+          "line": 94
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 95
+        },
+        {
+          "names": [
+            "NBOOT"
+          ],
+          "expression": "30000",
+          "line": 97
+        },
+        {
+          "names": [
+            "BOOT_SEED"
+          ],
+          "expression": "12345",
+          "line": 98
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 100
+        },
+        {
+          "names": [
+            "MAP_SHAPE"
+          ],
+          "expression": "(3, 20, 8, 176, 176)",
+          "line": 118
+        },
+        {
+          "names": [
+            "REC_FILE"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_reconstruction.npy'",
+          "line": 126
+        },
+        {
+          "names": [
+            "GAUSS_FILE"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_gaussian.npy'",
+          "line": 131
+        },
+        {
+          "names": [
+            "SPARSE_FILE"
+          ],
+          "expression": "OUT / 'gaussian_starlet_test_sparse.npy'",
+          "line": 136
+        },
+        {
+          "names": [
+            "V"
+          ],
+          "expression": "torch.fft.fft2(v, norm='ortho')",
+          "line": 500
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 399
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.fft.fft2(coeff, norm='ortho')",
+          "line": 411
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.sum(self.B * C, dim=1)",
+          "line": 416
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 25,
+          "column": 4,
+          "end_line": 25,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/fair_npz\"",
+          "after": "str(PATHS.work_root / 'test/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 29,
+          "column": 4,
+          "end_line": 30,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 36,
+          "column": 4,
+          "end_line": 37,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 41,
+          "column": 4,
+          "end_line": 42,
+          "end_column": 28,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            111,
+            "value",
+            "args",
+            0
+          ],
+          "line": 1754,
+          "column": 4,
+          "end_line": 1755,
+          "end_column": 29,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"square_ours_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/square_ours_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            113,
+            "value",
+            "args",
+            0
+          ],
+          "line": 1798,
+          "column": 4,
+          "end_line": 1799,
+          "end_column": 30,
+          "before": "\"/u/gob5/Glimpse/test/mcalens/\"\n    \"mcalens_test_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/mcalens/mcalens_test_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            115,
+            "value",
+            "elts",
+            0,
+            "args",
+            0
+          ],
+          "line": 1834,
+          "column": 8,
+          "end_line": 1835,
+          "end_column": 34,
+          "before": "\"/u/gob5/Glimpse/test/\"\n        \"glimpse_test_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/glimpse_test_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            115,
+            "value",
+            "elts",
+            1,
+            "args",
+            0
+          ],
+          "line": 1839,
+          "column": 8,
+          "end_line": 1840,
+          "end_column": 29,
+          "before": "\"/u/gob5/Glimpse/test/\"\n        \"glimpse_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/glimpse_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            115,
+            "value",
+            "elts",
+            2,
+            "args",
+            0
+          ],
+          "line": 1844,
+          "column": 8,
+          "end_line": 1845,
+          "end_column": 39,
+          "before": "\"/u/gob5/Glimpse/test/\"\n        \"fair_glimpse_test_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/fair_glimpse_test_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_gaussian_starlet_validation.py",
+      "baseline_sha256": "d672dbb76a0dd8fa06770c53e29bd166a79704f2a85864fb152af69c63ad7d78",
+      "baseline_ast_sha256": "d9c413a84d299cedeb8d4a856fa641920812a23411260d9e4785e2ce02b2be3f",
+      "numeric_literal_sha256": "eadde7c49a73861621b7dba5b37bf189f036b12e241995906f4d8fe7b3058f55",
+      "numeric_literal_count": 120,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 17
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'gaussian_starlet_validation.csv'",
+          "line": 41
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 43
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 44
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 46
+        },
+        {
+          "names": [
+            "BETA_GRID"
+          ],
+          "expression": "[0.0006, 0.001, 0.002]",
+          "line": 49
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 55
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "6000",
+          "line": 65
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.5",
+          "line": 67
+        },
+        {
+          "names": [
+            "SIGMA"
+          ],
+          "expression": "0.5",
+          "line": 68
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 69
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 71
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 73
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10)",
+          "line": 74
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 75
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 77
+        },
+        {
+          "names": [
+            "V"
+          ],
+          "expression": "torch.fft.fft2(v, norm='ortho')",
+          "line": 380
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 296
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.fft.fft2(c, norm='ortho')",
+          "line": 310
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.sum(self.B * C, dim=1)",
+          "line": 315
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 22,
+          "column": 4,
+          "end_line": 22,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 26,
+          "column": 4,
+          "end_line": 27,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 31,
+          "column": 4,
+          "end_line": 32,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 36,
+          "column": 4,
+          "end_line": 37,
+          "end_column": 28,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"starlet_gaussian_prior\"",
+          "after": "str(PATHS.work_root / 'validation/starlet_gaussian_prior')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_mcalens_test.py",
+      "baseline_sha256": "e8bf1ff9aea06ba0a50d0f4176c4e228433a20f5fdbed32df8c4f56b05c75009",
+      "baseline_ast_sha256": "6b7dbd830bbc9f5abaa8f1304fdda73227bebaa1aee6d2c50eb25b3426bf3433",
+      "numeric_literal_sha256": "00214c6be592e0a2895965a6b4b3bb44f60d1deb51be4f064ab5a5a89db8f58a",
+      "numeric_literal_count": 89,
+      "settings": [
+        {
+          "names": [
+            "RECON_DIR"
+          ],
+          "expression": "OUT / 'recon'",
+          "line": 31
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'mcalens_test_metrics.csv'",
+          "line": 34
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 36
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10, 30)",
+          "line": 37
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 38
+        },
+        {
+          "names": [
+            "NSIGMA"
+          ],
+          "expression": "5",
+          "line": 40
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "100",
+          "line": 41
+        },
+        {
+          "names": [
+            "NSCALES"
+          ],
+          "expression": "4",
+          "line": 42
+        },
+        {
+          "names": [
+            "INPAINT"
+          ],
+          "expression": "False",
+          "line": 44
+        },
+        {
+          "names": [
+            "ONLY_POS"
+          ],
+          "expression": "True",
+          "line": 45
+        },
+        {
+          "names": [
+            "FIRST_DETECT_SCALE"
+          ],
+          "expression": "1",
+          "line": 46
+        },
+        {
+          "names": [
+            "BMODE"
+          ],
+          "expression": "True",
+          "line": 47
+        },
+        {
+          "names": [
+            "NWORKERS"
+          ],
+          "expression": "int(os.environ.get('MCALENS_WORKERS', '8'))",
+          "line": 49
+        },
+        {
+          "names": [
+            "NBOOT"
+          ],
+          "expression": "30000",
+          "line": 56
+        },
+        {
+          "names": [
+            "BOOT_SEED"
+          ],
+          "expression": "12345",
+          "line": 57
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 59
+        },
+        {
+          "names": [
+            "M"
+          ],
+          "expression": "massmap2d(name='mass')",
+          "line": 224
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            0
+          ],
+          "line": 11,
+          "column": 12,
+          "end_line": 11,
+          "end_column": 43,
+          "before": "\"/u/gob5/Glimpse/test/fair_npz\"",
+          "after": "str(PATHS.work_root / 'test/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 14,
+          "column": 4,
+          "end_line": 15,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            8,
+            "value",
+            "args",
+            0
+          ],
+          "line": 22,
+          "column": 4,
+          "end_line": 23,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 27,
+          "column": 4,
+          "end_line": 27,
+          "end_column": 34,
+          "before": "\"/u/gob5/Glimpse/test/mcalens\"",
+          "after": "str(PATHS.work_root / 'test/mcalens')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            32,
+            "body",
+            45,
+            "value",
+            "elts",
+            0,
+            "args",
+            0
+          ],
+          "line": 889,
+          "column": 12,
+          "end_line": 890,
+          "end_column": 37,
+          "before": "\"/u/gob5/Glimpse/test/\"\n            \"square_ours_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/square_ours_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            32,
+            "body",
+            45,
+            "value",
+            "elts",
+            1,
+            "args",
+            0
+          ],
+          "line": 894,
+          "column": 12,
+          "end_line": 895,
+          "end_column": 39,
+          "before": "\"/u/gob5/Glimpse/test/\"\n            \"square_method_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/square_method_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            32,
+            "body",
+            45,
+            "value",
+            "elts",
+            2,
+            "args",
+            0
+          ],
+          "line": 899,
+          "column": 12,
+          "end_line": 900,
+          "end_column": 36,
+          "before": "\"/u/gob5/Glimpse/test/\"\n            \"our_square_metrics.csv\"",
+          "after": "str(PATHS.work_root / 'test/our_square_metrics.csv')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_mcalens_validation.py",
+      "baseline_sha256": "e6d02871fed1f22e867491d7955b3a42456407c63a292270ba3224da7eb4f9ee",
+      "baseline_ast_sha256": "46e4e16cd5b5a9ea7c37a4e28e3ad35cdb18ca7e8d0a0b200750e5a0720a924b",
+      "numeric_literal_sha256": "3768235cc21e12d4d367e0eff77564b379365dc2334e34ed09e2106533a9bee9",
+      "numeric_literal_count": 54,
+      "settings": [
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'mcalens_validation_metrics.csv'",
+          "line": 27
+        },
+        {
+          "names": [
+            "COSMOS"
+          ],
+          "expression": "range(3)",
+          "line": 29
+        },
+        {
+          "names": [
+            "REALS"
+          ],
+          "expression": "range(10)",
+          "line": 30
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "range(8)",
+          "line": 31
+        },
+        {
+          "names": [
+            "NSIGMAS"
+          ],
+          "expression": "[6]",
+          "line": 33
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "100",
+          "line": 35
+        },
+        {
+          "names": [
+            "NSCALES"
+          ],
+          "expression": "4",
+          "line": 36
+        },
+        {
+          "names": [
+            "NWORKERS"
+          ],
+          "expression": "int(os.environ.get('MCALENS_WORKERS', '8'))",
+          "line": 40
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 47
+        },
+        {
+          "names": [
+            "M"
+          ],
+          "expression": "massmap2d(name='mass')",
+          "line": 200
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            0
+          ],
+          "line": 11,
+          "column": 12,
+          "end_line": 11,
+          "end_column": 49,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            0
+          ],
+          "line": 13,
+          "column": 4,
+          "end_line": 14,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            8,
+            "value",
+            "args",
+            0
+          ],
+          "line": 18,
+          "column": 4,
+          "end_line": 19,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 23,
+          "column": 4,
+          "end_line": 23,
+          "end_column": 40,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens\"",
+          "after": "str(PATHS.work_root / 'validation/mcalens')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_multiscale_fusion_validation.py",
+      "baseline_sha256": "ed5778a0ef58f5f4ba03be0d7634dc9339a624ff38926ccdda04cf52ccb02cc6",
+      "baseline_ast_sha256": "5ef34842fcb5cf67935326cfb070277fed3214ae06619caa24a23b259f3ad552",
+      "numeric_literal_sha256": "207eed602b9777a37900cfb0afa81599fb2d502f5e579955ee3d80ceedebf0b2",
+      "numeric_literal_count": 247,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 15
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 16
+        },
+        {
+          "names": [
+            "PIXEL_ARCMIN"
+          ],
+          "expression": "2.0",
+          "line": 17
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 50
+        },
+        {
+          "names": [
+            "MAP_SHAPE_GRID"
+          ],
+          "expression": "(3, 10, 8, N, N)",
+          "line": 61
+        },
+        {
+          "names": [
+            "MAP_SHAPE_FLAT"
+          ],
+          "expression": "(240, N, N)",
+          "line": 69
+        },
+        {
+          "names": [
+            "HYBRID_DEFINITION"
+          ],
+          "expression": "{'H1': {'GS': [0], 'MC': [1, 2, 3]}, 'H2': {'GS': [0, 1], 'MC': [2, 3]}, 'H3': {'GS': [0, 1, 2], 'MC': [3]}, 'H4': {'GS': [0, 3], 'MC': [1, 2]}}",
+          "line": 106
+        },
+        {
+          "names": [
+            "METHODS"
+          ],
+          "expression": "['GAUSSIAN_STARLET', 'MCALENS', 'H1', 'H2', 'H3', 'H4']",
+          "line": 125
+        },
+        {
+          "names": [
+            "EXPECTED_GS_NMSE"
+          ],
+          "expression": "0.6469240253547854",
+          "line": 138
+        },
+        {
+          "names": [
+            "EXPECTED_GS_PCC"
+          ],
+          "expression": "0.5927316056309856",
+          "line": 139
+        },
+        {
+          "names": [
+            "EXPECTED_MC_NMSE"
+          ],
+          "expression": "0.658007",
+          "line": 141
+        },
+        {
+          "names": [
+            "EXPECTED_MC_PCC"
+          ],
+          "expression": "0.591189",
+          "line": 142
+        },
+        {
+          "names": [
+            "N_ELL_BINS"
+          ],
+          "expression": "12",
+          "line": 148
+        },
+        {
+          "names": [
+            "ELL_MIN"
+          ],
+          "expression": "90.0",
+          "line": 149
+        },
+        {
+          "names": [
+            "ELL_MAX"
+          ],
+          "expression": "3000.0",
+          "line": 150
+        },
+        {
+          "names": [
+            "SMOOTH_ARCMIN"
+          ],
+          "expression": "[2.0, 4.0, 6.0]",
+          "line": 156
+        },
+        {
+          "names": [
+            "TRUTH_NU_THRESHOLDS"
+          ],
+          "expression": "[2.0, 2.5, 3.0]",
+          "line": 162
+        },
+        {
+          "names": [
+            "REC_NU_THRESHOLDS"
+          ],
+          "expression": "np.arange(0.5, 3.5001, 0.25)",
+          "line": 168
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_ARCMIN"
+          ],
+          "expression": "4.0",
+          "line": 174
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_PIX"
+          ],
+          "expression": "MATCH_RADIUS_ARCMIN / PIXEL_ARCMIN",
+          "line": 176
+        },
+        {
+          "names": [
+            "MIN_SMOOTH_SUPPORT"
+          ],
+          "expression": "0.95",
+          "line": 181
+        },
+        {
+          "names": [
+            "EDGE_SIGMA"
+          ],
+          "expression": "3.0",
+          "line": 182
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 953
+        },
+        {
+          "names": [
+            "ELL"
+          ],
+          "expression": "np.sqrt(KX ** 2 + KY ** 2)",
+          "line": 1533
+        },
+        {
+          "names": [
+            "ELL_EDGES"
+          ],
+          "expression": "np.geomspace(ELL_MIN, ELL_MAX, N_ELL_BINS + 1)",
+          "line": 1538
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "np.fft.fft2(maps, axes=(-2, -1), norm='ortho')",
+          "line": 383
+        },
+        {
+          "names": [
+            "T"
+          ],
+          "expression": "np.fft.fft2(t, norm='ortho')",
+          "line": 1581
+        },
+        {
+          "names": [
+            "R"
+          ],
+          "expression": "np.fft.fft2(r, norm='ortho')",
+          "line": 1586
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 20,
+          "column": 4,
+          "end_line": 20,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 24,
+          "column": 4,
+          "end_line": 25,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 30,
+          "column": 4,
+          "end_line": 32,
+          "end_column": 37,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"reweighted_gaussian_starlet/\"\n    \"stage1_gaussian_starlet_rec.npy\"",
+          "after": "str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            13,
+            "value",
+            "args",
+            0
+          ],
+          "line": 37,
+          "column": 4,
+          "end_line": 37,
+          "end_column": 40,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens\"",
+          "after": "str(PATHS.work_root / 'validation/mcalens')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 41,
+          "column": 4,
+          "end_line": 42,
+          "end_column": 23,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"multiscale_fusion\"",
+          "after": "str(PATHS.work_root / 'validation/multiscale_fusion')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_reweighted_gaussian_starlet_validation.py",
+      "baseline_sha256": "9a2b77681dd58e2564e0ab7348074e23a4ba2f4eb0f53d3e8d52e9210f456c7b",
+      "baseline_ast_sha256": "9256ef5bcc925d06b2e11fc79dd72bf9358d1a6b1e9f278b5e27304654abb80f",
+      "numeric_literal_sha256": "9f43a16b2d5333d6e60109efa70b505847be4744f5a4c4b756d6829f4a231191",
+      "numeric_literal_count": 154,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 20
+        },
+        {
+          "names": [
+            "CSV"
+          ],
+          "expression": "OUT / 'reweighted_gaussian_starlet_validation.csv'",
+          "line": 47
+        },
+        {
+          "names": [
+            "SUMMARY_CSV"
+          ],
+          "expression": "OUT / 'reweighted_gaussian_starlet_summary.csv'",
+          "line": 48
+        },
+        {
+          "names": [
+            "BYCOSMO_CSV"
+          ],
+          "expression": "OUT / 'reweighted_gaussian_starlet_by_cosmology.csv'",
+          "line": 49
+        },
+        {
+          "names": [
+            "WEIGHT_CSV"
+          ],
+          "expression": "OUT / 'reweighted_gaussian_starlet_weight_stats.csv'",
+          "line": 50
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 55
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 56
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 58
+        },
+        {
+          "names": [
+            "BETA"
+          ],
+          "expression": "0.001",
+          "line": 59
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 61
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.5",
+          "line": 71
+        },
+        {
+          "names": [
+            "SIGMA"
+          ],
+          "expression": "0.5",
+          "line": 72
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 73
+        },
+        {
+          "names": [
+            "NITER_STAGE1"
+          ],
+          "expression": "6000",
+          "line": 75
+        },
+        {
+          "names": [
+            "NITER_STAGE2"
+          ],
+          "expression": "6000",
+          "line": 76
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 78
+        },
+        {
+          "names": [
+            "Q_GRID"
+          ],
+          "expression": "[1.0, 2.0, 3.0]",
+          "line": 86
+        },
+        {
+          "names": [
+            "WEIGHT_POWER"
+          ],
+          "expression": "2.0",
+          "line": 92
+        },
+        {
+          "names": [
+            "ETA_MIN"
+          ],
+          "expression": "0.05",
+          "line": 95
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 97
+        },
+        {
+          "names": [
+            "MAP_SHAPE"
+          ],
+          "expression": "(3, 10, 8, N, N)",
+          "line": 108
+        },
+        {
+          "names": [
+            "STAGE1_REC"
+          ],
+          "expression": "OUT / 'stage1_gaussian_starlet_rec.npy'",
+          "line": 119
+        },
+        {
+          "names": [
+            "STAGE1_G"
+          ],
+          "expression": "OUT / 'stage1_gaussian_component.npy'",
+          "line": 120
+        },
+        {
+          "names": [
+            "STAGE1_S"
+          ],
+          "expression": "OUT / 'stage1_sparse_component.npy'",
+          "line": 121
+        },
+        {
+          "names": [
+            "EXPECTED_BASELINE_NMSE"
+          ],
+          "expression": "0.6469240253547854",
+          "line": 124
+        },
+        {
+          "names": [
+            "EXPECTED_BASELINE_PCC"
+          ],
+          "expression": "0.5927316056309856",
+          "line": 125
+        },
+        {
+          "names": [
+            "V"
+          ],
+          "expression": "torch.fft.fft2(v, norm='ortho')",
+          "line": 352
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 253
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.fft.fft2(coeff, norm='ortho')",
+          "line": 265
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.sum(self.B * C, dim=1)",
+          "line": 270
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            1
+          ],
+          "line": 9,
+          "column": 19,
+          "end_line": 9,
+          "end_column": 43,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 25,
+          "column": 4,
+          "end_line": 25,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 29,
+          "column": 4,
+          "end_line": 30,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 34,
+          "column": 4,
+          "end_line": 35,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 39,
+          "column": 4,
+          "end_line": 40,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"reweighted_gaussian_starlet\"",
+          "after": "str(PATHS.work_root / 'validation/reweighted_gaussian_starlet')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_square_starlet_comparison.py",
+      "baseline_sha256": "cd2604444eef91d1d665cb9f27f206a122882f8a18cf5a13a635791eef283cc2",
+      "baseline_ast_sha256": "d7b7301e10c7c98d0a2195d56a1835808926768288bec324c0e4613cd765cabc",
+      "numeric_literal_sha256": "563e3383705ec77b55dfb8f8293519c776fa6dd8ad2ef3343f7008490a493e56",
+      "numeric_literal_count": 78,
+      "settings": [
+        {
+          "names": [
+            "MASK_FILE"
+          ],
+          "expression": "DATA / 'WIDE12H_bin2_2arcmin_mask.npy'",
+          "line": 18
+        },
+        {
+          "names": [
+            "KAPPA_FILE"
+          ],
+          "expression": "DATA / 'sampled_WIDE12H_bin2_2arcmin_kappa.npy'",
+          "line": 19
+        },
+        {
+          "names": [
+            "LABEL_FILE"
+          ],
+          "expression": "DATA / 'sampled_label.npy'",
+          "line": 20
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 22
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 23
+        },
+        {
+          "names": [
+            "SIGMA_N"
+          ],
+          "expression": "0.4 / np.sqrt(2.0 * 30.0 * 4.0)",
+          "line": 25
+        },
+        {
+          "names": [
+            "KS_SIGMA_FINAL"
+          ],
+          "expression": "1.5",
+          "line": 27
+        },
+        {
+          "names": [
+            "KS_SIGMA_INIT"
+          ],
+          "expression": "1.0",
+          "line": 28
+        },
+        {
+          "names": [
+            "LAMBDA"
+          ],
+          "expression": "0.05",
+          "line": 30
+        },
+        {
+          "names": [
+            "ALPHA"
+          ],
+          "expression": "np.array([1.0, 0.225148, 0.096029, 0.046286], dtype=np.float32)",
+          "line": 32
+        },
+        {
+          "names": [
+            "NITER"
+          ],
+          "expression": "6000",
+          "line": 40
+        },
+        {
+          "names": [
+            "TAU"
+          ],
+          "expression": "0.7",
+          "line": 45
+        },
+        {
+          "names": [
+            "SIGMA_PD"
+          ],
+          "expression": "0.7",
+          "line": 46
+        },
+        {
+          "names": [
+            "THETA"
+          ],
+          "expression": "1.0",
+          "line": 47
+        },
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 49
+        },
+        {
+          "names": [
+            "PATCHES"
+          ],
+          "expression": "[(p, 176 * p, 176 * (p + 1)) for p in range(8)]",
+          "line": 53
+        },
+        {
+          "names": [
+            "D"
+          ],
+          "expression": "build_ks_kernel(N, DEVICE)",
+          "line": 93
+        },
+        {
+          "names": [
+            "G1"
+          ],
+          "expression": "gaussian_filter(KS_SIGMA_INIT)",
+          "line": 138
+        },
+        {
+          "names": [
+            "G15"
+          ],
+          "expression": "gaussian_filter(KS_SIGMA_FINAL)",
+          "line": 139
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "torch.ones((N, N), dtype=torch.float32, device=DEVICE)",
+          "line": 168
+        },
+        {
+          "names": [
+            "STARLET_W"
+          ],
+          "expression": "[]",
+          "line": 174
+        },
+        {
+          "names": [
+            "STARLET_W"
+          ],
+          "expression": "torch.stack(STARLET_W, dim=0).to(torch.float32)",
+          "line": 198
+        },
+        {
+          "names": [
+            "STARLET_COARSE"
+          ],
+          "expression": "C",
+          "line": 202
+        },
+        {
+          "names": [
+            "D"
+          ],
+          "expression": "torch.zeros((N, N), dtype=torch.complex64, device=device)",
+          "line": 77
+        },
+        {
+          "names": [
+            "C"
+          ],
+          "expression": "Cnext",
+          "line": 196
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x)",
+          "line": 227
+        },
+        {
+          "names": [
+            "B"
+          ],
+          "expression": "x0.shape[0]",
+          "line": 291
+        },
+        {
+          "names": [
+            "BASE"
+          ],
+          "expression": "GLROOT / 'validation'",
+          "line": 523
+        },
+        {
+          "names": [
+            "BASE"
+          ],
+          "expression": "GLROOT / 'test'",
+          "line": 539
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            6,
+            "value",
+            "args",
+            0
+          ],
+          "line": 14,
+          "column": 12,
+          "end_line": 14,
+          "end_column": 36,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            7,
+            "value"
+          ],
+          "line": 15,
+          "column": 7,
+          "end_line": 15,
+          "end_column": 20,
+          "before": "ROOT / \"data\"",
+          "after": "PATHS.data_root",
+          "reason": "Separate FAIR input location from scientific-module location"
+        },
+        {
+          "address": [
+            "body",
+            8,
+            "value",
+            "args",
+            0
+          ],
+          "line": 16,
+          "column": 14,
+          "end_line": 16,
+          "end_column": 31,
+          "before": "\"/u/gob5/Glimpse\"",
+          "after": "str(PATHS.work_root)",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_weighted_band_fusion_test.py",
+      "baseline_sha256": "0a14046cc48bc50b05cf7540e59dfb899799a04576d5aaf46e56091fa6dd4156",
+      "baseline_ast_sha256": "c0bce53f4521b0e9efb5d317d212454e895c32649a1fca5b36cc438a8e019e15",
+      "numeric_literal_sha256": "77669cba190caa9992fe3496152cb88b9cd9df2fc25640beceeb38396cff0e28",
+      "numeric_literal_count": 236,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 14
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 15
+        },
+        {
+          "names": [
+            "PIXEL_ARCMIN"
+          ],
+          "expression": "2.0",
+          "line": 16
+        },
+        {
+          "names": [
+            "A0"
+          ],
+          "expression": "0.0",
+          "line": 18
+        },
+        {
+          "names": [
+            "A1"
+          ],
+          "expression": "0.75",
+          "line": 19
+        },
+        {
+          "names": [
+            "A2"
+          ],
+          "expression": "0.75",
+          "line": 20
+        },
+        {
+          "names": [
+            "A3"
+          ],
+          "expression": "0.0",
+          "line": 21
+        },
+        {
+          "names": [
+            "METHOD_HYBRID"
+          ],
+          "expression": "'W_A1_075_A2_075'",
+          "line": 23
+        },
+        {
+          "names": [
+            "HYBRID_FILE"
+          ],
+          "expression": "OUT / 'W_A1_075_A2_075_test_maps.npy'",
+          "line": 54
+        },
+        {
+          "names": [
+            "FIELD_ALL_FILE"
+          ],
+          "expression": "OUT / 'field_metrics_all.csv'",
+          "line": 59
+        },
+        {
+          "names": [
+            "FIELD_SUMMARY_FILE"
+          ],
+          "expression": "OUT / 'field_metrics_summary.csv'",
+          "line": 64
+        },
+        {
+          "names": [
+            "FIELD_BYCOSMO_FILE"
+          ],
+          "expression": "OUT / 'field_metrics_by_cosmology.csv'",
+          "line": 69
+        },
+        {
+          "names": [
+            "BOOT_FILE"
+          ],
+          "expression": "OUT / 'field_bootstrap.csv'",
+          "line": 74
+        },
+        {
+          "names": [
+            "SPECTRAL_ALL_FILE"
+          ],
+          "expression": "OUT / 'spectral_all.csv'",
+          "line": 79
+        },
+        {
+          "names": [
+            "SPECTRAL_SUMMARY_FILE"
+          ],
+          "expression": "OUT / 'spectral_summary.csv'",
+          "line": 84
+        },
+        {
+          "names": [
+            "SPECTRAL_SCORE_FILE"
+          ],
+          "expression": "OUT / 'spectral_scores.csv'",
+          "line": 89
+        },
+        {
+          "names": [
+            "PEAK_PR_ALL_FILE"
+          ],
+          "expression": "OUT / 'peak_PR_all.csv'",
+          "line": 94
+        },
+        {
+          "names": [
+            "PEAK_PR_SUMMARY_FILE"
+          ],
+          "expression": "OUT / 'peak_PR_summary.csv'",
+          "line": 99
+        },
+        {
+          "names": [
+            "PEAK_AUC_FILE"
+          ],
+          "expression": "OUT / 'peak_PR_AUC.csv'",
+          "line": 104
+        },
+        {
+          "names": [
+            "PEAK_HEIGHT_ALL_FILE"
+          ],
+          "expression": "OUT / 'peak_height_all.csv'",
+          "line": 109
+        },
+        {
+          "names": [
+            "PEAK_HEIGHT_SUMMARY_FILE"
+          ],
+          "expression": "OUT / 'peak_height_summary.csv'",
+          "line": 114
+        },
+        {
+          "names": [
+            "SCIENCE_FILE"
+          ],
+          "expression": "OUT / 'SCIENCE_SUMMARY.csv'",
+          "line": 119
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 128
+        },
+        {
+          "names": [
+            "GRID_SHAPE"
+          ],
+          "expression": "(3, 20, 8, N, N)",
+          "line": 139
+        },
+        {
+          "names": [
+            "FLAT_SHAPE"
+          ],
+          "expression": "(480, N, N)",
+          "line": 147
+        },
+        {
+          "names": [
+            "EXPECTED_GS_NMSE"
+          ],
+          "expression": "0.64280548",
+          "line": 157
+        },
+        {
+          "names": [
+            "EXPECTED_GS_PCC"
+          ],
+          "expression": "0.59660041",
+          "line": 158
+        },
+        {
+          "names": [
+            "EXPECTED_MC_NMSE"
+          ],
+          "expression": "0.651369139",
+          "line": 160
+        },
+        {
+          "names": [
+            "EXPECTED_MC_PCC"
+          ],
+          "expression": "0.595698",
+          "line": 161
+        },
+        {
+          "names": [
+            "SANITY_TOL"
+          ],
+          "expression": "0.002",
+          "line": 163
+        },
+        {
+          "names": [
+            "N_ELL_BINS"
+          ],
+          "expression": "12",
+          "line": 169
+        },
+        {
+          "names": [
+            "ELL_MIN"
+          ],
+          "expression": "90.0",
+          "line": 171
+        },
+        {
+          "names": [
+            "ELL_MAX"
+          ],
+          "expression": "3000.0",
+          "line": 172
+        },
+        {
+          "names": [
+            "SMOOTH_ARCMIN"
+          ],
+          "expression": "[2.0, 4.0, 6.0]",
+          "line": 178
+        },
+        {
+          "names": [
+            "TRUTH_NU_THRESHOLDS"
+          ],
+          "expression": "[2.0, 2.5, 3.0]",
+          "line": 184
+        },
+        {
+          "names": [
+            "REC_NU_THRESHOLDS"
+          ],
+          "expression": "np.arange(0.5, 3.5001, 0.25)",
+          "line": 190
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_ARCMIN"
+          ],
+          "expression": "4.0",
+          "line": 196
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_PIX"
+          ],
+          "expression": "MATCH_RADIUS_ARCMIN / PIXEL_ARCMIN",
+          "line": 198
+        },
+        {
+          "names": [
+            "MIN_SMOOTH_SUPPORT"
+          ],
+          "expression": "0.95",
+          "line": 203
+        },
+        {
+          "names": [
+            "EDGE_SIGMA"
+          ],
+          "expression": "3.0",
+          "line": 204
+        },
+        {
+          "names": [
+            "METHODS"
+          ],
+          "expression": "['GAUSSIAN_STARLET', 'MCALENS', METHOD_HYBRID]",
+          "line": 206
+        },
+        {
+          "names": [
+            "NBOOT"
+          ],
+          "expression": "30000",
+          "line": 216
+        },
+        {
+          "names": [
+            "BOOT_SEED"
+          ],
+          "expression": "12345",
+          "line": 217
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 753
+        },
+        {
+          "names": [
+            "ELL"
+          ],
+          "expression": "np.sqrt(KX ** 2 + KY ** 2)",
+          "line": 1407
+        },
+        {
+          "names": [
+            "ELL_EDGES"
+          ],
+          "expression": "np.geomspace(ELL_MIN, ELL_MAX, N_ELL_BINS + 1)",
+          "line": 1412
+        },
+        {
+          "names": [
+            "VALIDATION_REFERENCE"
+          ],
+          "expression": "{'nmse': 0.63953223, 'pcc': 0.59959907, 'std_ratio': 0.63627692, 'PR_AUC_2arc': 0.62816, 'PR_AUC_4arc': 0.61534, 'PR_AUC_6arc': 0.6346, 'peak_amp_2arc': 0.58057, 'peak_amp_4arc': 0.82913, 'peak_amp_6arc': 0.87231}",
+          "line": 2761
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "np.fft.fft2(maps, axes=(-2, -1), norm='ortho')",
+          "line": 395
+        },
+        {
+          "names": [
+            "T"
+          ],
+          "expression": "np.fft.fft2(t, norm='ortho')",
+          "line": 1455
+        },
+        {
+          "names": [
+            "R"
+          ],
+          "expression": "np.fft.fft2(r, norm='ortho')",
+          "line": 1460
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 26,
+          "column": 4,
+          "end_line": 26,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/fair_npz\"",
+          "after": "str(PATHS.work_root / 'test/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value",
+            "args",
+            0
+          ],
+          "line": 30,
+          "column": 4,
+          "end_line": 31,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            16,
+            "value",
+            "args",
+            0
+          ],
+          "line": 35,
+          "column": 4,
+          "end_line": 37,
+          "end_column": 46,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"starlet_gaussian_prior/\"\n    \"gaussian_starlet_test_reconstruction.npy\"",
+          "after": "str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            17,
+            "value",
+            "args",
+            0
+          ],
+          "line": 41,
+          "column": 4,
+          "end_line": 41,
+          "end_column": 40,
+          "before": "\"/u/gob5/Glimpse/test/mcalens/recon\"",
+          "after": "str(PATHS.work_root / 'test/mcalens/recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            18,
+            "value",
+            "args",
+            0
+          ],
+          "line": 45,
+          "column": 4,
+          "end_line": 46,
+          "end_column": 26,
+          "before": "\"/u/gob5/Glimpse/test/\"\n    \"weighted_band_fusion\"",
+          "after": "str(PATHS.work_root / 'test/weighted_band_fusion')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_weighted_band_fusion_validation.py",
+      "baseline_sha256": "66eb482f3c544516284399675737cf5cd1b91bdb33289c6efebfa70f325b6ebb",
+      "baseline_ast_sha256": "30c92f3921a7dd1e5cab7a7677b5b5c5099eb769dfe0971419a897d1a583158f",
+      "numeric_literal_sha256": "71bbc5869eb3d4d23e780df524d0df80874c5113c895e570e6c68d46a22643b7",
+      "numeric_literal_count": 232,
+      "settings": [
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 17
+        },
+        {
+          "names": [
+            "J"
+          ],
+          "expression": "4",
+          "line": 18
+        },
+        {
+          "names": [
+            "PIXEL_ARCMIN"
+          ],
+          "expression": "2.0",
+          "line": 20
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 52
+        },
+        {
+          "names": [
+            "GRID_SHAPE"
+          ],
+          "expression": "(3, 10, 8, N, N)",
+          "line": 63
+        },
+        {
+          "names": [
+            "FLAT_SHAPE"
+          ],
+          "expression": "(240, N, N)",
+          "line": 71
+        },
+        {
+          "names": [
+            "A1_GRID"
+          ],
+          "expression": "[0.5, 0.75, 1.0]",
+          "line": 88
+        },
+        {
+          "names": [
+            "A2_GRID"
+          ],
+          "expression": "[0.5, 0.75, 1.0]",
+          "line": 94
+        },
+        {
+          "names": [
+            "CANDIDATES"
+          ],
+          "expression": "[(candidate_name(a1, a2), a1, a2) for a1 in A1_GRID for a2 in A2_GRID]",
+          "line": 111
+        },
+        {
+          "names": [
+            "BASELINES"
+          ],
+          "expression": "['GAUSSIAN_STARLET', 'MCALENS']",
+          "line": 124
+        },
+        {
+          "names": [
+            "METHODS"
+          ],
+          "expression": "BASELINES + [name for name, _, _ in CANDIDATES]",
+          "line": 129
+        },
+        {
+          "names": [
+            "EXPECTED_GS_NMSE"
+          ],
+          "expression": "0.6469240253547854",
+          "line": 142
+        },
+        {
+          "names": [
+            "EXPECTED_GS_PCC"
+          ],
+          "expression": "0.5927316056309856",
+          "line": 146
+        },
+        {
+          "names": [
+            "EXPECTED_MC_NMSE"
+          ],
+          "expression": "0.658007019",
+          "line": 150
+        },
+        {
+          "names": [
+            "EXPECTED_MC_PCC"
+          ],
+          "expression": "0.591189437",
+          "line": 154
+        },
+        {
+          "names": [
+            "N_ELL_BINS"
+          ],
+          "expression": "12",
+          "line": 162
+        },
+        {
+          "names": [
+            "ELL_MIN"
+          ],
+          "expression": "90.0",
+          "line": 164
+        },
+        {
+          "names": [
+            "ELL_MAX"
+          ],
+          "expression": "3000.0",
+          "line": 165
+        },
+        {
+          "names": [
+            "SMOOTH_ARCMIN"
+          ],
+          "expression": "[2.0, 4.0, 6.0]",
+          "line": 171
+        },
+        {
+          "names": [
+            "TRUTH_NU_THRESHOLDS"
+          ],
+          "expression": "[2.0, 2.5, 3.0]",
+          "line": 177
+        },
+        {
+          "names": [
+            "REC_NU_THRESHOLDS"
+          ],
+          "expression": "np.arange(0.5, 3.5001, 0.25)",
+          "line": 183
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_ARCMIN"
+          ],
+          "expression": "4.0",
+          "line": 189
+        },
+        {
+          "names": [
+            "MATCH_RADIUS_PIX"
+          ],
+          "expression": "MATCH_RADIUS_ARCMIN / PIXEL_ARCMIN",
+          "line": 191
+        },
+        {
+          "names": [
+            "MIN_SMOOTH_SUPPORT"
+          ],
+          "expression": "0.95",
+          "line": 196
+        },
+        {
+          "names": [
+            "EDGE_SIGMA"
+          ],
+          "expression": "3.0",
+          "line": 197
+        },
+        {
+          "names": [
+            "BATCH"
+          ],
+          "expression": "16",
+          "line": 711
+        },
+        {
+          "names": [
+            "ELL"
+          ],
+          "expression": "np.sqrt(KX ** 2 + KY ** 2)",
+          "line": 1331
+        },
+        {
+          "names": [
+            "ELL_EDGES"
+          ],
+          "expression": "np.geomspace(ELL_MIN, ELL_MAX, N_ELL_BINS + 1)",
+          "line": 1336
+        },
+        {
+          "names": [
+            "H4_NAME"
+          ],
+          "expression": "candidate_name(1.0, 1.0)",
+          "line": 2758
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "np.fft.fft2(maps, axes=(-2, -1), norm='ortho')",
+          "line": 376
+        },
+        {
+          "names": [
+            "T"
+          ],
+          "expression": "np.fft.fft2(t, norm='ortho')",
+          "line": 1379
+        },
+        {
+          "names": [
+            "R"
+          ],
+          "expression": "np.fft.fft2(r, norm='ortho')",
+          "line": 1384
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            9,
+            "value",
+            "args",
+            0
+          ],
+          "line": 23,
+          "column": 4,
+          "end_line": 23,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            10,
+            "value",
+            "args",
+            0
+          ],
+          "line": 27,
+          "column": 4,
+          "end_line": 28,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 32,
+          "column": 4,
+          "end_line": 34,
+          "end_column": 37,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"reweighted_gaussian_starlet/\"\n    \"stage1_gaussian_starlet_rec.npy\"",
+          "after": "str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 38,
+          "column": 4,
+          "end_line": 39,
+          "end_column": 19,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"mcalens/recon\"",
+          "after": "str(PATHS.work_root / 'validation/mcalens/recon')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            13,
+            "value",
+            "args",
+            0
+          ],
+          "line": 43,
+          "column": 4,
+          "end_line": 44,
+          "end_column": 26,
+          "before": "\"/u/gob5/Glimpse/validation/\"\n    \"weighted_band_fusion\"",
+          "after": "str(PATHS.work_root / 'validation/weighted_band_fusion')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/run_wiener_gaussian_only.py",
+      "baseline_sha256": "8d008be60c542f57ac156d3678bc7245b1e1d5ba7442b5d74ae31c54f373d6ef",
+      "baseline_ast_sha256": "1e6124344d7f72e780069fbc8cc8cedf08df1ddfd31cb2010db843ddc614b64c",
+      "numeric_literal_sha256": "a1455489880b8b0fafe417b841e3847f2b32b151d1a508e4cc0bd90922ef499a",
+      "numeric_literal_count": 75,
+      "settings": [
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 42
+        },
+        {
+          "names": [
+            "N"
+          ],
+          "expression": "176",
+          "line": 48
+        },
+        {
+          "names": [
+            "BETA_GRID"
+          ],
+          "expression": "[0.00025, 0.0005, 0.001, 0.002, 0.004]",
+          "line": 77
+        },
+        {
+          "names": [
+            "CG_MAXITER"
+          ],
+          "expression": "300",
+          "line": 85
+        },
+        {
+          "names": [
+            "CG_RTOL"
+          ],
+          "expression": "1e-07",
+          "line": 86
+        },
+        {
+          "names": [
+            "PATCH_ROWS"
+          ],
+          "expression": "[(0, 176), (176, 352), (352, 528), (528, 704), (704, 880), (880, 1056), (1056, 1232), (1232, 1408)]",
+          "line": 88
+        },
+        {
+          "names": [
+            "PK"
+          ],
+          "expression": "torch.as_tensor(pk_np, dtype=torch.float32, device=DEVICE)",
+          "line": 203
+        },
+        {
+          "names": [
+            "SUPPORT"
+          ],
+          "expression": "(PK > 0).float()",
+          "line": 209
+        },
+        {
+          "names": [
+            "INVP"
+          ],
+          "expression": "torch.where(PK > 0, 1.0 / PK, torch.zeros_like(PK))",
+          "line": 213
+        },
+        {
+          "names": [
+            "BETA_BEST"
+          ],
+          "expression": "float(best_row.beta)",
+          "line": 652
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 225
+        },
+        {
+          "names": [
+            "X"
+          ],
+          "expression": "torch.fft.fft2(x, norm='ortho')",
+          "line": 237
+        }
+      ],
+      "changes": [
+        {
+          "address": [
+            "body",
+            7,
+            "value",
+            "args",
+            1
+          ],
+          "line": 32,
+          "column": 4,
+          "end_line": 32,
+          "end_column": 28,
+          "before": "\"/tatu/gob5/99 - Cosmos\"",
+          "after": "str(PATHS.code_root)",
+          "reason": "Local scientific-module import root"
+        },
+        {
+          "address": [
+            "body",
+            11,
+            "value",
+            "args",
+            0
+          ],
+          "line": 51,
+          "column": 4,
+          "end_line": 52,
+          "end_column": 35,
+          "before": "\"/tatu/gob5/99 - Cosmos/data/\"\n    \"WIDE12H_bin2_2arcmin_mask.npy\"",
+          "after": "str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy')",
+          "reason": "Raw FAIR input root"
+        },
+        {
+          "address": [
+            "body",
+            12,
+            "value",
+            "args",
+            0
+          ],
+          "line": 56,
+          "column": 4,
+          "end_line": 57,
+          "end_column": 33,
+          "before": "\"/u/gob5/Glimpse/validation/mcalens/\"\n    \"fair_validation_pk_mean.npy\"",
+          "after": "str(PATHS.prior_file)",
+          "reason": "Read the exact frozen prior supplied in config/priors"
+        },
+        {
+          "address": [
+            "body",
+            13,
+            "value",
+            "args",
+            0
+          ],
+          "line": 61,
+          "column": 4,
+          "end_line": 61,
+          "end_column": 41,
+          "before": "\"/u/gob5/Glimpse/validation/fair_npz\"",
+          "after": "str(PATHS.work_root / 'validation/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            14,
+            "value",
+            "args",
+            0
+          ],
+          "line": 65,
+          "column": 4,
+          "end_line": 65,
+          "end_column": 35,
+          "before": "\"/u/gob5/Glimpse/test/fair_npz\"",
+          "after": "str(PATHS.work_root / 'test/fair_npz')",
+          "reason": "Generated caches, maps and metrics root"
+        },
+        {
+          "address": [
+            "body",
+            15,
+            "value",
+            "args",
+            0
+          ],
+          "line": 69,
+          "column": 4,
+          "end_line": 69,
+          "end_column": 42,
+          "before": "\"/u/gob5/Glimpse/wiener_gaussian_only\"",
+          "after": "str(PATHS.work_root / 'wiener_gaussian_only')",
+          "reason": "Generated caches, maps and metrics root"
+        }
+      ],
+      "added_import": "from project_paths import PATHS"
+    },
+    {
+      "file": "code/pipeline/weak_lensing_pipeline.py",
+      "baseline_sha256": "dd69b9717e78290c032e581c4e7f24af2ef5033d5f2ec034d317705b72969f73",
+      "baseline_ast_sha256": "509ba2aaba428cc4d848a9ceb8fae4b185bb78e3069d415e91e16ccfed5e1d22",
+      "numeric_literal_sha256": "590f27a1dd0c2175b5c8d494dec19cda680fd79bc74291bf5553d266da9f5dcb",
+      "numeric_literal_count": 123,
+      "settings": [
+        {
+          "names": [
+            "W"
+          ],
+          "expression": "_as_float_tensor(weight_map, device)",
+          "line": 1303
+        },
+        {
+          "names": [
+            "G"
+          ],
+          "expression": "(kappa - prox) / step",
+          "line": 1358
+        },
+        {
+          "names": [
+            "DEVICE"
+          ],
+          "expression": "torch.device('cuda' if torch.cuda.is_available() else 'cpu')",
+          "line": 2527
+        },
+        {
+          "names": [
+            "H"
+          ],
+          "expression": "176",
+          "line": 2533
+        },
+        {
+          "names": [
+            "W"
+          ],
+          "expression": "176",
+          "line": 2534
+        },
+        {
+          "names": [
+            "D"
+          ],
+          "expression": "torch.zeros(self.H, self.W, device=self.device, dtype=torch.complex64)",
+          "line": 166
+        },
+        {
+          "names": [
+            "L"
+          ],
+          "expression": "torch.sum(v * Bv).item()",
+          "line": 1624
+        },
+        {
+          "names": [
+            "W"
+          ],
+          "expression": "H",
+          "line": 124
+        },
+        {
+          "names": [
+            "W"
+          ],
+          "expression": "H",
+          "line": 127
+        },
+        {
+          "names": [
+            "L"
+          ],
+          "expression": "max(float(self.W.mean().item()), 1e-12)",
+          "line": 1508
+        },
+        {
+          "names": [
+            "L"
+          ],
+          "expression": "self._estimate_lipschitz(n_iter=power_iters)",
+          "line": 1516
+        }
+      ],
+      "changes": [],
+      "added_import": null
+    }
+  ],
+  "new_support_files": [
+    "config_paths.toml",
+    "code/pipeline/project_paths.py",
+    "tools/run_pipeline.py",
+    "tools/verify_scientific_invariants.py",
+    "tools/check_portability.py",
+    "tools/smoke_preflight.py"
+  ],
+  "documentation_changes": [
+    "README.md",
+    "OPEN_ITEMS.md",
+    "provenance/portability/PLAN.txt",
+    "provenance/fusion_selection/REPORT.txt",
+    "provenance/portability/SMOKE_TEST_PLAN.txt"
+  ],
+  "unchanged_scope": [
+    "scientific algorithms and constants",
+    "all archived CSVs and frozen inputs",
+    "file selection",
+    "external GLIMPSE source",
+    "CosmoStat patch and notices"
+  ]
+}

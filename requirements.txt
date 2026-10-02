@@ -1,0 +1,16 @@
+# gob5 environment only; do not install this list into the MCALens venv.
+# The environments differ; see config_environments.server.toml and README_SERVIDOR.txt.
+# Imported by retained paper scripts; versions recorded in the gob5 experiment.
+# Initial dependency list, not an installation-tested lock.
+# Python used for original experiments: 3.12.3.
+numpy==1.26.4
+scipy==1.16.2
+pandas==2.3.3
+matplotlib==3.10.7
+astropy==7.1.1
+PyWavelets==1.9.0
+# Original torch was a local NVIDIA wheel; see README before substituting.
+torch
+# MCALens uses ~/venvs/mcalens over the existing micromamba glimpse environment.
+# Its transitive dependencies include seaborn and modopt; their exact final
+# versions were not supplied. The v5 preflight records the installed versions.

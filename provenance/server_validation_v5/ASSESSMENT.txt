@@ -1,0 +1,57 @@
+V5 SERVER ARTIFACT AUDIT — 2026-10-02
+
+The supplied archive contains a successful prerequisite check and a five-method
+C0/R10/P0 run. Imports succeeded in gob5 (Python 3.12.3) and the MCALens venv
+(Python 3.11.16), including modopt 1.7.2 and seaborn 0.13.2. The Torch solvers
+used an NVIDIA A100, CUDA 13.0 and the recorded NVIDIA Torch build.
+
+The audit independently reconstructed the binary mask from the GLIMPSE input
+catalogue (12,899 observed pixels), checked its e1/e2 against the cached shear,
+and recomputed NMSE/PCC/std_ratio from each submitted map. Those values match
+the server report and the local archived case CSVs to numerical precision.
+KS and masked Starlet: all three metrics match exactly.
+G+S and GLIMPSE: only PCC differs, by about 2.22e-16.
+MCALens saved float32 map: largest metric difference is 1.20e-9; the worker's
+pre-conversion float64 metrics match the archived values exactly.
+The GLIMPSE FITS image equals its saved NPY. Its seed was 1000; runtime ~840 s.
+These observations do not establish a rerun of all 480 patches.
+
+IMPORTANT: the returned top-level status 'passed' was too broad.
+The MCALens worker reported reconstruction file:
+  /u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz
+That is the historical output, not the dedicated smoke work_root. No new
+test/mcalens/recon NPZ was included in the submitted smoke directory.
+The v5 worker prepended the CosmoStat checkout to sys.path and then imported
+run_mcalens_test by name. A same-name historical driver there could shadow
+the curated driver. This explains the observed unredirected output path; the
+v5 report did not capture the imported driver filename to prove its identity.
+The recovered historical run_one writes its NPZ, so overwriting that single
+historical case file is possible. No pre-v5 hash of that file was supplied;
+whether its bytes changed cannot be established here. The metric agreement
+is reassuring numerically but does not prove filesystem isolation.
+
+The GS prefix loader also allocated three full-benchmark cubes (59,474,048
+bytes each) before loading mask_full. All their payload bytes are zero. They
+are unused buffers, not reconstructed 480-case maps. Only maps/GAUSSIAN_STARLET.npy
+is the actual one-patch GS reconstruction from this smoke run.
+
+V6 CORRECTION
+- Load the packaged MCALens driver by its explicit file path and report its hash.
+- Check BASE/OUT/RECON_DIR/prior/mask paths before run_one and require a fresh NPZ
+  inside the dedicated run directory. The parent verifies path/source/hash too.
+- Compare the historical MCALens case file's hash, size and mtime before/after
+  the run. This is a prospective check, not a reconstruction of its v5 state.
+- Omit only the three GS buffer allocations from the smoke's in-memory prefix;
+  all solver/class definitions and all 25 scientific source files are unchanged.
+- Provide --mcalens-only for the remaining short server verification.
+
+OBSERVED ENVIRONMENT DISCREPANCY
+gob5 PyWavelets distribution metadata reports 1.9.0, but the imported pywt
+module reports 1.8.0. Both are preserved in the logs; no environment changes
+or reinstallations were made. The returned case passed with the actual imported
+module. requirements.txt remains a historical dependency list, not a verified
+environment lock; it must not be described as an exact copy of these imports.
+
+V6 passed 27 offline support tests and 162 archived-table checks. Corrected
+MCALens output isolation still requires the short v6 server run. The already
+verified GLIMPSE reconstruction does not need to be repeated for this fix.

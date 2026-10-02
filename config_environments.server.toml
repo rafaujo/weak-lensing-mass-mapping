@@ -1,0 +1,7 @@
+# Execution environments recovered from the development conversation.
+# Commands are argument arrays, not shell expressions; ~ is expanded explicitly.
+gob5_python = ["/tatu/venv/gob5/bin/python"]
+# mcalens is a venv over the existing micromamba glimpse environment.
+# The attempted micromamba environment named mcalens was NOT successfully created.
+mcalens_python = ["~/bin/micromamba", "run", "-p", "~/micromamba/envs/glimpse", "~/venvs/mcalens/bin/python"]
+glimpse_prefix = ["~/bin/micromamba", "run", "-p", "~/micromamba/envs/glimpse"]

@@ -1,0 +1,66 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c87d85b..950a461 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,8 +1,7 @@
+ cmake_minimum_required(VERSION 2.8)
+ 
+ # Paths to external libraries
+-set(NICAEA_URL http://www.cosmostat.org/wp-content/uploads/2014/12/nicaea_2.5.tgz)
+-set(NICAEA_MD5 27c4d6d46f234133fc69130e6460c2d4)
++set(NICAEA_URL https://github.com/EiffL/nicaea.git)
+ 
+ set(SPARSE2D_URL https://github.com/CosmoStat/Sparse2D.git)
+ 
+@@ -28,9 +27,18 @@ find_package(Boost  COMPONENTS program_options REQUIRED)
+ ## NICAEA
+ ExternalProject_Add(NICAEA
+         PREFIX NICAEA
+-        URL ${NICAEA_URL}
+-        URL_MD5 ${NICAEA_MD5}
+-        PATCH_COMMAND patch -p1 < ${PROJECT_SOURCE_DIR}/nicaea.patch)
++        GIT_REPOSITORY ${NICAEA_URL}
++        GIT_TAG f7850e5009d0341226d4c1f38b116f316d8a0516
++        CMAKE_ARGS
++            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
++            -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
++            -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
++            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
++            -DCMAKE_C_FLAGS=-fcommon
++            -DCMAKE_CXX_STANDARD=14
++        BUILD_COMMAND
++            ${CMAKE_COMMAND} --build <BINARY_DIR> --target nicaea
++        INSTALL_COMMAND "")
+         set(NICAEA_LIBRARY_DIR ${CMAKE_BINARY_DIR}/NICAEA/src/NICAEA/lib)
+         set(NICAEA_INCLUDE_DIR ${CMAKE_BINARY_DIR}/NICAEA/src/NICAEA/include)
+         set(NICAEA_LIBRARIES -lnicaea)
+@@ -39,7 +47,16 @@ ExternalProject_Add(NICAEA
+ ExternalProject_Add(SPARSE2D
+         PREFIX SPARSE2D
+         GIT_REPOSITORY ${SPARSE2D_URL}
+-        CMAKE_ARGS     -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/extern)
++        GIT_TAG v2.1.2
++        CMAKE_ARGS
++            -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/extern
++            -DCMAKE_POLICY_VERSION_MINIMUM=3.5
++            -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
++            -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
++            -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
++            -DCMAKE_CXX_STANDARD=14
++            -DSPARSE3D=OFF
++            -DBUILD_MSVST=OFF)
+         set(SPARSE2D_LIBRARY_DIR ${CMAKE_BINARY_DIR}/extern/lib)
+         set(SPARSE2D_INCLUDE_DIR ${CMAKE_BINARY_DIR}/extern/include)
+         set(SPARSE2D_LIBRARIES -lsparse2d -lsparse1d -ltools)
+diff --git a/src/survey.cpp b/src/survey.cpp
+index 2077530..2aea0ed 100644
+--- a/src/survey.cpp
++++ b/src/survey.cpp
+@@ -33,7 +33,6 @@
+  */
+ 
+ #include <CCfits/CCfits>
+-#include <CCfits/FITSBase.h>
+ #include "survey.h"
+ 
+ 

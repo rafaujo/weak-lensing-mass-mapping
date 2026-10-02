@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-02",
+  "source": "Author's clarification and explicit agreement in the preparation conversation",
+  "original_implementations_confirmed": [
+    "FISTA",
+    "Mask"
+  ],
+  "license": "MIT",
+  "scope": "Rafael's own original contributions only",
+  "copyright_notice": "Copyright (c) 2026 Rafael L. de Araujo",
+  "approved": true,
+  "upstream_licenses_preserved": true,
+  "joaquin_role": "Existing acknowledgement for the initial ADMM contribution/inspiration; not added as holder of Rafael's FISTA/Mask code",
+  "third_party_derivative_material_relicensed": false,
+  "github_owner": "rafaujo",
+  "proposed_repository_name": "weak-lensing-mass-mapping",
+  "repository_created": false,
+  "release_created": false,
+  "doi_assigned": false
+}

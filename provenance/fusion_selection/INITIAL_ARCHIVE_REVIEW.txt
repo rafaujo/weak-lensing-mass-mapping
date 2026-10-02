@@ -1,0 +1,61 @@
+SUPERSEDED BY REPORT.txt after access to the historical project conversations.
+
+ESCOLHA DOS PESOS DA FUSÃO — INVESTIGAÇÃO DE PROVENIÊNCIA
+
+Conclusão: o material examinado mostra que (.75,.75) foi congelado no script
+de teste e que os nove candidatos tiveram diagnóstico em vários observáveis
+na validação. Não foi encontrada uma regra histórica que explique a escolha
+específica desse ponto. A comparação abaixo não deve ser apresentada como
+uma regra que já existia ou como justificativa documentada da decisão original.
+
+Evidência direta no baseline v2:
+- run_weighted_band_fusion_validation.py, linhas 88–97: grade .50/.75/1.00.
+- Linhas 2539–2700: compila e salva SCIENCE_SUMMARY com campo, espectro e picos.
+- Linhas 2724–2752: candidatos ordenados por NMSE, seguidos de impressão.
+  Não há escolha automática de (.75,.75) nessa etapa.
+- run_weighted_band_fusion_test.py, linhas 18–23: A0=0, A1=.75, A2=.75,
+  A3=0 e nome W_A1_075_A2_075 já fixados.
+- O manuscrito descreve seleção na validação, sem explicitar a regra de decisão.
+- Conversa fornecida, notebook e arquivos auxiliares consultados não registram
+  uma decisão histórica entre os dois candidatos. Arquivos e hashes estão em
+  evidence.json. A conclusão está limitada a esse material, não a conversas
+  ou registros que não foram fornecidos.
+
+Comparação dos valores de VALIDAÇÃO (não dos diagnósticos V12 do teste):
+Métrica                   (.75,.75)   (.75,.50)      diferença
+nmse                  0.639532233  0.639125827 +0.000406406
+pcc                   0.599599068  0.599585643 +0.000013425
+std_ratio             0.636276924  0.628966904 +0.007310020
+mean_abs_T_error      0.409403793  0.415994033 -0.006590240
+mean_abs_A_error      0.378340894  0.392055536 -0.013714642
+mean_r_ell            0.741660774  0.741401828 +0.000258946
+PR_AUC_2arc           0.628157092  0.629174640 -0.001017548
+PR_AUC_4arc           0.615335664  0.615496070 -0.000160406
+PR_AUC_6arc           0.634597607  0.621993125 +0.012604482
+peak_amp_2arc         0.580565306  0.573789756 +0.006775550
+peak_amp_4arc         0.829127074  0.804561067 +0.024566008
+peak_amp_6arc         0.872309453  0.852739126 +0.019570328
+
+A diferença de NMSE é +0.000406405998, aproximadamente +0.0636% em relação
+ao mínimo. O ponto escolhido é o segundo dos nove no ordenamento por NMSE.
+Ele tem melhor correlação espectral, menores erros de transferência/amplitude,
+maior PR-AUC em 6 arcmin e amplitudes de picos mais próximas de 1. Em contrapartida,
+tem NMSE maior e PR-AUC um pouco menor em 2 e 4 arcmin. PCC melhora muito pouco.
+Estas são diferenças descritivas; não é possível declarar equivalência ou
+significância da diferença entre candidatos com os intervalos armazenados.
+Os bootstraps disponíveis usam GS e MCALens como referência, não comparam
+diretamente (.75,.75) contra (.75,.50).
+
+Não criei função objetivo, limiar de tolerância, ponderação entre métricas,
+critério de desempate nem declaração de otimização Pareto retrospectiva.
+Os pesos e resultados do artigo permanecem intactos.
+
+O que pode ser afirmado com esta evidência:
+“The archived validation grid contains field, spectral, and peak diagnostics
+for all nine candidates. The test implementation uses the frozen weights
+(a1,a2)=(0.75,0.75).”
+
+O que ainda requer confirmação de quem fez a seleção:
+se o ponto foi escolhido por inspeção conjunta desses diagnósticos e qual foi
+a regra ou julgamento empregado naquele momento. Só depois dessa confirmação
+é adequado descrever a motivação histórica como fato no manuscrito.

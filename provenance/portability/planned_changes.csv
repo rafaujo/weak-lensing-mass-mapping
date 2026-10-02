@@ -1,0 +1,190 @@
+file,line,before,after,reason
+code/glimpse/audit_glimpse_fits_final.py,30,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/glimpse/audit_glimpse_fits_final.py,36,"""/u/gob5/Glimpse/test/glimpse_recon""",str(PATHS.work_root / 'test/glimpse_recon'),"Generated caches, maps and metrics root"
+code/glimpse/audit_glimpse_fits_final.py,40,"""/u/gob5/Glimpse/test/glimpse_final_audit""",str(PATHS.work_root / 'test/glimpse_final_audit'),"Generated caches, maps and metrics root"
+code/glimpse/bootstrap_glimpse_comparison.py,8,"""/u/gob5/Glimpse/test""",str(PATHS.work_root / 'test'),"Generated caches, maps and metrics root"
+code/glimpse/prepare_glimpse_validation.py,10,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/glimpse/prepare_glimpse_validation.py,11,"ROOT / ""data""",PATHS.data_root,Separate FAIR input location from scientific-module location
+code/glimpse/prepare_glimpse_validation.py,13,"""/u/gob5/Glimpse/validation""",str(PATHS.work_root / 'validation'),"Generated caches, maps and metrics root"
+code/glimpse/run_glimpse_test_final.py,10,"""/u/gob5/Glimpse""",str(PATHS.work_root),"Generated caches, maps and metrics root"
+code/glimpse/run_glimpse_test_final.py,30,"B / ""build"" / ""glimpse""",PATHS.glimpse_root / 'build' / 'glimpse',Separate GLIMPSE executable location from experiment outputs
+code/glimpse/run_glimpse_test_final.py,33,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/glimpse/run_glimpse_validation.py,14,"""/u/gob5/Glimpse""",str(PATHS.work_root),"Generated caches, maps and metrics root"
+code/glimpse/run_glimpse_validation.py,31,"B / ""build"" / ""glimpse""",PATHS.glimpse_root / 'build' / 'glimpse',Separate GLIMPSE executable location from experiment outputs
+code/glimpse/run_glimpse_validation.py,34,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py,94,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py,108,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py,114,"""/u/gob5/Glimpse/test/""
+    ""mcalens/recon""",str(PATHS.work_root / 'test/mcalens/recon'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py,119,"""/u/gob5/Glimpse/test/""
+    ""weighted_band_fusion/""
+    ""W_A1_075_A2_075_test_maps.npy""",str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_peak_prauc_v5_with_gs_mcalens_bootstrap.py,125,"""/u/gob5/Glimpse/test/""
+    ""peak_bootstrap_v5""",str(PATHS.work_root / 'test/peak_bootstrap_v5'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_wiener_vs_gs.py,45,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/pipeline/bootstrap_wiener_vs_gs.py,59,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_wiener_vs_gs.py,65,"""/u/gob5/Glimpse/""
+    ""wiener_gaussian_only/""
+    ""wiener_test_cases.csv""",str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_cases.csv'),"Generated caches, maps and metrics root"
+code/pipeline/bootstrap_wiener_vs_gs.py,71,"""/u/gob5/Glimpse/test/""
+    ""wiener_vs_gaussian_starlet_bootstrap""",str(PATHS.work_root / 'test/wiener_vs_gaussian_starlet_bootstrap'),"Generated caches, maps and metrics root"
+code/pipeline/build_fair_validation_pk.py,9,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/build_fair_validation_pk.py,11,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/pipeline/build_fair_validation_pk.py,14,"""/u/gob5/Glimpse/validation/mcalens""",str(PATHS.work_root / 'validation/mcalens'),"Generated caches, maps and metrics root"
+code/pipeline/generate_mcalens_validation_maps.py,14,"Path.home() / ""cosmostat_mcalens""",PATHS.mcalens_root,Configured CosmoStat checkout
+code/pipeline/generate_mcalens_validation_maps.py,82,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/generate_mcalens_validation_maps.py,86,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/generate_mcalens_validation_maps.py,91,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/generate_mcalens_validation_maps.py,96,"""/u/gob5/Glimpse/validation/mcalens""",str(PATHS.work_root / 'validation/mcalens'),"Generated caches, maps and metrics root"
+code/pipeline/make_revised_figures_v12.py,72,"""/u/gob5/Glimpse/wiener_gaussian_only/""
+    ""wiener_test_reconstruction.npy""",str(PATHS.work_root / 'wiener_gaussian_only/wiener_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/make_revised_figures_v12.py,147,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/pipeline/make_revised_figures_v12.py,167,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/make_revised_figures_v12.py,173,"""/u/gob5/Glimpse/test/""
+    ""mcalens/recon""",str(PATHS.work_root / 'test/mcalens/recon'),"Generated caches, maps and metrics root"
+code/pipeline/make_revised_figures_v12.py,178,"""/u/gob5/Glimpse/test/""
+    ""weighted_band_fusion/""
+    ""W_A1_075_A2_075_test_maps.npy""",str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy'),"Generated caches, maps and metrics root"
+code/pipeline/make_revised_figures_v12.py,185,"""/u/gob5/Glimpse/test/""
+    ""revised_paper_figures_v12""",str(PATHS.work_root / 'test/revised_paper_figures_v12'),"Generated caches, maps and metrics root"
+code/pipeline/quantify_photoz_trend.py,54,"""/tatu/gob5/99 - Cosmos/data""",str(PATHS.data_root),Raw FAIR input root
+code/pipeline/quantify_photoz_trend.py,73,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/quantify_photoz_trend.py,79,"""/u/gob5/Glimpse/test/""
+    ""mcalens/recon""",str(PATHS.work_root / 'test/mcalens/recon'),"Generated caches, maps and metrics root"
+code/pipeline/quantify_photoz_trend.py,84,"""/u/gob5/Glimpse/test/""
+    ""weighted_band_fusion/""
+    ""W_A1_075_A2_075_test_maps.npy""",str(PATHS.work_root / 'test/weighted_band_fusion/W_A1_075_A2_075_test_maps.npy'),"Generated caches, maps and metrics root"
+code/pipeline/quantify_photoz_trend.py,90,"""/u/gob5/Glimpse/test/""
+    ""photoz_audit""",str(PATHS.work_root / 'test/photoz_audit'),"Generated caches, maps and metrics root"
+code/pipeline/run_admm_gaussian_starlet_audit.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_admm_gaussian_starlet_audit.py,41,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_admm_gaussian_starlet_audit.py,45,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_admm_gaussian_starlet_audit.py,50,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_admm_gaussian_starlet_audit.py,55,"""/u/gob5/Glimpse/validation/""
+    ""reweighted_gaussian_starlet""",str(PATHS.work_root / 'validation/reweighted_gaussian_starlet'),"Generated caches, maps and metrics root"
+code/pipeline/run_admm_gaussian_starlet_audit.py,75,"""/u/gob5/Glimpse/validation/""
+    ""admm_solver_audit""",str(PATHS.work_root / 'validation/admm_solver_audit'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_joint_validation.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_gaussian_starlet_joint_validation.py,25,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_joint_validation.py,29,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_gaussian_starlet_joint_validation.py,34,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_gaussian_starlet_joint_validation.py,39,"""/u/gob5/Glimpse/validation/""
+    ""starlet_gaussian_prior""",str(PATHS.work_root / 'validation/starlet_gaussian_prior'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_reduced_shear.py,72,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_gaussian_starlet_reduced_shear.py,83,"ROOT / ""data""",PATHS.data_root,Separate FAIR input location from scientific-module location
+code/pipeline/run_gaussian_starlet_reduced_shear.py,91,"""/u/gob5/Glimpse/test/fair_npz""",str(PATHS.work_root / 'test/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_reduced_shear.py,95,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_gaussian_starlet_reduced_shear.py,100,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_reduced_shear.py,106,"""/u/gob5/Glimpse/test/""
+    ""gaussian_starlet_reduced_shear""",str(PATHS.work_root / 'test/gaussian_starlet_reduced_shear'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_gaussian_starlet_test.py,25,"""/u/gob5/Glimpse/test/fair_npz""",str(PATHS.work_root / 'test/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,29,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_gaussian_starlet_test.py,36,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_gaussian_starlet_test.py,41,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior""",str(PATHS.work_root / 'test/starlet_gaussian_prior'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,1754,"""/u/gob5/Glimpse/test/""
+    ""square_ours_metrics.csv""",str(PATHS.work_root / 'test/square_ours_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,1798,"""/u/gob5/Glimpse/test/mcalens/""
+    ""mcalens_test_metrics.csv""",str(PATHS.work_root / 'test/mcalens/mcalens_test_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,1834,"""/u/gob5/Glimpse/test/""
+        ""glimpse_test_metrics.csv""",str(PATHS.work_root / 'test/glimpse_test_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,1839,"""/u/gob5/Glimpse/test/""
+        ""glimpse_metrics.csv""",str(PATHS.work_root / 'test/glimpse_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_test.py,1844,"""/u/gob5/Glimpse/test/""
+        ""fair_glimpse_test_metrics.csv""",str(PATHS.work_root / 'test/fair_glimpse_test_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_validation.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_gaussian_starlet_validation.py,22,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_gaussian_starlet_validation.py,26,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_gaussian_starlet_validation.py,31,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_gaussian_starlet_validation.py,36,"""/u/gob5/Glimpse/validation/""
+    ""starlet_gaussian_prior""",str(PATHS.work_root / 'validation/starlet_gaussian_prior'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_test.py,11,"""/u/gob5/Glimpse/test/fair_npz""",str(PATHS.work_root / 'test/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_test.py,14,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_mcalens_test.py,22,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_mcalens_test.py,27,"""/u/gob5/Glimpse/test/mcalens""",str(PATHS.work_root / 'test/mcalens'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_test.py,889,"""/u/gob5/Glimpse/test/""
+            ""square_ours_metrics.csv""",str(PATHS.work_root / 'test/square_ours_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_test.py,894,"""/u/gob5/Glimpse/test/""
+            ""square_method_metrics.csv""",str(PATHS.work_root / 'test/square_method_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_test.py,899,"""/u/gob5/Glimpse/test/""
+            ""our_square_metrics.csv""",str(PATHS.work_root / 'test/our_square_metrics.csv'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_validation.py,11,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_mcalens_validation.py,13,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_mcalens_validation.py,18,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_mcalens_validation.py,23,"""/u/gob5/Glimpse/validation/mcalens""",str(PATHS.work_root / 'validation/mcalens'),"Generated caches, maps and metrics root"
+code/pipeline/run_multiscale_fusion_validation.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_multiscale_fusion_validation.py,20,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_multiscale_fusion_validation.py,24,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_multiscale_fusion_validation.py,30,"""/u/gob5/Glimpse/validation/""
+    ""reweighted_gaussian_starlet/""
+    ""stage1_gaussian_starlet_rec.npy""",str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy'),"Generated caches, maps and metrics root"
+code/pipeline/run_multiscale_fusion_validation.py,37,"""/u/gob5/Glimpse/validation/mcalens""",str(PATHS.work_root / 'validation/mcalens'),"Generated caches, maps and metrics root"
+code/pipeline/run_multiscale_fusion_validation.py,41,"""/u/gob5/Glimpse/validation/""
+    ""multiscale_fusion""",str(PATHS.work_root / 'validation/multiscale_fusion'),"Generated caches, maps and metrics root"
+code/pipeline/run_reweighted_gaussian_starlet_validation.py,9,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_reweighted_gaussian_starlet_validation.py,25,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_reweighted_gaussian_starlet_validation.py,29,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_reweighted_gaussian_starlet_validation.py,34,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_reweighted_gaussian_starlet_validation.py,39,"""/u/gob5/Glimpse/validation/""
+    ""reweighted_gaussian_starlet""",str(PATHS.work_root / 'validation/reweighted_gaussian_starlet'),"Generated caches, maps and metrics root"
+code/pipeline/run_square_starlet_comparison.py,14,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_square_starlet_comparison.py,15,"ROOT / ""data""",PATHS.data_root,Separate FAIR input location from scientific-module location
+code/pipeline/run_square_starlet_comparison.py,16,"""/u/gob5/Glimpse""",str(PATHS.work_root),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_test.py,26,"""/u/gob5/Glimpse/test/fair_npz""",str(PATHS.work_root / 'test/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_test.py,30,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_weighted_band_fusion_test.py,35,"""/u/gob5/Glimpse/test/""
+    ""starlet_gaussian_prior/""
+    ""gaussian_starlet_test_reconstruction.npy""",str(PATHS.work_root / 'test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_test.py,41,"""/u/gob5/Glimpse/test/mcalens/recon""",str(PATHS.work_root / 'test/mcalens/recon'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_test.py,45,"""/u/gob5/Glimpse/test/""
+    ""weighted_band_fusion""",str(PATHS.work_root / 'test/weighted_band_fusion'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_validation.py,23,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_validation.py,27,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_weighted_band_fusion_validation.py,32,"""/u/gob5/Glimpse/validation/""
+    ""reweighted_gaussian_starlet/""
+    ""stage1_gaussian_starlet_rec.npy""",str(PATHS.work_root / 'validation/reweighted_gaussian_starlet/stage1_gaussian_starlet_rec.npy'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_validation.py,38,"""/u/gob5/Glimpse/validation/""
+    ""mcalens/recon""",str(PATHS.work_root / 'validation/mcalens/recon'),"Generated caches, maps and metrics root"
+code/pipeline/run_weighted_band_fusion_validation.py,43,"""/u/gob5/Glimpse/validation/""
+    ""weighted_band_fusion""",str(PATHS.work_root / 'validation/weighted_band_fusion'),"Generated caches, maps and metrics root"
+code/pipeline/run_wiener_gaussian_only.py,32,"""/tatu/gob5/99 - Cosmos""",str(PATHS.code_root),Local scientific-module import root
+code/pipeline/run_wiener_gaussian_only.py,51,"""/tatu/gob5/99 - Cosmos/data/""
+    ""WIDE12H_bin2_2arcmin_mask.npy""",str(PATHS.data_root / 'WIDE12H_bin2_2arcmin_mask.npy'),Raw FAIR input root
+code/pipeline/run_wiener_gaussian_only.py,56,"""/u/gob5/Glimpse/validation/mcalens/""
+    ""fair_validation_pk_mean.npy""",str(PATHS.prior_file),Read the exact frozen prior supplied in config/priors
+code/pipeline/run_wiener_gaussian_only.py,61,"""/u/gob5/Glimpse/validation/fair_npz""",str(PATHS.work_root / 'validation/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_wiener_gaussian_only.py,65,"""/u/gob5/Glimpse/test/fair_npz""",str(PATHS.work_root / 'test/fair_npz'),"Generated caches, maps and metrics root"
+code/pipeline/run_wiener_gaussian_only.py,69,"""/u/gob5/Glimpse/wiener_gaussian_only""",str(PATHS.work_root / 'wiener_gaussian_only'),"Generated caches, maps and metrics root"

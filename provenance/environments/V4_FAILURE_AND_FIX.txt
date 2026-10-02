@@ -1,0 +1,20 @@
+V4 FAILURE AND V5 CORRECTION
+
+The user reported No module named 'modopt' when running v4. The v4 smoke runner
+imported run_mcalens_test in the same interpreter as the Torch solvers, gob5.
+Its static preflight checked the CosmoStat checkout/patch but did not import
+modopt, seaborn or mass_mapping in the actual execution environment.
+
+The historical conversation records a separate MCALens venv over the existing
+micromamba glimpse environment. V5 executes MCALens in that venv via a child
+process and exchanges the same cache/NPZ files. It actually imports the relevant
+dependencies in both interpreters before numerical work. The native GLIMPSE
+binary receives the glimpse environment. No package installation is performed.
+
+Generic full-driver dispatch is opt-in via --environments; run_server_pipeline.sh
+supplies the recorded server configuration. Generic local launcher behavior
+without that option remains available for other configured installations.
+
+Regression tests check the missing-modopt failure and MCALens subprocess
+isolation with fixtures. Those tests do not emulate micromamba activation or
+the numerical MCALens algorithm. The real server run remains pending.

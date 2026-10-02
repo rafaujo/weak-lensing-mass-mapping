@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+.DS_Store
+Thumbs.db
+/work/
+/data/
+/build/
+/external/glimpse/build/
+*.log
+# Do not blanket-ignore .npy: config/priors contains a required frozen input.
+
+# Retain the two reviewed scientific smoke logs with their checksum evidence.
+!/provenance/server_validation_v5/glimpse.log
+!/provenance/server_validation_v6/mcalens.log

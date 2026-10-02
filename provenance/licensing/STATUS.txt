@@ -1,0 +1,36 @@
+LICENSING / CONTRIBUTION STATUS — 2026-10-02
+
+DECISION APPLIED
+Rafael confirmed that the principal FISTA and Mask implementations are his.
+He approved MIT for his own contributions with:
+  Copyright (c) 2026 Rafael L. de Araujo
+The current license is at ../../LICENSE; ../../LICENSE_SCOPE.md defines its
+scope and preserves third-party terms. LICENSE_PENDING.txt is superseded.
+The MIT choice for Rafael's own contributions is no longer pending.
+
+THIRD-PARTY SOFTWARE
+GLIMPSE and modifications to its code retain CeCILL 2.1 and original notices.
+The CosmoStat/MCALens dependency and preserved patch retain the CosmoStat MIT
+license and copyright. Their source files, notices, patches and version
+records are unchanged from the numerically checked package.
+The root MIT grant does not assign their authorship to Rafael.
+
+JOAQUIN / EARLY ADMM HISTORY
+Rafael clarified that Joaquin's role should remain an acknowledgement for
+inspiration and the early contribution, not an added authorship/copyright
+credit on Rafael's FISTA and Mask implementations. The manuscript's existing
+acknowledgement is preserved; neither the manuscript nor CITATION.cff was
+changed in this step.
+
+The earlier reported history of adaptation/translation of the initial ADMM
+implementation remains part of the provenance. The legacy admm_masked.py was
+excluded during curation, while the final ADMM audit and shared operator remain.
+The author's clarification and license approval do not constitute a source
+comparison proving that every retained line is independently authored.
+Any retained third-party adaptation remains outside the grant for Rafael's
+original contributions and must retain its own provenance/applicable terms.
+
+PUBLISHING STATUS
+GitHub account supplied by the author: rafaujo.
+Proposed repository name: weak-lensing-mass-mapping.
+No public repository, release or DOI has been created by this preparation.

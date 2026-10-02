@@ -1,0 +1,69 @@
+GSL_RNG_SEED=1000
+Successfully loaded 12899 galaxies.
+Warning: No redshift specified for the lens, ignoring source redsfhits
+Number of pixels : 176Pixel size : 0.000581776
+Using following reconstruction parameters :
+Number of scales         : 4
+Regularisation parameter : 3
+Computing thresholds
+Running main iteration
+Warning, reached maximum number of iterations
+Step size : 0.494997
+Iteration :0
+Iteration :100
+Iteration :200
+Iteration :300
+Iteration :400
+Warning, reached maximum number of iterations
+Step size : 0.49567
+Iteration :0
+Iteration :100
+Iteration :200
+Warning, reached maximum number of iterations
+Step size : 0.495778
+Iteration :0
+Iteration :100
+Iteration :200
+Warning, reached maximum number of iterations
+Step size : 0.495679
+Iteration :0
+Iteration :100
+Iteration :200
+Warning, reached maximum number of iterations
+Step size : 0.49566
+Iteration :0
+Iteration :100
+Iteration :200
+Warning, reached maximum number of iterations
+Step size : 0.495807
+Iteration :0
+Iteration :100
+Iteration :200
+Starting debiasing 
+Warning, reached maximum number of iterations
+Step size : 0.495664
+Iteration :0
+Iteration :100
+Iteration :200
+Iteration :300
+Iteration :400
+Iteration :500
+Iteration :600
+Iteration :700
+Iteration :800
+Iteration :900
+Iteration :1000
+Iteration :1100
+Iteration :1200
+Iteration :1300
+Iteration :1400
+Iteration :1500
+Iteration :1600
+Iteration :1700
+Iteration :1800
+Iteration :1900
+Iteration :2000
+Iteration :2100
+Iteration :2200
+Iteration :2300
+Iteration :2400

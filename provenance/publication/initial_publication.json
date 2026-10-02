@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-02",
+  "repository_url": "https://github.com/rafaujo/weak-lensing-mass-mapping",
+  "visibility": "public",
+  "authorization": "Author requested publication after approving MIT for own contributions.",
+  "parent_archive": "weak-lensing-mass-mapping_licensed_2026-10-02.tar.gz",
+  "parent_archive_sha256": "c2a7fa10ef68d8c5349b43d68845e040bb269f88d8e14b8419c1731fc0fa9f13",
+  "modified_before_initial_commit": [
+    ".gitignore",
+    "CITATION.cff",
+    "OPEN_ITEMS.md",
+    "README.md",
+    "README_SERVIDOR.txt"
+  ],
+  "scientific_code_tools_configs_inputs_results_and_licenses_unchanged": true,
+  "checked_package_files": 199,
+  "initial_secret_pattern_matches": 0,
+  "full_private_conversations_included": false,
+  "checksum_manifest": "SHA256SUMS.txt (regenerated for this snapshot)",
+  "release_created": false,
+  "doi_assigned": false,
+  "note": "Preparation record: remote commit identity and upload verification are recorded locally after push. Historical audit records describe their dated snapshots."
+}

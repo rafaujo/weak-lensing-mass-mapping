@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/tatu/gob5/99 - Cosmos/data/sampled_WIDE12H_bin2_2arcmin_kappa.npy",
+    "bytes": 23763548,
+    "md5": "63388a13ed245208a05a4f66c8f188c1",
+    "sha256": "3b56432e9cd3c046b2db14893d7a3f08d9218fbeed79fb2560ab0fdd8d79f1df"
+  },
+  {
+    "path": "/tatu/gob5/99 - Cosmos/data/sampled_label.npy",
+    "bytes": 3728,
+    "md5": "9a08befb4c635966cf61ced1136e7144",
+    "sha256": "4957adc28d60874643a8b5032ef8178e15cd752f46d270cc69e52007a7034ddd"
+  },
+  {
+    "path": "/tatu/gob5/99 - Cosmos/data/WIDE12H_bin2_2arcmin_mask.npy",
+    "bytes": 250752,
+    "md5": "29b8bbb8a9ad41d3dacfaf61008a8268",
+    "sha256": "ffe44ff93ad3122488fb18882dd457f337dc90c4e31306f50c4bb77aa8822da6"
+  }
+]

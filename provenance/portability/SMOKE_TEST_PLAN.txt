@@ -1,0 +1,6 @@
+STATUS 2026-10-02: the planned single-case server smoke test is complete.
+V5 independently verified KS, Starlet, G+S and native GLIMPSE maps.
+V6's MCALens-only recheck verifies numerical agreement and output isolation.
+No further server run is needed for that fix. Code remains byte-identical to v6.
+See ../server_validation_v6/ASSESSMENT.txt for evidence and scope limitations.
+The historical v5 assessment remains unchanged as a record of the earlier failure.

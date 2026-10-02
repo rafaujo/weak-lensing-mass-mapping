@@ -1,0 +1,102 @@
+{
+  "source_archive_sha256": "451ef89b72d9a6fe401d824a67ad2d1c3d68d0ef2634cf7ae325a184487a5c05",
+  "mcalens_patch_reconstructs_received_starlet_after_newline_normalization": true,
+  "mcalens_validation_rows_by_nsigma": {
+    "5.0": 240
+  },
+  "mcalens_validation_runner_setting": [
+    6
+  ],
+  "mcalens_validation_resume_schema": "Runner expects Nsigma; retained final-map metrics have nsigma and a different schema. Do not use them as its resume file.",
+  "fusion_chosen": {
+    "method": "W_A1_075_A2_075",
+    "nmse": "0.6395322329318702",
+    "pcc": "0.5995990679028709",
+    "std_ratio": "0.636276923815957",
+    "mean_abs_T_error": "0.4094037928769888",
+    "mean_abs_A_error": "0.37834089419450534",
+    "mean_r_ell": "0.741660774155644",
+    "PR_AUC_2arc": "0.6281570916290129",
+    "PR_AUC_4arc": "0.6153356641041499",
+    "PR_AUC_6arc": "0.6345976072495065",
+    "peak_amp_2arc": "0.5805653057608076",
+    "peak_amp_4arc": "0.8291270742829298",
+    "peak_amp_6arc": "0.8723094532941924",
+    "a1": "0.75",
+    "a2": "0.75"
+  },
+  "fusion_nmse_minimum": {
+    "method": "W_A1_075_A2_050",
+    "nmse": "0.639125826934319",
+    "pcc": "0.5995856429479247",
+    "std_ratio": "0.6289669041416347",
+    "mean_abs_T_error": "0.415994033329557",
+    "mean_abs_A_error": "0.392055536489867",
+    "mean_r_ell": "0.7414018279874938",
+    "PR_AUC_2arc": "0.6291746397934131",
+    "PR_AUC_4arc": "0.61549606990996",
+    "PR_AUC_6arc": "0.6219931249286367",
+    "peak_amp_2arc": "0.5737897556546732",
+    "peak_amp_4arc": "0.804561066543722",
+    "peak_amp_6arc": "0.8527391256448411",
+    "a1": "0.75",
+    "a2": "0.5"
+  },
+  "fusion_scope": "Validation SCIENCE_SUMMARY supports comparison of several observables; the original rule choosing (.75,.75) is not recorded.",
+  "calibration_source": {
+    "archive": "publication_final_gaps_v2.tar.gz",
+    "notebook_path": "cosmos/36 - DWT e Starlet ponderados.ipynb",
+    "notebook_sha256": "6ff4affae67faca98f3bcf7a2201b6428c94b57a9f95f4126f345c72882d1918",
+    "excerpts": [
+      {
+        "cell_index_zero_based": 2,
+        "cell_source_sha256": "c29835768eb9b3b1b2aa65c4836202bf47ad85e8f564c341e51035933087b884",
+        "original_line_ranges_inclusive": [
+          [
+            1,
+            911
+          ],
+          [
+            2375,
+            2395
+          ],
+          [
+            2398,
+            2401
+          ]
+        ],
+        "output": "provenance/noise_calibration/notebook_cell_02_calibration_excerpt.txt",
+        "output_sha256": "5bf4045e1e9cb25285293892bdd929fcf41f1a920eac9dd0dbffdd875185bb5e",
+        "transformation": "Exact source slices joined with one newline; stored as text, not a supported runner"
+      },
+      {
+        "cell_index_zero_based": 3,
+        "cell_source_sha256": "895ed00fd200b5a0244e8f2c7d117e556455e786df4f61f2426e9a3dca5bcb81",
+        "original_line_ranges_inclusive": [
+          [
+            1,
+            863
+          ],
+          [
+            3092,
+            3112
+          ],
+          [
+            3161,
+            3164
+          ]
+        ],
+        "output": "provenance/noise_calibration/notebook_cell_03_calibration_excerpt.txt",
+        "output_sha256": "1a00db5cabaa2d8808459cef82400de6fed296da74934261170881b44c270c3a",
+        "transformation": "Exact source slices joined with one newline; stored as text, not a supported runner"
+      }
+    ],
+    "observed_settings": {
+      "noise_draws": 64,
+      "seed_start": 10000,
+      "starlet_scales": 4,
+      "geometry": "full supplied survey mask, not 176x176 patches"
+    },
+    "scope": "Recovered historical calibration source. Outputs were removed before receipt, so which cell produced the frozen CSV is not established. Frozen coefficients were not regenerated."
+  }
+}

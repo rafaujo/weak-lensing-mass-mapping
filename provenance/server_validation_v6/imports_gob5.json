@@ -1,0 +1,45 @@
+{
+  "kind": "gob5",
+  "python_executable": "/tatu/venv/gob5/bin/python",
+  "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+  "prefix": "/tatu/venv/gob5",
+  "base_prefix": "/usr",
+  "imports": {
+    "numpy": {
+      "ok": true,
+      "version": "1.26.4",
+      "file": "/tatu/venv/gob5/lib/python3.12/site-packages/numpy/__init__.py"
+    },
+    "scipy": {
+      "ok": true,
+      "version": "1.16.2",
+      "file": "/usr/local/lib/python3.12/dist-packages/scipy/__init__.py"
+    },
+    "pandas": {
+      "ok": true,
+      "version": "2.3.3",
+      "file": "/usr/local/lib/python3.12/dist-packages/pandas/__init__.py"
+    },
+    "torch": {
+      "ok": true,
+      "version": "2.9.0a0+145a3a7bda.nv25.10",
+      "file": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+    },
+    "pywt": {
+      "ok": true,
+      "version": "1.8.0",
+      "file": "/tatu/venv/gob5/lib/python3.12/site-packages/pywt/__init__.py"
+    },
+    "astropy": {
+      "ok": true,
+      "version": "7.1.1",
+      "file": "/tatu/venv/gob5/lib/python3.12/site-packages/astropy/__init__.py"
+    },
+    "matplotlib": {
+      "ok": true,
+      "version": "3.10.7",
+      "file": "/usr/local/lib/python3.12/dist-packages/matplotlib/__init__.py"
+    }
+  },
+  "ok": true
+}

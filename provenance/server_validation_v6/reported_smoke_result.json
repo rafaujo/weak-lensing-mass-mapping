@@ -1,0 +1,361 @@
+{
+  "status": "passed",
+  "case": [
+    0,
+    10,
+    0
+  ],
+  "run_directory": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e",
+  "numerical_smoke_executed": true,
+  "core_python_executable": "/tatu/venv/gob5/bin/python",
+  "execution_environments": {
+    "gob5_python": [
+      "/tatu/venv/gob5/bin/python"
+    ],
+    "mcalens_python": [
+      "/u/gob5/bin/micromamba",
+      "run",
+      "-p",
+      "/u/gob5/micromamba/envs/glimpse",
+      "/u/gob5/venvs/mcalens/bin/python"
+    ],
+    "glimpse_prefix": [
+      "/u/gob5/bin/micromamba",
+      "run",
+      "-p",
+      "/u/gob5/micromamba/envs/glimpse"
+    ]
+  },
+  "requested_methods": [
+    "MCALENS"
+  ],
+  "scope": "One-patch execution and diagnostic comparison, not a full benchmark reproduction.",
+  "invariants": {
+    "baseline_archive_sha256": "0cb915e0b59676df38bf1ddef5ce31c3cfcfb4312d225195ebb553531cd7db34",
+    "scientific_scripts": 25,
+    "path_edits": 114,
+    "numeric_literals_checked": 3091,
+    "unchanged_original_files": 94,
+    "failed": 0,
+    "scope": "Source-structure and input-integrity preservation, not numerical solver equivalence across environments."
+  },
+  "preflight": {
+    "python": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+    "paths": {
+      "data_root": "/tatu/gob5/99 - Cosmos/data",
+      "work_root": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e",
+      "glimpse_root": "/u/gob5/Glimpse",
+      "mcalens_root": "/u/gob5/cosmostat_mcalens",
+      "repository_root": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6",
+      "code_root": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/code/pipeline",
+      "prior_file": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/config/priors/fair_validation_pk_mean.npy",
+      "glimpse_executable": "/u/gob5/Glimpse/build/glimpse"
+    },
+    "inputs": [
+      {
+        "path": "/tatu/gob5/99 - Cosmos/data/sampled_WIDE12H_bin2_2arcmin_kappa.npy",
+        "exists": true,
+        "sha256_matches": true
+      },
+      {
+        "path": "/tatu/gob5/99 - Cosmos/data/sampled_label.npy",
+        "exists": true,
+        "sha256_matches": true
+      },
+      {
+        "path": "/tatu/gob5/99 - Cosmos/data/WIDE12H_bin2_2arcmin_mask.npy",
+        "exists": true,
+        "sha256_matches": true
+      },
+      {
+        "path": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/config/priors/fair_validation_pk_mean.npy",
+        "exists": true,
+        "sha256_matches": true
+      }
+    ],
+    "modules": {
+      "numpy": {
+        "discoverable": true,
+        "version": "1.26.4"
+      },
+      "torch": {
+        "discoverable": true,
+        "version": "2.9.0a0+145a3a7bda.nv25.10"
+      },
+      "scipy": {
+        "discoverable": true,
+        "version": "1.16.2"
+      },
+      "pandas": {
+        "discoverable": true,
+        "version": "2.3.3"
+      },
+      "astropy": {
+        "discoverable": true,
+        "version": "7.1.1"
+      },
+      "pywt": {
+        "discoverable": true,
+        "version": "1.9.0"
+      },
+      "matplotlib": {
+        "discoverable": true,
+        "version": "3.10.7"
+      }
+    },
+    "mcalens": {
+      "checkout_present": true,
+      "expected_commit": "7ae457db1697ac966fc6e739c00b91fa6a47ec2c",
+      "observed_commit": "7ae457db1697ac966fc6e739c00b91fa6a47ec2c",
+      "commit_matches": true,
+      "local_starlet_patch_matches": true
+    },
+    "glimpse_executable_present": true,
+    "core_prerequisites_present": true,
+    "numerical_smoke_executed": false,
+    "scope": "File hashes, module discovery and checkout metadata only; no import/solver/device validation or numerical execution."
+  },
+  "environment_imports": {
+    "gob5": {
+      "kind": "gob5",
+      "python_executable": "/tatu/venv/gob5/bin/python",
+      "python_version": "3.12.3 (main, Jul 15 2026, 23:46:41) [GCC 13.3.0]",
+      "prefix": "/tatu/venv/gob5",
+      "base_prefix": "/usr",
+      "imports": {
+        "numpy": {
+          "ok": true,
+          "version": "1.26.4",
+          "file": "/tatu/venv/gob5/lib/python3.12/site-packages/numpy/__init__.py"
+        },
+        "scipy": {
+          "ok": true,
+          "version": "1.16.2",
+          "file": "/usr/local/lib/python3.12/dist-packages/scipy/__init__.py"
+        },
+        "pandas": {
+          "ok": true,
+          "version": "2.3.3",
+          "file": "/usr/local/lib/python3.12/dist-packages/pandas/__init__.py"
+        },
+        "torch": {
+          "ok": true,
+          "version": "2.9.0a0+145a3a7bda.nv25.10",
+          "file": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py"
+        },
+        "pywt": {
+          "ok": true,
+          "version": "1.8.0",
+          "file": "/tatu/venv/gob5/lib/python3.12/site-packages/pywt/__init__.py"
+        },
+        "astropy": {
+          "ok": true,
+          "version": "7.1.1",
+          "file": "/tatu/venv/gob5/lib/python3.12/site-packages/astropy/__init__.py"
+        },
+        "matplotlib": {
+          "ok": true,
+          "version": "3.10.7",
+          "file": "/usr/local/lib/python3.12/dist-packages/matplotlib/__init__.py"
+        }
+      },
+      "ok": true,
+      "returncode": 0,
+      "command": [
+        "/tatu/venv/gob5/bin/python",
+        "-B",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/tools/environment_probe.py",
+        "--kind",
+        "gob5",
+        "--paths",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/paths.toml",
+        "--output",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/imports_gob5.json"
+      ]
+    },
+    "mcalens": {
+      "kind": "mcalens",
+      "python_executable": "/u/gob5/venvs/mcalens/bin/python",
+      "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+      "prefix": "/u/gob5/venvs/mcalens",
+      "base_prefix": "/u/gob5/micromamba/envs/glimpse",
+      "imports": {
+        "numpy": {
+          "ok": true,
+          "version": "2.4.6",
+          "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/numpy/__init__.py"
+        },
+        "scipy": {
+          "ok": true,
+          "version": "1.17.1",
+          "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/scipy/__init__.py"
+        },
+        "pandas": {
+          "ok": true,
+          "version": "3.0.5",
+          "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/pandas/__init__.py"
+        },
+        "astropy": {
+          "ok": true,
+          "version": "8.0.1",
+          "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/astropy/__init__.py"
+        },
+        "matplotlib": {
+          "ok": true,
+          "version": "3.10.9",
+          "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/matplotlib/__init__.py"
+        },
+        "seaborn": {
+          "ok": true,
+          "version": "0.13.2",
+          "file": "/u/gob5/venvs/mcalens/lib/python3.11/site-packages/seaborn/__init__.py"
+        },
+        "modopt": {
+          "ok": true,
+          "version": "1.7.2",
+          "file": "/u/gob5/venvs/mcalens/lib/python3.11/site-packages/modopt/__init__.py"
+        },
+        "pycs.astro.wl.mass_mapping": {
+          "ok": true,
+          "version": "unknown",
+          "file": "/u/gob5/cosmostat_mcalens/pycs/astro/wl/mass_mapping.py",
+          "classes_present": true,
+          "configured_checkout": true
+        }
+      },
+      "ok": true,
+      "returncode": 0,
+      "command": [
+        "/u/gob5/bin/micromamba",
+        "run",
+        "-p",
+        "/u/gob5/micromamba/envs/glimpse",
+        "/u/gob5/venvs/mcalens/bin/python",
+        "-B",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/tools/environment_probe.py",
+        "--kind",
+        "mcalens",
+        "--paths",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/paths.toml",
+        "--output",
+        "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/imports_mcalens.json"
+      ]
+    }
+  },
+  "device": "cuda",
+  "torch_version": "2.9.0a0+145a3a7bda.nv25.10",
+  "cuda_version": "13.0",
+  "gpu": "NVIDIA A100-SXM4-80GB",
+  "input": {
+    "origin": "/u/gob5/Glimpse/test/fair_npz/C0_R10.npz",
+    "sha256": "6d0d948d9fb01ec99e528e8f7b4758df92efb8f0562e9f7f8f0c0ef7d279e53a",
+    "historical_gamma_hash_independently_archived": false,
+    "truth_noise_scale_and_cosmology_validated": true
+  },
+  "methods": {
+    "MCALENS": {
+      "metrics": {
+        "nmse": 0.6925870361903356,
+        "pcc": 0.5615613631935216,
+        "std_ratio": 0.6506579446212163
+      },
+      "runtime_s": 21.058849384979112,
+      "shape": [
+        176,
+        176
+      ],
+      "finite": true,
+      "comparison": {
+        "source": "results/test/mcalens/mcalens_test_metrics.csv",
+        "expected": {
+          "nmse": 0.6925870357953903,
+          "pcc": 0.5615613636618906,
+          "std_ratio": 0.6506579458252513
+        },
+        "delta": {
+          "nmse": 3.949452986873325e-10,
+          "pcc": -4.683690102424976e-10,
+          "std_ratio": -1.2040349828268404e-09
+        },
+        "absolute_tolerance": 0.0001,
+        "within_smoke_tolerance": true
+      }
+    }
+  },
+  "mcalens_worker": {
+    "case": [
+      0,
+      10,
+      0
+    ],
+    "python_executable": "/u/gob5/venvs/mcalens/bin/python",
+    "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+    "prefix": "/u/gob5/venvs/mcalens",
+    "ok": true,
+    "driver": {
+      "path": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/code/pipeline/run_mcalens_test.py",
+      "sha256": "ea25b5f9922652e798199642e5593b82a265a57c7e5b833d8b53ec9975ad9cca",
+      "validated_paths": {
+        "BASE": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/fair_npz",
+        "OUT": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens",
+        "RECON_DIR": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens/recon",
+        "PK_FILE": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/config/priors/fair_validation_pk_mean.npy",
+        "MASK_FILE": "/tatu/gob5/99 - Cosmos/data/WIDE12H_bin2_2arcmin_mask.npy"
+      }
+    },
+    "result": {
+      "method": "MCALENS",
+      "c": 0,
+      "r": 10,
+      "p": 0,
+      "omega_m": 0.3,
+      "f_obs": 0.4164191632231405,
+      "n_obs": 12899,
+      "Nsigma": 5,
+      "niter": 100,
+      "mse": 0.00010020262127205802,
+      "nmse": 0.6925870357953903,
+      "pcc": 0.5615613636618906,
+      "std_ratio": 0.6506579458252513,
+      "runtime": 14.880449941992993,
+      "active_coeffs": 131,
+      "bmode_std": 0.002966176223486975,
+      "sparse_std": 0.0037328877157683754,
+      "gaussian_std": 0.003807349941755361,
+      "finite": true,
+      "recon_file": "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/test/mcalens/recon/C0_R10_P0.npz"
+    },
+    "historical_output_check": {
+      "path": "/u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz",
+      "before": {
+        "exists": true,
+        "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+        "bytes": 502838,
+        "mtime_ns": 1790906585874133000
+      },
+      "after": {
+        "exists": true,
+        "sha256": "113b43f11416d9b765623ae9474c60c95195c79a3b508efd770068f79fa9ed66",
+        "bytes": 502838,
+        "mtime_ns": 1790906585874133000
+      },
+      "unchanged": true
+    },
+    "mcalens_source": "/u/gob5/cosmostat_mcalens/pycs/astro/wl/mass_mapping.py",
+    "command": [
+      "/u/gob5/bin/micromamba",
+      "run",
+      "-p",
+      "/u/gob5/micromamba/envs/glimpse",
+      "/u/gob5/venvs/mcalens/bin/python",
+      "-B",
+      "-u",
+      "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/tools/mcalens_smoke_worker.py",
+      "--paths",
+      "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/paths.toml",
+      "--output",
+      "/tatu/gob5/99 - Cosmos/teste_final_v6/weak_lensing_mass_mapping_server_v6/work/server_smoke/20261002T110857Z_34bd6f4e/mcalens_worker.json"
+    ]
+  },
+  "glimpse": "not requested; add --with-glimpse to test the native binary"
+}

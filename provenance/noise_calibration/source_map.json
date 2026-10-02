@@ -1,0 +1,56 @@
+{
+  "archive": "publication_final_gaps_v2.tar.gz",
+  "notebook_path": "cosmos/36 - DWT e Starlet ponderados.ipynb",
+  "notebook_sha256": "6ff4affae67faca98f3bcf7a2201b6428c94b57a9f95f4126f345c72882d1918",
+  "excerpts": [
+    {
+      "cell_index_zero_based": 2,
+      "cell_source_sha256": "c29835768eb9b3b1b2aa65c4836202bf47ad85e8f564c341e51035933087b884",
+      "original_line_ranges_inclusive": [
+        [
+          1,
+          911
+        ],
+        [
+          2375,
+          2395
+        ],
+        [
+          2398,
+          2401
+        ]
+      ],
+      "output": "provenance/noise_calibration/notebook_cell_02_calibration_excerpt.txt",
+      "output_sha256": "5bf4045e1e9cb25285293892bdd929fcf41f1a920eac9dd0dbffdd875185bb5e",
+      "transformation": "Exact source slices joined with one newline; stored as text, not a supported runner"
+    },
+    {
+      "cell_index_zero_based": 3,
+      "cell_source_sha256": "895ed00fd200b5a0244e8f2c7d117e556455e786df4f61f2426e9a3dca5bcb81",
+      "original_line_ranges_inclusive": [
+        [
+          1,
+          863
+        ],
+        [
+          3092,
+          3112
+        ],
+        [
+          3161,
+          3164
+        ]
+      ],
+      "output": "provenance/noise_calibration/notebook_cell_03_calibration_excerpt.txt",
+      "output_sha256": "1a00db5cabaa2d8808459cef82400de6fed296da74934261170881b44c270c3a",
+      "transformation": "Exact source slices joined with one newline; stored as text, not a supported runner"
+    }
+  ],
+  "observed_settings": {
+    "noise_draws": 64,
+    "seed_start": 10000,
+    "starlet_scales": 4,
+    "geometry": "full supplied survey mask, not 176x176 patches"
+  },
+  "scope": "Recovered historical calibration source. Outputs were removed before receipt, so which cell produced the frozen CSV is not established. Frozen coefficients were not regenerated."
+}

@@ -1,0 +1,100 @@
+{
+  "scientific_code_changed": false,
+  "files": [
+    {
+      "file": "config_environments.server.toml",
+      "new": true,
+      "sha256": "56000e475d08b8c47ca52f9fc13130e4a6f7d2fa1b1d1ca97d2631d026c83bca"
+    },
+    {
+      "file": "OPEN_ITEMS.md",
+      "new": false,
+      "sha256": "2010b665e210a1b06352029fb65847cd9c51802f212ce42315963895b302603e"
+    },
+    {
+      "file": "provenance/environments/historical_mapping.json",
+      "new": true,
+      "sha256": "83c79a24e9e428af0c801cc77a5d9578e2680ed69366ec55f37ef70f6ea71cc9"
+    },
+    {
+      "file": "provenance/environments/V4_FAILURE_AND_FIX.txt",
+      "new": true,
+      "sha256": "aafdfbd81260827bb507a9d50cd510f5f8ae1170f21237abc3c1594802716f8b"
+    },
+    {
+      "file": "provenance/portability/SMOKE_TEST_PLAN.txt",
+      "new": false,
+      "sha256": "cef0218cc272815a1f8b46b14c9259214ea70970c9e2590d9c1a476bbfa16403"
+    },
+    {
+      "file": "provenance/portability/verification_summary.json",
+      "new": false,
+      "sha256": "188dfeaadf25f10c05da3bc7c83e462ed41ad1c4230913889399e677f2b32514"
+    },
+    {
+      "file": "provenance/server_smoke_local_checks.json",
+      "new": false,
+      "sha256": "b1ff25bc1e96b4eb90c071113d291ee24708cf0cc1262193ca40c0bc090e319a"
+    },
+    {
+      "file": "README.md",
+      "new": false,
+      "sha256": "64d87f1a8353921ac2207da5b5e778e38917539e6aaa4d1388e94172f0b0290e"
+    },
+    {
+      "file": "README_SERVIDOR.txt",
+      "new": false,
+      "sha256": "8e5f7fcc436420701c4aed127fd4dd26e54f3be0ea30617bd6413be913b05909"
+    },
+    {
+      "file": "requirements.txt",
+      "new": false,
+      "sha256": "6c515d32c11174e76c3b74c5b6bdd063113a437647632352636ddc7af01c9347"
+    },
+    {
+      "file": "run_server_pipeline.sh",
+      "new": true,
+      "sha256": "f376ec2b24bfbc08cd3cbb435623fdc5712efb98ac4581d26ff59892a41f59ea"
+    },
+    {
+      "file": "tools/check_execution_environments.py",
+      "new": true,
+      "sha256": "0f3b53cd81efb1949faf28d1374a1c5cc70f4095256830ae4e4036c8504c060b"
+    },
+    {
+      "file": "tools/check_server_smoke.py",
+      "new": false,
+      "sha256": "184a90a1784d05b81770e3b57ae9848b20643f3ebda1a72e360b67fb831cf74a"
+    },
+    {
+      "file": "tools/environment_probe.py",
+      "new": true,
+      "sha256": "d54c0f6455f6a7de06036c16dc48ed5b51545139748f89f97dcb2e854b62c3cd"
+    },
+    {
+      "file": "tools/execution_environments.py",
+      "new": true,
+      "sha256": "38ab069c94a48bd554cbeda85747695431d57e3f61e40dd23abcde8136d4df6f"
+    },
+    {
+      "file": "tools/mcalens_smoke_worker.py",
+      "new": true,
+      "sha256": "7b163835f4d48e1dc57db97d1638159c730739ac2bd605b8a662f4012ddabd8d"
+    },
+    {
+      "file": "tools/run_pipeline.py",
+      "new": false,
+      "sha256": "d2885adebf06a89e19390fa9082129d4bcff1a9490a59c76e54c44a31e5ab403"
+    },
+    {
+      "file": "tools/server_smoke.py",
+      "new": false,
+      "sha256": "d486a76cc41a7aaa2afc1f6c55069fe19711270c6d06e4776e1e497324d25fa8"
+    },
+    {
+      "file": "tools/smoke_preflight.py",
+      "new": false,
+      "sha256": "3da3b5577c9febb690ddc801a4b64d3099ca6740805198a555248cbdc5d654da"
+    }
+  ]
+}

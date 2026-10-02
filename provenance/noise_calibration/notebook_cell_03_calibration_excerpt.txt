@@ -1,0 +1,890 @@
+# ============================================================
+# FAIR — NOISE-WEIGHTED DWT vs NOISE-WEIGHTED STARLET vs KS
+#
+# Same:
+#   - FAIR maps
+#   - mask
+#   - shape-noise realizations
+#   - A^T M n noise calibration
+#   - evaluation metric
+#
+# DWT:
+#
+#   R_DWT(x) =
+#       sum_{j,o} alpha_{j,o} ||c_{j,o}||_1
+#
+#   o = H,V,D
+#
+#   Orthogonal DWT => exact weighted proximal => FISTA.
+#
+# Starlet:
+#
+#   R_star(x) =
+#       sum_j alpha_j ||w_j||_1
+#
+#   Redundant transform => primal-dual solver.
+#
+# Screen:
+#   cosmologies C0,C1,C2
+#   realizations R0,R3
+#   total = 6 maps
+# ============================================================
+
+from pathlib import Path
+import importlib
+import time
+
+import numpy as np
+import pandas as pd
+import torch
+
+import weak_lensing_pipeline as wlp
+importlib.reload(wlp)
+
+
+# ============================================================
+# 0. CONFIG
+# ============================================================
+
+DEVICE = torch.device(
+    "cuda"
+    if torch.cuda.is_available()
+    else "cpu"
+)
+
+COSMOLOGY_IDS = [
+    0,
+    1,
+    2,
+]
+
+SCREEN_REALIZATION_IDS = [
+    0,
+    3,
+]
+
+J = 4
+
+
+# ------------------------------------------------------------
+# Noise
+# ------------------------------------------------------------
+
+SIGMA_E = 0.4
+N_GAL = 30.0
+PIXEL_SIZE_ARCMIN = 2.0
+
+PIXEL_AREA_ARCMIN2 = (
+    PIXEL_SIZE_ARCMIN ** 2
+)
+
+SIGMA_N = (
+    SIGMA_E
+    /
+    np.sqrt(
+        2.0
+        *
+        N_GAL
+        *
+        PIXEL_AREA_ARCMIN2
+    )
+)
+
+
+# ------------------------------------------------------------
+# Noise calibration
+# ------------------------------------------------------------
+
+N_NOISE_CAL = 64
+
+NOISE_CAL_SEED0 = 10000
+
+
+# ------------------------------------------------------------
+# KS baseline
+# ------------------------------------------------------------
+
+KS_SIGMA = 1.5
+
+# Fixed initialization only.
+INIT_SIGMA = 1.0
+
+
+# ------------------------------------------------------------
+# DWT lambda grid
+#
+# Weighted DWT may shift relative to the old optimum ~0.05.
+# ------------------------------------------------------------
+
+DWT_LAMBDA_GRID = np.array(
+    [
+        0.030,
+        0.040,
+        0.050,
+        0.060,
+        0.080,
+    ],
+    dtype=float,
+)
+
+
+# ------------------------------------------------------------
+# Starlet refinement grid
+#
+# Previous weighted-Starlet screen:
+# ~0.05 was the minimum.
+# ------------------------------------------------------------
+
+STARLET_LAMBDA_GRID = np.array(
+    [
+        0.040,
+        0.045,
+        0.050,
+        0.055,
+        0.060,
+    ],
+    dtype=float,
+)
+
+
+# ------------------------------------------------------------
+# DWT FISTA stopping
+# ------------------------------------------------------------
+
+DWT_MAX_ITER = 500
+DWT_TOL = 1e-4
+DWT_CHECK_EVERY = 5
+DWT_MIN_ITER = 20
+
+
+# ------------------------------------------------------------
+# Starlet primal-dual stopping
+# ------------------------------------------------------------
+
+STAR_MAX_ITER = 5000
+STAR_TOL = 1e-4
+STAR_CHECK_EVERY = 20
+STAR_MIN_ITER = 50
+
+
+print("=" * 118)
+print("FAIR — WEIGHTED DWT vs WEIGHTED STARLET")
+print("=" * 118)
+
+print("Device               :", DEVICE)
+print("sigma_n              :", SIGMA_N)
+print("noise MC             :", N_NOISE_CAL)
+print("screen realizations  :", SCREEN_REALIZATION_IDS)
+print("DWT lambda grid      :", DWT_LAMBDA_GRID)
+print("Starlet lambda grid  :", STARLET_LAMBDA_GRID)
+
+
+# ============================================================
+# 1. FIND FILES
+# ============================================================
+
+def find_local_file(filename):
+
+    cwd = Path.cwd()
+
+    candidates = [
+        cwd / filename,
+        cwd / "data" / filename,
+        cwd / "DATA" / filename,
+        cwd / "FAIR" / filename,
+        cwd / "fair" / filename,
+    ]
+
+    for p in candidates:
+
+        if p.exists():
+            return p.resolve()
+
+    matches = list(
+        cwd.rglob(filename)
+    )
+
+    if len(matches) == 0:
+        raise FileNotFoundError(
+            filename
+        )
+
+    return matches[0].resolve()
+
+
+kappa_path = find_local_file(
+    "sampled_WIDE12H_bin2_2arcmin_kappa.npy"
+)
+
+mask_path = find_local_file(
+    "WIDE12H_bin2_2arcmin_mask.npy"
+)
+
+label_path = find_local_file(
+    "sampled_label.npy"
+)
+
+
+# ============================================================
+# 2. LOAD DATA
+# ============================================================
+
+kappa_all = np.load(
+    kappa_path
+).astype(
+    np.float32
+)
+
+mask_full = np.load(
+    mask_path
+).astype(
+    bool
+)
+
+labels = np.load(
+    label_path
+)
+
+
+H, W = mask_full.shape
+
+
+mask_t = torch.from_numpy(
+    mask_full.astype(
+        np.float32
+    )
+).to(
+    DEVICE
+)
+
+
+print("\nGeometry:", H, "x", W)
+print("f_obs   :", mask_full.mean())
+
+
+# ============================================================
+# 3. WEAK-LENSING OPERATOR
+# ============================================================
+
+op = wlp.WeakLensingOperator(
+    H,
+    W,
+    DEVICE,
+)
+
+ks = wlp.KaiserSquires(
+    op
+)
+
+
+op_dot = op.dot_test()
+
+print(
+    "\noperator dot-test =",
+    f"{op_dot:.3e}"
+)
+
+assert op_dot < 1e-8
+
+
+# ============================================================
+# 4. REFERENCE DWT
+# ============================================================
+
+base_dwt = wlp.WaveletTransform(
+    J=J,
+    device=DEVICE,
+    wavelet_name="db4",
+    mode="periodization",
+)
+
+
+dwt_check = (
+    base_dwt.validate_orthonormality(
+        (H, W)
+    )
+)
+
+
+print("\n" + "=" * 118)
+print("DWT VALIDATION")
+print("=" * 118)
+
+for key, value in dwt_check.items():
+
+    print(
+        f"{key:24s} = "
+        f"{value:.3e}"
+    )
+
+
+assert (
+    dwt_check[
+        "roundtrip_rel"
+    ]
+    <
+    1e-5
+)
+
+assert (
+    dwt_check[
+        "energy_rel"
+    ]
+    <
+    1e-5
+)
+
+assert (
+    dwt_check[
+        "inner_product_rel"
+    ]
+    <
+    1e-5
+)
+
+
+# ============================================================
+# 5. STARLET FRAME
+# ============================================================
+
+def periodic_response_1d(
+    N,
+    taps,
+    offsets,
+    device,
+):
+
+    kernel = torch.zeros(
+        N,
+        dtype=torch.float32,
+        device=device,
+    )
+
+    for weight, offset in zip(
+        taps,
+        offsets,
+    ):
+
+        kernel[
+            int(offset) % N
+        ] += float(
+            weight
+        )
+
+    return torch.fft.fft(
+        kernel
+    ).to(
+        torch.complex64
+    )
+
+
+class StarletFrame:
+
+    def __init__(
+        self,
+        H,
+        W,
+        J,
+        device,
+    ):
+
+        self.H = int(H)
+        self.W = int(W)
+        self.J = int(J)
+
+        self.device = torch.device(
+            device
+        )
+
+        h = (
+            np.array(
+                [
+                    1.0,
+                    4.0,
+                    6.0,
+                    4.0,
+                    1.0,
+                ],
+                dtype=np.float64,
+            )
+            /
+            16.0
+        )
+
+        offsets0 = np.array(
+            [
+                -2,
+                -1,
+                0,
+                1,
+                2,
+            ],
+            dtype=int,
+        )
+
+        cumulative = torch.ones(
+            self.H,
+            self.W,
+            dtype=torch.complex64,
+            device=self.device,
+        )
+
+        transfers = []
+
+        for level in range(
+            1,
+            self.J + 1,
+        ):
+
+            dilation = (
+                2 **
+                (
+                    level - 1
+                )
+            )
+
+            offsets = (
+                offsets0
+                *
+                dilation
+            )
+
+            Hy = periodic_response_1d(
+                self.H,
+                h,
+                offsets,
+                self.device,
+            )
+
+            Hx = periodic_response_1d(
+                self.W,
+                h,
+                offsets,
+                self.device,
+            )
+
+            smooth = (
+                Hy[:, None]
+                *
+                Hx[None, :]
+            )
+
+            detail = (
+                cumulative
+                *
+                (
+                    1.0
+                    -
+                    smooth
+                )
+            )
+
+            transfers.append(
+                detail
+            )
+
+            cumulative = (
+                cumulative
+                *
+                smooth
+            )
+
+        self.transfers = torch.stack(
+            transfers,
+            dim=0,
+        )
+
+        self.coarse_transfer = (
+            cumulative
+        )
+
+        power = torch.sum(
+            torch.abs(
+                self.transfers
+            ) ** 2,
+            dim=0,
+        )
+
+        self.norm_sq = float(
+            power.max().item()
+        )
+
+
+    def analysis(
+        self,
+        x,
+    ):
+
+        X = torch.fft.fft2(
+            x
+        )
+
+        C = (
+            self.transfers
+            *
+            X[
+                None,
+                :,
+                :
+            ]
+        )
+
+        return (
+            torch.fft.ifft2(
+                C,
+                dim=(-2, -1),
+            )
+            .real
+            .float()
+        )
+
+
+    def adjoint(
+        self,
+        coeff,
+    ):
+
+        C = torch.fft.fft2(
+            coeff,
+            dim=(-2, -1),
+        )
+
+        X = torch.sum(
+            torch.conj(
+                self.transfers
+            )
+            *
+            C,
+            dim=0,
+        )
+
+        return (
+            torch.fft.ifft2(
+                X
+            )
+            .real
+            .float()
+        )
+
+
+    def adjoint_test(
+        self,
+        seed=1234,
+    ):
+
+        g = torch.Generator(
+            device=self.device
+        )
+
+        g.manual_seed(
+            seed
+        )
+
+        x = torch.randn(
+            self.H,
+            self.W,
+            generator=g,
+            device=self.device,
+        )
+
+        p = torch.randn(
+            self.J,
+            self.H,
+            self.W,
+            generator=g,
+            device=self.device,
+        )
+
+        Kx = self.analysis(
+            x
+        )
+
+        KTp = self.adjoint(
+            p
+        )
+
+        lhs = torch.sum(
+            Kx * p
+        )
+
+        rhs = torch.sum(
+            x * KTp
+        )
+
+        denom = (
+            Kx.norm()
+            *
+            p.norm()
+            +
+            1e-30
+        )
+
+        return float(
+            (
+                torch.abs(
+                    lhs - rhs
+                )
+                /
+                denom
+            ).item()
+        )
+
+
+starlet = StarletFrame(
+    H,
+    W,
+    J,
+    DEVICE,
+)
+
+
+star_dot = starlet.adjoint_test()
+
+
+print("\n" + "=" * 118)
+print("STARLET VALIDATION")
+print("=" * 118)
+
+print(
+    "||K||^2     =",
+    starlet.norm_sq
+)
+
+print(
+    "adjoint test=",
+    f"{star_dot:.3e}"
+)
+
+assert star_dot < 1e-7
+
+
+# ============================================================
+# 6. PROPAGATED NOISE CALIBRATION
+#
+# Same eta for both transforms:
+#
+#   eta = A^T M n_gamma
+#
+# This makes the DWT and Starlet calibration directly
+# comparable.
+# ============================================================
+
+print("\n" + "=" * 118)
+print("PROPAGATED-NOISE CALIBRATION")
+print("=" * 118)
+
+
+# Starlet:
+#
+# index 0..J-1 = levels 1..J.
+star_var = torch.zeros(
+    J,
+    dtype=torch.float64,
+    device=DEVICE,
+)
+
+
+# DWT:
+#
+# PyWavelets detail ordering:
+#
+#   details[0] = level J
+#   ...
+#   details[J-1] = level 1
+#
+# axis 1:
+#   0=H, 1=V, 2=D
+dwt_var = np.zeros(
+    (
+        J,
+        3,
+    ),
+    dtype=np.float64,
+)
+
+
+for mc in range(
+    N_NOISE_CAL
+):
+
+    g = torch.Generator(
+        device=DEVICE
+    )
+
+    g.manual_seed(
+        NOISE_CAL_SEED0
+        +
+        mc
+    )
+
+
+    n1 = (
+        SIGMA_N
+        *
+        torch.randn(
+            H,
+            W,
+            generator=g,
+            device=DEVICE,
+        )
+    )
+
+    n2 = (
+        SIGMA_N
+        *
+        torch.randn(
+            H,
+            W,
+            generator=g,
+            device=DEVICE,
+        )
+    )
+
+
+    # M n
+    noise_gamma = torch.complex(
+        mask_t
+        *
+        n1,
+
+        mask_t
+        *
+        n2,
+    )
+
+
+    # eta = A^T M n
+    eta = op.adjoint(
+        noise_gamma
+    )
+
+
+    # --------------------------------------------------------
+    # Starlet
+    # --------------------------------------------------------
+
+    sc = starlet.analysis(
+        eta
+    )
+
+    star_var += torch.mean(
+        sc.double() ** 2,
+        dim=(-2, -1),
+    )
+
+
+    # --------------------------------------------------------
+    # DWT
+    # --------------------------------------------------------
+
+    dc = base_dwt.decompose(
+        eta
+    )
+
+
+    for i, (
+        cH,
+        cV,
+        cD,
+    ) in enumerate(
+        dc["details"]
+    ):
+
+        dwt_var[
+            i,
+            0,
+        ] += float(
+            torch.mean(
+                cH.double() ** 2
+            ).item()
+        )
+
+        dwt_var[
+            i,
+            1,
+        ] += float(
+            torch.mean(
+                cV.double() ** 2
+            ).item()
+        )
+
+        dwt_var[
+            i,
+            2,
+        ] += float(
+            torch.mean(
+                cD.double() ** 2
+            ).item()
+        )
+
+
+# ============================================================
+# 7. STARLET NOISE WEIGHTS
+# ============================================================
+
+star_sigma = torch.sqrt(
+    star_var
+    /
+    float(
+        N_NOISE_CAL
+    )
+).float()
+
+
+# Same normalization used previously:
+#
+# alpha_1 = 1.
+star_alpha = (
+    star_sigma
+    /
+    star_sigma[0]
+)
+
+
+print("\nSTARLET:")
+
+print(
+    " level    sigma                 alpha"
+)
+
+print(
+    " ----------------------------------------------"
+)
+
+
+for j in range(
+    J
+):
+
+    print(
+        f"   {j+1}      "
+        f"{star_sigma[j].item():.9e}    "
+        f"{star_alpha[j].item():.6f}"
+    )
+
+star_noise_table = pd.DataFrame(
+    {
+        "level":
+            np.arange(
+                1,
+                J + 1
+            ),
+
+        "sigma":
+            star_sigma
+            .detach()
+            .cpu()
+            .numpy(),
+
+        "alpha":
+            star_alpha
+            .detach()
+            .cpu()
+            .numpy(),
+    }
+)
+
+star_noise_table.to_csv(
+    "fair_starlet_noise_weights.csv",
+    index=False,
+)

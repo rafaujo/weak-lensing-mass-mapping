@@ -1,0 +1,52 @@
+{
+  "kind": "mcalens",
+  "python_executable": "/u/gob5/venvs/mcalens/bin/python",
+  "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+  "prefix": "/u/gob5/venvs/mcalens",
+  "base_prefix": "/u/gob5/micromamba/envs/glimpse",
+  "imports": {
+    "numpy": {
+      "ok": true,
+      "version": "2.4.6",
+      "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/numpy/__init__.py"
+    },
+    "scipy": {
+      "ok": true,
+      "version": "1.17.1",
+      "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/scipy/__init__.py"
+    },
+    "pandas": {
+      "ok": true,
+      "version": "3.0.5",
+      "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/pandas/__init__.py"
+    },
+    "astropy": {
+      "ok": true,
+      "version": "8.0.1",
+      "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/astropy/__init__.py"
+    },
+    "matplotlib": {
+      "ok": true,
+      "version": "3.10.9",
+      "file": "/u/gob5/micromamba/envs/glimpse/lib/python3.11/site-packages/matplotlib/__init__.py"
+    },
+    "seaborn": {
+      "ok": true,
+      "version": "0.13.2",
+      "file": "/u/gob5/venvs/mcalens/lib/python3.11/site-packages/seaborn/__init__.py"
+    },
+    "modopt": {
+      "ok": true,
+      "version": "1.7.2",
+      "file": "/u/gob5/venvs/mcalens/lib/python3.11/site-packages/modopt/__init__.py"
+    },
+    "pycs.astro.wl.mass_mapping": {
+      "ok": true,
+      "version": "unknown",
+      "file": "/u/gob5/cosmostat_mcalens/pycs/astro/wl/mass_mapping.py",
+      "classes_present": true,
+      "configured_checkout": true
+    }
+  },
+  "ok": true
+}

@@ -1,0 +1,6 @@
+# Relative paths are resolved from this file's directory, never the current shell.
+# Keep work_root separate from the repository's archived results and frozen inputs.
+data_root = "data"
+work_root = "work"
+glimpse_root = "external/glimpse"
+mcalens_root = "external/cosmostat"

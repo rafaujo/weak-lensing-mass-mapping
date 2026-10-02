@@ -1,0 +1,49 @@
+V6 SERVER ARTIFACT AUDIT — PASSED, 2026-10-02
+
+Scope: MCALens C0/R10/P0, using the unchanged packaged scientific driver.
+The user ran the short --mcalens-only check on the original Linux server.
+The submitted NPZ and NPY were read independently on the review workstation;
+no submitted Python code or scientific solver was executed during this audit.
+
+The worker's driver hash matches the local source and the previously delivered
+v6 tarball. Its input/output paths resolve inside the new smoke run, and the
+new test/mcalens/recon/C0_R10_P0.npz is present in the submitted archive.
+The worker records identical before/after SHA256, byte count and mtime for
+the historical MCALens case file. This is server-reported evidence for the v6
+execution only; it does not establish what happened to that file during v5.
+
+The cache matches the v5 cache byte for byte. The NPZ truth and masked shear
+match that cache. Its mask matches the independent recovery from the v5 FITS
+catalogue: 12,899 observed pixels. Noise scale, cosmology, Nsigma=5 and the
+reported 100 iterations match the frozen experiment.
+The new NPZ's MCALens array equals maps/MCALENS.npy, which is also byte-identical
+to the v5 NPY. The new NPZ's SHA256 equals the historical-file SHA256 recorded
+by the worker, while its path is the new, isolated destination.
+
+Independently recomputed metrics (saved float32 map):
+                         measured                 archived CSV
+NMSE                     0.6925870361903356       0.6925870357953903
+PCC                      0.5615613631935216       0.5615613636618906
+standard-deviation ratio 0.6506579446212163       0.6506579458252513
+Largest absolute difference: 1.2040349828268404e-9.
+All three match the submitted smoke report. The worker's reported metrics
+before float32 serialization match the archived CSV exactly; the pre-cast
+float64 reconstruction is not included and cannot be remeasured here.
+
+The v5 artifact audit already verified KS, masked Starlet, G+S and native
+GLIMPSE numerically for this same case. Together, those results and the v6
+MCALens recheck close the planned single-case server smoke test and the
+MCALens output-isolation issue. No further server run is needed for this fix.
+This does not claim a clean-environment installation, regeneration of all
+480 cases, input-noise regeneration, bootstrap samples, calibration or figures.
+The recorded pywt imported-version/distribution-version discrepancy remains
+documented; no dependency or scientific parameter was changed to pass this test.
+
+PUBLICATION CANDIDATE
+The validated candidate copies all v6 executable code, configs, frozen inputs,
+results and third-party files byte for byte. Only current documentation/status
+and compact audit evidence were added or updated. Historical audit reports
+remain unchanged and describe their status at the time they were written.
+See candidate_integrity.json for the exact unchanged-file manifest.
+The authors' code license/provenance decision and GitHub/release metadata
+remain pending. No repository, release or DOI has been published.

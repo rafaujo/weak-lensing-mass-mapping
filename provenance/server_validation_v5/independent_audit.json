@@ -1,0 +1,201 @@
+{
+  "archive": "smoke_resultados_v5.tar.gz",
+  "archive_sha256": "2a002a0f84654f90896669a17cf5f1d7979cf0fb4871a683dce02d1dd8cb75c5",
+  "source_report_status": "passed",
+  "review_status": "numeric_checks_pass_but_mcalens_isolation_failed",
+  "case": [
+    0,
+    10,
+    0
+  ],
+  "observed_pixels_from_catalogue": 12899,
+  "input_catalogue_matches_cached_shear": true,
+  "glimpse_fits_matches_npy": true,
+  "independently_recomputed_metrics": [
+    {
+      "method": "KS",
+      "shape": [
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "metrics_from_map": {
+        "nmse": 0.7659651668107322,
+        "pcc": 0.4874936829610194,
+        "std_ratio": 0.5476206963379631
+      },
+      "expected_from_local_archived_csv": {
+        "nmse": 0.7659651668107322,
+        "pcc": 0.4874936829610194,
+        "std_ratio": 0.5476206963379631
+      },
+      "delta": {
+        "nmse": 0.0,
+        "pcc": 0.0,
+        "std_ratio": 0.0
+      },
+      "matches_server_report": true,
+      "passes_numerical_tolerance": true,
+      "source_map_sha256": "7ef1b6665c7c8612ca6c562b99c396638fd839011ead4c2e24a1799aef3ce188"
+    },
+    {
+      "method": "STARLET_MASK",
+      "shape": [
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "metrics_from_map": {
+        "nmse": 0.7216696281452754,
+        "pcc": 0.5297596075760135,
+        "std_ratio": 0.48164651201599895
+      },
+      "expected_from_local_archived_csv": {
+        "nmse": 0.7216696281452754,
+        "pcc": 0.5297596075760135,
+        "std_ratio": 0.48164651201599895
+      },
+      "delta": {
+        "nmse": 0.0,
+        "pcc": 0.0,
+        "std_ratio": 0.0
+      },
+      "matches_server_report": true,
+      "passes_numerical_tolerance": true,
+      "source_map_sha256": "2541f41c45743b7ef3a77b9a1541d09ab5c61b66824c31bb1e78da36735e5fe2"
+    },
+    {
+      "method": "GAUSSIAN_STARLET",
+      "shape": [
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "metrics_from_map": {
+        "nmse": 0.6772892368245322,
+        "pcc": 0.5691858085069101,
+        "std_ratio": 0.5336650901836945
+      },
+      "expected_from_local_archived_csv": {
+        "nmse": 0.6772892368245322,
+        "pcc": 0.5691858085069099,
+        "std_ratio": 0.5336650901836945
+      },
+      "delta": {
+        "nmse": 0.0,
+        "pcc": 2.220446049250313e-16,
+        "std_ratio": 0.0
+      },
+      "matches_server_report": true,
+      "passes_numerical_tolerance": true,
+      "source_map_sha256": "3e77b9f2fffdac62a1d160c2ff63e3da2628b552bc66fe9c1f5af955f0611bcf"
+    },
+    {
+      "method": "MCALENS",
+      "shape": [
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "metrics_from_map": {
+        "nmse": 0.6925870361903356,
+        "pcc": 0.5615613631935216,
+        "std_ratio": 0.6506579446212163
+      },
+      "expected_from_local_archived_csv": {
+        "nmse": 0.6925870357953903,
+        "pcc": 0.5615613636618906,
+        "std_ratio": 0.6506579458252513
+      },
+      "delta": {
+        "nmse": 3.949452986873325e-10,
+        "pcc": -4.683690102424976e-10,
+        "std_ratio": -1.2040349828268404e-09
+      },
+      "matches_server_report": true,
+      "passes_numerical_tolerance": true,
+      "source_map_sha256": "3d863b74de423fa6621f643f1ac4683a6310983f61875023e7b9a25bf39eb33e"
+    },
+    {
+      "method": "GLIMPSE",
+      "shape": [
+        176,
+        176
+      ],
+      "dtype": "float64",
+      "metrics_from_map": {
+        "nmse": 0.8861975667675854,
+        "pcc": 0.34821722126392496,
+        "std_ratio": 0.43454682193689786
+      },
+      "expected_from_local_archived_csv": {
+        "nmse": 0.8861975667675854,
+        "pcc": 0.3482172212639252,
+        "std_ratio": 0.43454682193689786
+      },
+      "delta": {
+        "nmse": 0.0,
+        "pcc": -2.220446049250313e-16,
+        "std_ratio": 0.0
+      },
+      "matches_server_report": true,
+      "passes_numerical_tolerance": true,
+      "source_map_sha256": "d12e9a4e0e1612a9e8ceee2b3408ee0da529233e1ff7b7ac2b360b9870004dc1"
+    }
+  ],
+  "mcalens_output_inside_run_directory": false,
+  "mcalens_declared_output": "/u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz",
+  "mcalens_npz_in_submitted_run": false,
+  "allocated_unused_cubes": [
+    {
+      "member": "work/server_smoke/20261002T020221Z_ea8fbaf7/test/starlet_gaussian_prior/gaussian_starlet_test_sparse.npy",
+      "bytes": 59474048,
+      "shape": [
+        3,
+        20,
+        8,
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "extracted": false,
+      "all_zero_payload": true
+    },
+    {
+      "member": "work/server_smoke/20261002T020221Z_ea8fbaf7/test/starlet_gaussian_prior/gaussian_starlet_test_reconstruction.npy",
+      "bytes": 59474048,
+      "shape": [
+        3,
+        20,
+        8,
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "extracted": false,
+      "all_zero_payload": true
+    },
+    {
+      "member": "work/server_smoke/20261002T020221Z_ea8fbaf7/test/starlet_gaussian_prior/gaussian_starlet_test_gaussian.npy",
+      "bytes": 59474048,
+      "shape": [
+        3,
+        20,
+        8,
+        176,
+        176
+      ],
+      "dtype": "float32",
+      "extracted": false,
+      "all_zero_payload": true
+    }
+  ],
+  "environment_version_conflicts": [
+    {
+      "module": "pywt",
+      "metadata_version": "1.9.0",
+      "imported_version": "1.8.0"
+    }
+  ],
+  "scope": "Artifact audit; no solver rerun, no full 480-case benchmark validation, no access to historical server files."
+}

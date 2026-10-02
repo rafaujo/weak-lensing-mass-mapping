@@ -1,0 +1,36 @@
+{
+  "glimpse": {
+    "head": {
+      "exit_code": 0,
+      "text": "a0e09a4a3faf050e4809fc537d6b45a626ece4fc\n",
+      "truncated": false
+    },
+    "origin": {
+      "exit_code": 0,
+      "text": "https://github.com/CosmoStat/Glimpse.git\n",
+      "truncated": false
+    },
+    "status": {
+      "exit_code": 0,
+      "text": " M CMakeLists.txt\n M src/survey.cpp\n",
+      "truncated": false
+    }
+  },
+  "mcalens": {
+    "head": {
+      "exit_code": 0,
+      "text": "7ae457db1697ac966fc6e739c00b91fa6a47ec2c\n",
+      "truncated": false
+    },
+    "origin": {
+      "exit_code": 0,
+      "text": "https://github.com/CosmoStat/cosmostat.git\n",
+      "truncated": false
+    },
+    "status": {
+      "exit_code": 0,
+      "text": " M pycs/sparsity/sparse2d/starlet.py\n",
+      "truncated": false
+    }
+  }
+}

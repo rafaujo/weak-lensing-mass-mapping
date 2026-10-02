@@ -1,0 +1,32 @@
+PLANO REGISTRADO ANTES DAS ALTERAÇÕES CIENTÍFICAS
+
+1. Trabalhar numa cópia do pacote v2; preservar o arquivo compactado e a cópia
+   de referência. A seleção dos 118 arquivos originais permanece a mesma.
+2. Substituir somente as expressões relacionadas em planned_changes.csv/json.
+   Os arquivos registram cada caminho, localização, expressão anterior e nova.
+3. Acrescentar somente o import de PATHS aos scripts afetados, após o docstring
+   e imports __future__, sem reformatar o restante do arquivo.
+4. Usar config_paths.toml (tomllib da biblioteca padrão) com data_root,
+   work_root, glimpse_root e mcalens_root. Caminhos relativos são resolvidos em
+   relação ao arquivo TOML. O prior congelado continua no próprio repositório.
+5. Separar localização do executável GLIMPSE de diretórios dos experimentos;
+   separar dados FAIR de diretório dos módulos Python.
+6. Acrescentar um lançador que configura importações e encaminha argumentos
+   existentes, sem adicionar opções para mudar hiperparâmetros.
+7. Comparar toda a AST original com a posterior, revertendo apenas as mudanças
+   de caminhos explicitamente previstas e removendo o único import adicionado.
+   Conferir também todos os literais numéricos e configurações registradas.
+8. Gerar diff e relatório automático. Conferir hashes dos resultados, insumos
+   congelados e software de terceiros; repetir as 162 verificações do artigo.
+9. Testar a resolução de caminhos com diretórios temporários, inclusive espaços,
+   configuração externa, imports e execução por subprocesso. Não importar os
+   runners que executam o benchmark no topo do arquivo.
+10. Propor smoke test de um caso usando rotinas originais e o mesmo ruído, sem
+    reduzir niter nem alterar seeds ou o recorte dos experimentos de produção.
+    Fazer preflight dos dados/dependências; não declarar execução numérica se
+    o ambiente necessário estiver ausente.
+
+As constantes científicas, máscaras, splits, modelos de ruído, pesos e arrays
+congelados não serão editados. Não haverá publicação nem release.
+
+Contagens: {"scripts": 25, "scripts_to_edit": 24, "path_expression_edits": 114, "numeric_literals": 3091, "uppercase_settings": 570}

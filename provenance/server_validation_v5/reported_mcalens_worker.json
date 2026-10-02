@@ -1,0 +1,34 @@
+{
+  "case": [
+    0,
+    10,
+    0
+  ],
+  "python_executable": "/u/gob5/venvs/mcalens/bin/python",
+  "python_version": "3.11.16 (main, Sep  2 2026, 23:39:52) [GCC 15.3.0]",
+  "prefix": "/u/gob5/venvs/mcalens",
+  "ok": true,
+  "result": {
+    "method": "MCALENS",
+    "c": 0,
+    "r": 10,
+    "p": 0,
+    "omega_m": 0.3,
+    "f_obs": 0.4164191632231405,
+    "n_obs": 12899,
+    "Nsigma": 5,
+    "niter": 100,
+    "mse": 0.00010020262127205802,
+    "nmse": 0.6925870357953903,
+    "pcc": 0.5615613636618906,
+    "std_ratio": 0.6506579458252513,
+    "runtime": 14.8871836860053,
+    "active_coeffs": 131,
+    "bmode_std": 0.002966176223486975,
+    "sparse_std": 0.0037328877157683754,
+    "gaussian_std": 0.003807349941755361,
+    "finite": true,
+    "recon_file": "/u/gob5/Glimpse/test/mcalens/recon/C0_R10_P0.npz"
+  },
+  "mcalens_source": "/u/gob5/cosmostat_mcalens/pycs/astro/wl/mass_mapping.py"
+}

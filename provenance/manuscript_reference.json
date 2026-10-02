@@ -1,0 +1,14 @@
+{
+  "source_archive": "Weak_Lensing_Review (8).zip",
+  "main_tex_sha256": "124dcde186628df00b1deb94e07de73b22085de075daad31115e8e96e78d4f9f",
+  "active_bibliography": "references_revised_final_v2.bib",
+  "used_figures": [
+    "fig_maps_revised",
+    "fig_field_metrics_revised",
+    "fig_spectral_revised",
+    "fig_peak_pr_revised",
+    "fig_peak_amplitude_revised"
+  ],
+  "unused_figure": "fig_ablation_revised.pdf",
+  "note": "Manuscript files were reviewed as evidence and are not redistributed in this code candidate."
+}
