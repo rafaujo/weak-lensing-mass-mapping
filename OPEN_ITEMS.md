@@ -1,4 +1,4 @@
-# Remaining work before a reproducible public release
+# Reproduction notes and publication record
 
 The new archive resolves the missing prior-construction script, MCALens test
 driver, final GS reduced-shear outputs and validation fusion summaries. The
@@ -6,7 +6,7 @@ historical noise-calibration source has also been located and excerpted with
 provenance. All seven manuscript tables and the reduced-shear numbers pass the
 archived-data consistency checks.
 
-## Before archival publication
+## Methodological and licensing provenance
 
 - Fusion selection rationale recovered: see `provenance/fusion_selection/REPORT.txt`.
   Describe the qualitative validation choice accurately; do not claim a formal
@@ -67,10 +67,12 @@ archived-data consistency checks.
 
 - License choice is complete for Rafael's own contributions. GLIMPSE and
   CosmoStat notices/licenses are preserved unchanged.
-- Repository: `rafaujo/weak-lensing-mass-mapping`.
-  Prepare a versioned release and Zenodo archive, then add the actual DOI to
-  the repository and manuscript. Citation authors/title already match the
-  supplied manuscript; the repository URL is included in `CITATION.cff`.
+- Repository: `rafaujo/weak-lensing-mass-mapping`; release **v1.0.0** is archived
+  at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). The DOI is in `CITATION.cff` and README;
+  all 200 archived files match the release commit. Add this version DOI to
+  the manuscript's code/data availability statement and software citation.
+- The completed Zenodo archive is separate from its downstream Software Heritage
+  archival queue. The latter was still pending at the time of verification.
 
 Only planned filesystem expressions and a configuration import were changed in
 scientific sources. Algorithms, constants, frozen inputs and results are preserved.

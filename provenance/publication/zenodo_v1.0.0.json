@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-02",
+  "version": "v1.0.0",
+  "release_commit": "ec202c0dac58383b5a13e83f14208d8455e1d698",
+  "release_url": "https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.0.0",
+  "zenodo_record": "https://zenodo.org/records/23102124",
+  "version_doi": "10.5281/zenodo.23102124",
+  "concept_doi": "10.5281/zenodo.23102123",
+  "zenodo_status_observed": "Published; Open",
+  "archive_url": "https://zenodo.org/records/23102124/files/rafaujo/weak-lensing-mass-mapping-v1.0.0.zip?download=1",
+  "archive_bytes": 1035932,
+  "archive_md5": "2778b749ad83343dcb211f01d350c3fd",
+  "archive_sha256": "5df6fa93375ad2a92ef45efe24a64c1d2e53734cb0656f763f5b7f9b46f40314",
+  "files": 200,
+  "all_archived_file_bytes_match_release_commit": true,
+  "archived_sha256_manifest_verified": true,
+  "software_heritage_status_observed": "Waiting to be archived; separate from completed Zenodo publication",
+  "scope": "Independent download and byte comparison of the published archive; no scientific solver rerun."
+}

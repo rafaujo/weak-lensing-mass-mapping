@@ -6,7 +6,7 @@ Simulations**, by Rafael L. de Araujo and Reynam da C. Pestana, Federal Universi
 of Bahia.
 
 Repository: [rafaujo/weak-lensing-mass-mapping](https://github.com/rafaujo/weak-lensing-mass-mapping).
-An archival release DOI has not yet been assigned.
+Archived release **v1.0.0**: [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
 
 **Status: the planned single-case server smoke test is complete.** The v5
 artifacts verified KS, masked Starlet, G+S and native GLIMPSE for C0/R10/P0.
@@ -21,7 +21,8 @@ and compact evidence. No further server check is needed for the isolation fix.
 The smoke covers one case, not regeneration of all 480 patches or a fresh
 environment installation. Rafael's own contributions are licensed under MIT;
 third-party components retain their licenses. See [license scope](LICENSE_SCOPE.md).
-A versioned release and Zenodo DOI remain to be prepared.
+The [v1.0.0 release](https://github.com/rafaujo/weak-lensing-mass-mapping/releases/tag/v1.0.0) is publicly archived in Zenodo.
+Use the version DOI above when citing the code used with this manuscript.
 
 ## Single-case server smoke test
 
@@ -342,8 +343,24 @@ review environment.
 for his own contributions; upstream notices and license boundaries are preserved.
 The code repository is hosted at
 [rafaujo/weak-lensing-mass-mapping](https://github.com/rafaujo/weak-lensing-mass-mapping).
-The manuscript source and figure PDFs are not included. A versioned release and
-Zenodo archive remain to be prepared; the actual DOI will be added after archival
-publication. Historical provenance files retain the status of their dated snapshots.
+The manuscript source and figure PDFs are not included. Version **v1.0.0** is
+archived at [10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124). All 200 files in the downloaded
+Zenodo ZIP were compared byte for byte with release commit
+`ec202c0dac58383b5a13e83f14208d8455e1d698`; its embedded SHA256 manifest also passed.
+The verification receipt is `provenance/publication/zenodo_v1.0.0.json`.
+The DOI and documentation were added to `main` after archival publication;
+the release tag and archived scientific code remain unchanged.
+Historical provenance files retain the status of their dated snapshots.
 The initial repository metadata changes are recorded in
 `provenance/publication/initial_publication.json`.
+
+## Cite the archived version
+
+de Araujo, R. L., & Pestana, R. da C. (2026). *Reproducibility code for Sparse
+and Gaussian Priors for Weak-Lensing Mass Mapping: Observable-Dependent
+Performance on FAIR Universe Simulations* (v1.0.0) [Computer software]. Zenodo.
+[10.5281/zenodo.23102124](https://doi.org/10.5281/zenodo.23102124).
+
+Use this version DOI to identify the exact archived package. The concept DOI,
+[10.5281/zenodo.23102123](https://doi.org/10.5281/zenodo.23102123), represents all versions
+and may resolve to a later release in the future.

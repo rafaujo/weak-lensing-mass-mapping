@@ -16,7 +16,9 @@ O teste cobre um patch; não equivale a refazer os 480 casos ou instalar tudo
 em ambiente novo. A MIT foi aprovada para as contribuições próprias de Rafael;
 os componentes de terceiros mantêm suas licenças (veja LICENSE_SCOPE.md).
 Repositório: https://github.com/rafaujo/weak-lensing-mass-mapping
-O release e o DOI do Zenodo ainda não foram criados.
+Release v1.0.0 arquivado: https://doi.org/10.5281/zenodo.23102124
+Os 200 arquivos do ZIP no Zenodo coincidem com o commit do release.
+Para obter a versão exata arquivada, use git checkout v1.0.0 após o clone.
 
 Os comandos abaixo ficam como instruções para futuras execuções; não são
 uma nova tarefa de verificação exigida do autor.
